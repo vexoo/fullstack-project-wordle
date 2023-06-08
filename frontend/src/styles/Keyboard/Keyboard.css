@@ -1,0 +1,17 @@
+@import '../shared/colors.css';
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.key-row {
+  display: flex;
+}
+
+.key-text {
+  color: var(--lightgrey);
+  font-weight: bold;
+}

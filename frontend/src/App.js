@@ -1,6 +1,9 @@
 import './App.css'
 
+import React from 'react'
 import { useState, useEffect } from 'react'
+
+import Keyboard from './components/Keyboard'
 
 const words = ['prank', 'night', 'phone']
 
@@ -27,18 +30,24 @@ const App = () => {
     margin: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 25,
-    height: 25,
-    margin: 2
+    width: 70,
+    height: 70
   }
 
   const mapStyle = {
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    marginTop: 15
   }
 
   const textStyle = {
     fontWeight: 'bold',
-    fontSize: '20'
+    fontSize: 30
+  }
+
+  const titleStyle = {
+    fontSize: 80,
+    fontWeight: 'bold',
+    letterSpacing: 5
   }
 
   const [word, setWord] = useState('')
@@ -60,7 +69,7 @@ const App = () => {
 
   return (
     <div style={containerStyle}>
-      <h1>Wordle</h1>
+      <h1 style={titleStyle}>Wordle</h1>
       <div style={mapStyle}>
         {board.map((row) => (
           <div style={rowStyle}>
@@ -72,6 +81,7 @@ const App = () => {
           </div>
         ))}
       </div>
+      <Keyboard />
     </div>
   )
 }
