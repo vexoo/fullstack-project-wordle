@@ -1,3 +1,3 @@
 # fullstack-project-wordle
 
-hours: [hours.md](hours.md)
+activity log: [hours](hours.md)
