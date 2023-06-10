@@ -23,6 +23,18 @@
   height: 70px;
 }
 
+.cell-green {
+	background-color: var(--green);
+}
+
+.cell-orange {
+	background-color: var(--orange);
+}
+
+.cell-darkgrey {
+	background-color: var(--darkgrey)
+}
+
 .cell-text {
   font-weight: bold;
   font-size: 30px;

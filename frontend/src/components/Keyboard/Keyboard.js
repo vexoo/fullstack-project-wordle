@@ -1,4 +1,4 @@
-import '../styles/Keyboard/Keyboard.css'
+import '../../styles/Keyboard/Keyboard.css'
 
 import Key from './Key'
 

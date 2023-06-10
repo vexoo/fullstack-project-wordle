@@ -3,9 +3,9 @@ import './App.css'
 import React from 'react'
 import { useState, useEffect } from 'react'
 
-import Header from './components/Header'
+import Header from './components/Header/Header'
 import Keyboard from './components/Keyboard'
-import Board from './components/Board'
+import Board from './components/Board/Board'
 
 const words = ['prank', 'night', 'phone']
 
@@ -26,7 +26,7 @@ const App = () => {
   return (
     <div className='container'>
       <Header />
-      <Board />
+      <Board word={word} />
       <Keyboard />
     </div>
   )

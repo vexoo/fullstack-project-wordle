@@ -1,4 +1,4 @@
-import '../styles/Header/Header.css'
+import '../../styles/Header/Header.css'
 
 const Header = () => {
   const handleClick = (buttonName) => {
@@ -26,26 +26,5 @@ const Header = () => {
     </header>
   )
 }
-
-/*
-  return (
-    <header className='header'>
-      <div className='help-container'>
-        <button className='button' onClick={handleSettingsClick}>
-          Help
-        </button>
-      </div>
-      <h1 className='title'>Wordle</h1>
-      <div className='button-container'>
-        <button className='button' onClick={handleSettingsClick}>
-          Stats
-        </button>
-        <button className='button' onClick={handleSettingsClick}>
-          Settings
-        </button>
-      </div>
-    </header>
-  )
-	*/
 
 export default Header

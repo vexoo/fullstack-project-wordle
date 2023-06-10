@@ -1,6 +1,8 @@
+@import 'styles/colors.css';
+
 html {
-  background-color: #1a1a1a;
-  color: #fff;
+  background-color: var(--black);
+  color: var(--white);
 }
 
 .container {
