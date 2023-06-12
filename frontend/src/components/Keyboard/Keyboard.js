@@ -1,12 +1,7 @@
 import '../../styles/Keyboard/Keyboard.css'
 
 import Key from './Key'
-
-const keys = [
-  ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-  ['ENTER', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'CLEAR']
-]
+import { keys } from '../../util/config'
 
 const Keyboard = () => {
   return (

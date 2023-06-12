@@ -11,6 +11,20 @@
   display: flex;
 }
 
+.key {
+	background-color: var(--grey);
+	border-radius: 5px;
+  margin: 2px;
+	align-items: center;
+  justify-content: center;
+	width: 55px;
+	height: 66px;
+}
+
+.key-large {
+	width: 77px
+}
+
 .key-text {
   color: var(--lightgrey);
   font-weight: bold;

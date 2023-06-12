@@ -1,5 +1,4 @@
-import { createContext, useState } from 'react'
-import { wordLength, tryAmount } from '../util/config'
+import { createContext } from 'react'
 
 const KeyBoardColorContext = createContext()
 

@@ -3,26 +3,10 @@ import '../../styles/colors.css'
 
 import { useContext, useEffect } from 'react'
 import { BoardContext } from '../../contexts/BoardContext'
-import { wordLength } from '../../util/config'
+import { GameStateContext } from '../../contexts/GameStateContext'
+import { wordLength, currentState } from '../../util/config'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
-
-const keyWidth = 55
-const keyHeight = keyWidth * 1.2
-
-const keyStyle = {
-  width: keyWidth,
-  height: keyHeight,
-  margin: 2,
-  borderRadius: 5,
-  backgroundColor: 'var(--grey)',
-  justifyContent: 'center',
-  alignItems: 'center'
-}
-
-const copyArray = (array) => {
-  const newArray = [...array.map((innerArray) => [...innerArray])]
-  return newArray
-}
+import { isEnterOrClear, copyArray } from '../../util/helpers'
 
 const Key = ({ keyValue }) => {
   const {
@@ -33,12 +17,8 @@ const Key = ({ keyValue }) => {
     currentCol,
     setCurrentCol
   } = useContext(BoardContext)
-
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-
-  const isEnterOrClear = (keyValue) => {
-    return keyValue === 'ENTER' || keyValue === 'CLEAR'
-  }
+  const { gameState, changeGameState } = useContext(GameStateContext)
 
   const handleLetter = (keyValue) => {
     if (currentCol < wordLength) {
@@ -67,32 +47,28 @@ const Key = ({ keyValue }) => {
   }
 
   const handleKeyPress = (keyValue) => {
-    if (keyValue === 'ENTER') handleEnter()
-    else if (keyValue === 'CLEAR') handleClear()
+    console.log(gameState)
+    if (gameState !== currentState.PLAYING) return
+    if (keyValue === 'enter') handleEnter()
+    else if (keyValue === 'clear') handleClear()
     else handleLetter(keyValue)
   }
 
   const getKeyBackgroundColor = (key) => {
-    if (greenKeys.has(key)) {
-      return 'var(--green)'
-    }
-    if (orangeKeys.has(key)) {
-      return 'var(--orange)'
-    }
-    if (greyKeys.has(key)) {
-      return 'var(--darkgrey)'
-    }
+    if (greenKeys.has(key)) return 'var(--green)'
+    if (orangeKeys.has(key)) return 'var(--orange)'
+    if (greyKeys.has(key)) return 'var(--darkgrey)'
     return 'var(--grey)'
   }
 
   useEffect(() => {
     const listener = (event) => {
-      if (event.repeat) return
+      if (event.repeat || gameState !== currentState.PLAYING) return
 
       const key = event.key.toLowerCase()
       if (key === 'backspace') handleClear()
       if (key === 'enter') handleEnter()
-      if (key.length === 1 && key >= 'a' && key <= 'z') handleKeyPress(key)
+      if (key.length === 1 && key >= 'a' && key <= 'z') handleLetter(key)
     }
 
     window.addEventListener('keydown', listener)
@@ -101,15 +77,11 @@ const Key = ({ keyValue }) => {
     }
   })
 
-  //to do: change to a conditional classname implementation for .css
   return (
     <button
+      className={isEnterOrClear(keyValue) ? 'key key-large' : 'key'}
       onClick={() => handleKeyPress(keyValue)}
-      style={{
-        ...keyStyle,
-        ...(isEnterOrClear(keyValue) ? { width: keyWidth * 1.4 } : {},
-        { backgroundColor: getKeyBackgroundColor(keyValue) })
-      }}
+      style={{ backgroundColor: getKeyBackgroundColor(keyValue) }}
     >
       <p className='key-text'>{keyValue}</p>
     </button>

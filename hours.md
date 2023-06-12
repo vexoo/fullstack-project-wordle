@@ -7,7 +7,8 @@
 | 8.6 | 2 | Change the simple title into a header (ugly first implementation) that includes the title and a few (currently unresponsive) buttons |
 | 9.6 | 4 | Move guessboard into separate component. Put guessboard state into a context. Start to add logic to guessboard. Add listener for user typing with a keyboard |
 | 9.6 | 1.5 | Add handler for clear and enter buttons and finish typing listener |
-| 10.6 | 3 | Add handler for guessboard and keyboard tiles changing colors depending on guesses |
+| 10.6 | 3 | Add handler and context for guessboard and keyboard tiles changing colors depending on guesses |
+| 10.6 | 1.5 | Improve Key.js component. Remove last inline style for more uniform use of .css modules |
 | :----:|:-----| :-----|
-| total | 13.5 ||
+| total | 18 ||
 
