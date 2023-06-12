@@ -9,6 +9,7 @@
 | 9.6 | 1.5 | Add handler for clear and enter buttons and finish typing listener |
 | 10.6 | 3 | Add handler and context for guessboard and keyboard tiles changing colors depending on guesses |
 | 10.6 | 1.5 | Improve Key.js component. Remove last inline style for more uniform use of .css modules |
+| 12.6 | 4 | Implement first frontend tests. Struggled to figure out how to access context variables within tests. Ended up implementing a wrapper that renders the values |
 | :----:|:-----| :-----|
-| total | 18 ||
+| total | 22 ||
 
