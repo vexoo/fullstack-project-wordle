@@ -34,7 +34,7 @@ const ContextWrapper = ({ children }) => {
   )
 }
 
-const renderKey = () => {
+const renderKeys = () => {
   const keys = ['p', 'r', 'a', 'n', 'k', 'enter', 'clear']
   return render(
     <GameStateContextProvider>
@@ -51,7 +51,7 @@ const renderKey = () => {
   )
 }
 test('key is rendered', () => {
-  renderKey()
+  renderKeys()
 
   const element = screen.getByText('a')
   expect(element).toBeDefined()
@@ -59,7 +59,7 @@ test('key is rendered', () => {
 
 describe('Button press functionality:', () => {
   test('letter keys are functional', async () => {
-    renderKey()
+    renderKeys()
 
     const user = userEvent.setup()
     const button = screen.getByText('a')
@@ -71,7 +71,7 @@ describe('Button press functionality:', () => {
   })
 
   test('clear key is functional', async () => {
-    renderKey()
+    renderKeys()
 
     const user = userEvent.setup()
     const letterButton = screen.getByText('a')
@@ -93,7 +93,7 @@ describe('Button press functionality:', () => {
   })
 
   test('enter key is not functional when current row is not full', async () => {
-    renderKey()
+    renderKeys()
 
     const user = userEvent.setup()
     const enterButton = screen.getByText('enter')
@@ -107,7 +107,7 @@ describe('Button press functionality:', () => {
   })
 
   test('enter key is functional when row is full', async () => {
-    renderKey()
+    renderKeys()
 
     const user = userEvent.setup()
     const enterButton = screen.getByText('enter')
@@ -133,4 +133,30 @@ describe('Button press functionality:', () => {
     )
     expect(currentRowAfter).toEqual(1)
   })
+})
+
+test('returns the correct background color for orange keys', () => {
+  const greenKeys = new Set(['p', 'r', 'a'])
+  const orangeKeys = new Set(['n', 'k'])
+  const greyKeys = new Set(['enter', 'clear'])
+  const keys = ['p', 'r', 'a', 'n', 'k', 'enter', 'clear']
+
+  render(
+    <GameStateContextProvider>
+      <BoardContextProvider>
+        <KeyBoardColorContextProvider
+          value={{ greenKeys, orangeKeys, greyKeys }}
+        >
+          <ContextWrapper>
+            {keys.map((keyValue, i) => (
+              <Key keyValue={keyValue} key={i} />
+            ))}
+          </ContextWrapper>
+        </KeyBoardColorContextProvider>
+      </BoardContextProvider>
+    </GameStateContextProvider>
+  )
+
+  const keyButton = screen.getByText('k')
+  expect(keyButton).toHaveStyle('background-color: var(--orange)')
 })

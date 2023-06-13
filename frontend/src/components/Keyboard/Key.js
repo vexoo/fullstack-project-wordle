@@ -6,7 +6,8 @@ import { BoardContext } from '../../contexts/BoardContext'
 import { GameStateContext } from '../../contexts/GameStateContext'
 import { wordLength, currentState } from '../../util/config'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
-import { isEnterOrClear, copyArray } from '../../util/helpers'
+import { isEnterOrClear, copyArray, joinWord } from '../../util/helpers'
+import wordService from '../../services/words'
 
 const Key = ({ keyValue }) => {
   const {
@@ -29,10 +30,16 @@ const Key = ({ keyValue }) => {
     }
   }
 
-  const handleEnter = () => {
+  const handleEnter = async () => {
     if (currentCol === wordLength) {
-      setCurrentCol(0)
-      setCurrentRow(currentRow + 1)
+      const word = joinWord(board[currentRow])
+      const exists = await wordService.checkWord(word)
+      if (exists) {
+        setCurrentCol(0)
+        setCurrentRow(currentRow + 1)
+      } else {
+        console.log('word not found')
+      }
     }
   }
 
@@ -47,7 +54,6 @@ const Key = ({ keyValue }) => {
   }
 
   const handleKeyPress = (keyValue) => {
-    console.log(gameState)
     if (gameState !== currentState.PLAYING) return
     if (keyValue === 'enter') handleEnter()
     else if (keyValue === 'clear') handleClear()

@@ -7,18 +7,22 @@ import Header from './components/Header/Header'
 import Keyboard from './components/Keyboard'
 import Board from './components/Board/Board'
 
-const words = ['prank', 'night', 'phone']
+import wordService from './services/words'
 
 const App = () => {
   const [word, setWord] = useState('')
 
   useEffect(() => {
-    const getWord = () => {
-      const index = Math.floor(Math.random() * words.length)
-      const selectedWord = words[index]
-      setWord(selectedWord)
+    const fetchDailyWord = async () => {
+      try {
+        const result = await wordService.getDaily()
+        if (result) setWord(result.word)
+      } catch (error) {
+        console.error('Error:', error)
+      }
     }
-    getWord()
+
+    fetchDailyWord()
   }, [])
 
   if (word === '') return <div>loading</div>
