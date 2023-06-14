@@ -3,25 +3,19 @@ import '../../styles/colors.css'
 
 import { useContext, useEffect } from 'react'
 import { BoardContext } from '../../contexts/BoardContext'
-import { GameStateContext } from '../../contexts/GameStateContext'
-import { wordLength, currentState } from '../../util/config'
+import { useGameStateContext } from '../../contexts/GameStateContext'
+import { wordLength } from '../../util/config'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
 import { isEnterOrClear, copyArray, joinWord } from '../../util/helpers'
 import wordService from '../../services/words'
 
 const Key = ({ keyValue }) => {
-  const {
-    board,
-    setBoard,
-    currentRow,
-    setCurrentRow,
-    currentCol,
-    setCurrentCol
-  } = useContext(BoardContext)
+  const { board, setBoard, currentRow, setCurrentRow, currentCol, setCurrentCol } =
+    useContext(BoardContext)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const { gameState, changeGameState } = useContext(GameStateContext)
+  const gameState = useGameStateContext()
 
-  const handleLetter = (keyValue) => {
+  const handleLetter = keyValue => {
     if (currentCol < wordLength) {
       const boardCopy = copyArray(board)
       boardCopy[currentRow][currentCol] = keyValue
@@ -53,14 +47,14 @@ const Key = ({ keyValue }) => {
     }
   }
 
-  const handleKeyPress = (keyValue) => {
-    if (gameState !== currentState.PLAYING) return
+  const handleKeyPress = keyValue => {
+    if (!gameState.isPlaying) return
     if (keyValue === 'enter') handleEnter()
     else if (keyValue === 'clear') handleClear()
     else handleLetter(keyValue)
   }
 
-  const getKeyBackgroundColor = (key) => {
+  const getKeyBackgroundColor = key => {
     if (greenKeys.has(key)) return 'var(--green)'
     if (orangeKeys.has(key)) return 'var(--orange)'
     if (greyKeys.has(key)) return 'var(--darkgrey)'
@@ -68,8 +62,8 @@ const Key = ({ keyValue }) => {
   }
 
   useEffect(() => {
-    const listener = (event) => {
-      if (event.repeat || gameState !== currentState.PLAYING) return
+    const listener = event => {
+      if (event.repeat || !gameState.isPlaying) return
 
       const key = event.key.toLowerCase()
       if (key === 'backspace') handleClear()

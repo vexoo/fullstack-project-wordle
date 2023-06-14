@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 
 const KeyBoardColorContext = createContext()
 
@@ -18,6 +18,11 @@ const KeyBoardColorContextProvider = ({ children }) => {
       {children}
     </KeyBoardColorContext.Provider>
   )
+}
+
+export const useKeyBoardColorContext = () => {
+  const keyColorValues = useContext(KeyBoardColorContext)
+  return keyColorValues
 }
 
 export { KeyBoardColorContext, KeyBoardColorContextProvider }

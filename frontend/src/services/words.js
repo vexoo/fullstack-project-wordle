@@ -7,7 +7,7 @@ const getDaily = async () => {
   return response.data
 }
 
-const checkWord = async ({ word }) => {
+const checkWord = async (word) => {
   const request = axios.get(`${baseUrl}/${word}`)
   const response = await request
   const { exists } = response.data

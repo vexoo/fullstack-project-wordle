@@ -15,14 +15,8 @@ import {
 } from '../../contexts/KeyboardColorContext'
 
 const ContextWrapper = ({ children }) => {
-  const {
-    board,
-    setBoard,
-    currentRow,
-    setCurrentRow,
-    currentCol,
-    setCurrentCol
-  } = useContext(BoardContext)
+  const { board, setBoard, currentRow, setCurrentRow, currentCol, setCurrentCol } =
+    useContext(BoardContext)
 
   return (
     <>
@@ -80,9 +74,7 @@ describe('Button press functionality:', () => {
     await user.click(letterButton)
 
     const colTextBeforeClear = screen.getByText(/Current Col:/)
-    const colBeforeClear = parseInt(
-      colTextBeforeClear.textContent.split(': ')[1]
-    )
+    const colBeforeClear = parseInt(colTextBeforeClear.textContent.split(': ')[1])
     expect(colBeforeClear).toEqual(1)
 
     await user.click(clearButton)
@@ -112,13 +104,13 @@ describe('Button press functionality:', () => {
     const user = userEvent.setup()
     const enterButton = screen.getByText('enter')
 
-    //made sure to type in a proper word for when word checking from backend is implemented
     await user.click(screen.getByText('p'))
     await user.click(screen.getByText('r'))
     await user.click(screen.getByText('a'))
     await user.click(screen.getByText('n'))
     await user.click(screen.getByText('k'))
 
+    screen.debug()
     const currentRowTextBefore = screen.getByText(/Current Row:/)
     const currentRowBefore = parseInt(
       currentRowTextBefore.textContent.split(': ')[1]
@@ -126,11 +118,9 @@ describe('Button press functionality:', () => {
     expect(currentRowBefore).toEqual(0)
 
     await user.click(enterButton)
-
+    screen.debug()
     const currentRowTextAfter = screen.getByText(/Current Row:/)
-    const currentRowAfter = parseInt(
-      currentRowTextAfter.textContent.split(': ')[1]
-    )
+    const currentRowAfter = parseInt(currentRowTextAfter.textContent.split(': ')[1])
     expect(currentRowAfter).toEqual(1)
   })
 })
@@ -144,9 +134,7 @@ test('returns the correct background color for orange keys', () => {
   render(
     <GameStateContextProvider>
       <BoardContextProvider>
-        <KeyBoardColorContextProvider
-          value={{ greenKeys, orangeKeys, greyKeys }}
-        >
+        <KeyBoardColorContextProvider value={{ greenKeys, orangeKeys, greyKeys }}>
           <ContextWrapper>
             {keys.map((keyValue, i) => (
               <Key keyValue={keyValue} key={i} />

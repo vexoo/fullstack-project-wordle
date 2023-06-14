@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useContext } from 'react'
 import { currentState } from '../util/config'
 
 const GameStateContext = createContext()
@@ -6,13 +6,26 @@ const GameStateContext = createContext()
 const GameStateContextProvider = ({ children }) => {
   const [gameState, setGameState] = useState(currentState.PLAYING)
 
-  const changeGameState = (newState) => {
-    setGameState(newState)
-  }
+  const isPlaying = () => gameState === currentState.PLAYING
+
+  const setPlaying = () => setGameState(currentState.PLAYING)
+
+  const hasWon = () => gameState === currentState.WON
+
+  const setWon = () => setGameState(currentState.WON)
+
+  const hasLost = () => gameState === currentState.LOST
+
+  const setLost = () => setGameState(currentState.LOST)
 
   const contextValue = {
     gameState,
-    changeGameState
+    isPlaying,
+    setPlaying,
+    hasWon,
+    setWon,
+    hasLost,
+    setLost
   }
 
   return (
@@ -20,6 +33,11 @@ const GameStateContextProvider = ({ children }) => {
       {children}
     </GameStateContext.Provider>
   )
+}
+
+export const useGameStateContext = () => {
+  const gameState = useContext(GameStateContext)
+  return gameState
 }
 
 export { GameStateContext, GameStateContextProvider }

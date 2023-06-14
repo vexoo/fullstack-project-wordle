@@ -10,3 +10,7 @@ export const copyArray = (array) => {
 export const joinWord = (row) => {
   return row.join('')
 }
+
+export const countOccurrences = (array, element) => {
+  return array.filter((cell) => cell === element).length
+}

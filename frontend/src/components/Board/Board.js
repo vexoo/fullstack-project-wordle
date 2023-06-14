@@ -3,13 +3,14 @@ import '../../styles/Board/Board.css'
 import { useContext, useEffect } from 'react'
 import { BoardContext } from '../../contexts/BoardContext'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
-import { GameStateContext } from '../../contexts/GameStateContext'
-import { currentState, tryAmount } from '../../util/config'
+import { useGameStateContext } from '../../contexts/GameStateContext'
+import { tryAmount } from '../../util/config'
+import { countOccurrences } from '../../util/helpers'
 
 const Board = ({ word }) => {
   const { board, currentRow } = useContext(BoardContext)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const { gameState, changeGameState } = useContext(GameStateContext)
+  const gameState = useGameStateContext()
 
   const letters = word.split('')
 
@@ -19,9 +20,9 @@ const Board = ({ word }) => {
 
   const checkGameState = () => {
     if (winCondition()) {
-      changeGameState(currentState.WON)
+      gameState.setWon()
     } else if (loseCondition()) {
-      changeGameState(currentState.LOST)
+      gameState.setLost()
     }
   }
 
@@ -36,18 +37,24 @@ const Board = ({ word }) => {
   const handleBackgroundColor = (row, col) => {
     const letter = board[row][col]
     const styleSheet = 'cell '
+    const letterCount = countOccurrences(letters, letter)
 
     if (row >= currentRow) return styleSheet + 'cell-black'
-    if (letter === letters[col]) {
-      greenKeys.add(letter)
-      return styleSheet + 'cell-green'
+
+    switch (true) {
+      case letter === letters[col]:
+        greenKeys.add(letter)
+        return styleSheet + 'cell-green'
+
+      case letters.includes(letter) && letterCount > 1:
+      case letters.includes(letter) && letterCount === 1 && !greenKeys.has(letter):
+        orangeKeys.add(letter)
+        return styleSheet + 'cell-orange'
+
+      default:
+        greyKeys.add(letter)
+        return styleSheet + 'cell-darkgrey'
     }
-    if (letters.includes(letter)) {
-      orangeKeys.add(letter)
-      return styleSheet + 'cell-orange'
-    }
-    greyKeys.add(letter)
-    return styleSheet + 'cell-darkgrey'
   }
 
   return (
