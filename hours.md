@@ -13,6 +13,7 @@
 | 13.6 | 4.5 | Start implementing backend. Add words to MongoDB. Add route for all words, daily word and for checking whether a word exists in the database. Add axios to frontend and get the daily word from the backend. Add checks for if current guess input exists in the database |
 | 14.6 | 4 | handleBackgroundColor in Board.js did not account for every situation. Refactored the component, should be fixed. Tests for handleEnter broke after adding backend connection through axios. Spent quite a while trying to fix, currently unsure how to |
 | 14.6 | 2 | add model and route for user in the backend. Add backend tests for word and user |
+| 15.6 | 4 | add a few end-to-end tests with Cypress to frontend. Add CI/CD pipeline to github actions, verify it works. Pipeline does not yet include deploying to Render. Will add later when app is more complete |
 | :----:|:-----| :-----|
-| total | 32.5 ||
+| total | 36.5 ||
 
