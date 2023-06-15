@@ -79,6 +79,7 @@ const Key = ({ keyValue }) => {
 
   return (
     <button
+      id={`${keyValue}-key`}
       className={isEnterOrClear(keyValue) ? 'key key-large' : 'key'}
       onClick={() => handleKeyPress(keyValue)}
       style={{ backgroundColor: getKeyBackgroundColor(keyValue) }}

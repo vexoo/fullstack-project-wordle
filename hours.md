@@ -12,6 +12,7 @@
 | 12.6 | 4 | Add handler for game state. Implement first frontend tests. Struggled to figure out how to access context variables within tests. Ended up implementing a wrapper that renders the values |
 | 13.6 | 4.5 | Start implementing backend. Add words to MongoDB. Add route for all words, daily word and for checking whether a word exists in the database. Add axios to frontend and get the daily word from the backend. Add checks for if current guess input exists in the database |
 | 14.6 | 4 | handleBackgroundColor in Board.js did not account for every situation. Refactored the component, should be fixed. Tests for handleEnter broke after adding backend connection through axios. Spent quite a while trying to fix, currently unsure how to |
+| 14.6 | 2 | add model and route for user in the backend. Add backend tests for word and user |
 | :----:|:-----| :-----|
-| total | 30.5 ||
+| total | 32.5 ||
 

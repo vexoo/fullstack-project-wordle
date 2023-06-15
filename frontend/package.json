@@ -15,7 +15,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "testCI": "CI=true npm test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+		"cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "cypress": "^12.14.0",
     "prettier": "2.8.8"
   },
   "jest": {

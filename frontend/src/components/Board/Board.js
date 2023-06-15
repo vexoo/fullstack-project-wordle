@@ -16,6 +16,7 @@ const Board = ({ word }) => {
 
   useEffect(() => {
     if (currentRow > 0) checkGameState()
+    // eslint-disable-next-line
   }, [currentRow])
 
   const checkGameState = () => {
@@ -58,11 +59,15 @@ const Board = ({ word }) => {
   }
 
   return (
-    <div className='board'>
+    <div className='board' id='board'>
       {board.map((row, i) => (
         <div className='row' key={`row-${i}`}>
           {row.map((cell, j) => (
-            <div className={handleBackgroundColor(i, j)} key={`cell-${i}-${j}`}>
+            <div
+              className={handleBackgroundColor(i, j)}
+              key={`cell-${i}-${j}`}
+              id={`cell-${i}-${j}`}
+            >
               <p className='cell-text'>{cell}</p>
             </div>
           ))}

@@ -5,7 +5,7 @@ import { keys } from '../../util/config'
 
 const Keyboard = () => {
   return (
-    <div className='keyboard'>
+    <div className='keyboard' id='keyboard'>
       {keys.map((keyRow, i) => (
         <div className='key-row' key={`row-${i}`}>
           {keyRow.map((keyValue, j) => (
