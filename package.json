@@ -9,7 +9,7 @@
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "start:test": "cross-env NODE_ENV=test node index.js",
     "lint": "eslint .",
-    "test:e2e": "cd frontend && cypress run"
+    "test:e2e": "cd frontend && npm run test:e2e"
   },
   "author": "Jani Toivanen",
   "license": "ISC",
