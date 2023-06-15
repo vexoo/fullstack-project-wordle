@@ -2,7 +2,7 @@
 
 describe('Wordle app', function () {
   beforeEach(function () {
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3001')
   })
   it('main page can be opened', function () {
     cy.contains('Wordle')
