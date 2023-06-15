@@ -1,22 +1,14 @@
-import { useState, useContext } from 'react'
-import { act } from 'react-dom/test-utils'
+import { useContext } from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Key from './Key'
 import { BoardContext, BoardContextProvider } from '../../contexts/BoardContext'
-import {
-  GameStateContext,
-  GameStateContextProvider
-} from '../../contexts/GameStateContext'
-import {
-  KeyBoardColorContext,
-  KeyBoardColorContextProvider
-} from '../../contexts/KeyboardColorContext'
+import { GameStateContextProvider } from '../../contexts/GameStateContext'
+import { KeyBoardColorContextProvider } from '../../contexts/KeyboardColorContext'
 
 const ContextWrapper = ({ children }) => {
-  const { board, setBoard, currentRow, setCurrentRow, currentCol, setCurrentCol } =
-    useContext(BoardContext)
+  const { board, currentRow, currentCol } = useContext(BoardContext)
 
   return (
     <>
@@ -110,7 +102,6 @@ describe('Button press functionality:', () => {
     await user.click(screen.getByText('n'))
     await user.click(screen.getByText('k'))
 
-    screen.debug()
     const currentRowTextBefore = screen.getByText(/Current Row:/)
     const currentRowBefore = parseInt(
       currentRowTextBefore.textContent.split(': ')[1]
@@ -118,7 +109,6 @@ describe('Button press functionality:', () => {
     expect(currentRowBefore).toEqual(0)
 
     await user.click(enterButton)
-    screen.debug()
     const currentRowTextAfter = screen.getByText(/Current Row:/)
     const currentRowAfter = parseInt(currentRowTextAfter.textContent.split(': ')[1])
     expect(currentRowAfter).toEqual(1)

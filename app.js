@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 
 const wordsRouter = require('./controllers/words')
+const usersRouter = require('./controllers/users')
 const middleware = require('./utils/middleware')
 
 mongoose.set('strictQuery', false)
@@ -16,7 +17,7 @@ mongoose
   .then(() => {
     console.log('connected to MongoDB')
   })
-  .catch((error) => {
+  .catch(error => {
     console.log('error connecting to MongoDB:', error.message)
   })
 
@@ -25,6 +26,7 @@ app.use(express.static('build'))
 app.use(express.json())
 
 app.use('/api/words', wordsRouter)
+app.use('/api/users', usersRouter)
 
 app.use(middleware.unknownEndpoint)
 
