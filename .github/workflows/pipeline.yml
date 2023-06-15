@@ -28,6 +28,9 @@ jobs:
       - name: Check style
         run: npm run lint
 
+      - name: build
+        run: npm run build:ui
+
       - name: test backend
         run: npm test
         env:
