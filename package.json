@@ -8,9 +8,9 @@
     "dev": "nodemon index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "start:test": "NODE_ENV=test node index.js",
-		"build:ui": "rm -rf build && cd frontend && npm run build && mv build ../ ",
+    "build:ui": "rm -rf build && cd frontend && npm run build && mv build ../ ",
     "lint": "eslint .",
-    "test:e2e": "cd frontend && npm run test:e2e"
+    "test:e2e": "cd frontend && cypress run"
   },
   "author": "Jani Toivanen",
   "license": "ISC",
