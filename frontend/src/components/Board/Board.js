@@ -16,7 +16,7 @@ const Board = ({ word }) => {
 
   useEffect(() => {
     if (currentRow > 0) checkGameState()
-    // eslint-disable-next-line
+  // eslint-disable-next-line
   }, [currentRow])
 
   const checkGameState = () => {
