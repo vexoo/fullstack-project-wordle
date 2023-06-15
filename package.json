@@ -32,6 +32,7 @@
     "prettier": "2.8.8",
     "supertest": "^6.3.3"
   },
+	"proxy": "http://localhost:3001",
   "jest": {
     "testEnvironment": "node",
     "globalTeardown": "./tests/teardown.js",
