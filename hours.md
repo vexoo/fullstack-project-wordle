@@ -14,6 +14,8 @@
 | 14.6 | 4 | handleBackgroundColor in Board.js did not account for every situation. Refactored the component, should be fixed. Tests for handleEnter broke after adding backend connection through axios. Spent quite a while trying to fix, currently unsure how to |
 | 14.6 | 2 | add model and route for user in the backend. Add backend tests for word and user |
 | 15.6 | 4 | add a few end-to-end tests with Cypress to frontend. Add CI/CD pipeline to github actions, verify it works. Pipeline does not yet include deploying to Render. Will add later when app is more complete |
+| 16.6 | 6.5 | Working with multiple contexts ended up being difficult. Refactor board and game state contexts into Redux states. Ended up being a little difficult to get it working. Took a while to fix everything that ended up broken. Function handleBackgroundColor still didn't account for every situation. Tried to fix it more. To do: figure out what to do with keyboard color context |
+| 17.6 | 2 | add token authentication and a route for changing username to the backend |
 | :----:|:-----| :-----|
-| total | 36.5 ||
+| total | 45 ||
 

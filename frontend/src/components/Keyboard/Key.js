@@ -2,35 +2,45 @@ import '../../styles/Keyboard/Keyboard.css'
 import '../../styles/colors.css'
 
 import { useContext, useEffect } from 'react'
-import { BoardContext } from '../../contexts/BoardContext'
-import { useGameStateContext } from '../../contexts/GameStateContext'
 import { wordLength } from '../../util/config'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
 import { isEnterOrClear, copyArray, joinWord } from '../../util/helpers'
 import wordService from '../../services/words'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  increaseColumn,
+  letterPress,
+  reduceColumn,
+  setBoard,
+  resetColumn,
+  clearPress,
+  enterPress
+} from '../../reducers/boardReducer'
 
 const Key = ({ keyValue }) => {
-  const { board, setBoard, currentRow, setCurrentRow, currentCol, setCurrentCol } =
-    useContext(BoardContext)
+  const dispatch = useDispatch()
+
+  const { board, currentRow, currentColumn } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const gameState = useGameStateContext()
+  const { playing, won, lost } = useSelector(state => state.gameState)
 
   const handleLetter = keyValue => {
-    if (currentCol < wordLength) {
-      const boardCopy = copyArray(board)
-      boardCopy[currentRow][currentCol] = keyValue
-      setBoard(boardCopy)
-      setCurrentCol(currentCol + 1)
+    console.log('current column', currentColumn)
+    if (currentColumn < wordLength) {
+      dispatch(letterPress(keyValue))
     }
   }
 
   const handleEnter = async () => {
-    if (currentCol === wordLength) {
+    console.log('current row', currentRow)
+    console.log('current column', currentColumn)
+    if (currentColumn === wordLength) {
       const word = joinWord(board[currentRow])
-      const exists = await wordService.checkWord(word)
+      const exists = wordService.checkWord(word)
       if (exists) {
-        setCurrentCol(0)
-        setCurrentRow(currentRow + 1)
+        dispatch(enterPress())
+        console.log('current row', currentRow)
+        console.log('current column', currentColumn)
       } else {
         console.log('word not found')
       }
@@ -38,17 +48,13 @@ const Key = ({ keyValue }) => {
   }
 
   const handleClear = () => {
-    if (currentCol - 1 >= 0) {
-      const previousCol = currentCol - 1
-      const boardCopy = copyArray(board)
-      boardCopy[currentRow][previousCol] = ''
-      setBoard(boardCopy)
-      setCurrentCol(previousCol)
+    if (currentColumn - 1 >= 0) {
+      dispatch(clearPress())
     }
   }
 
   const handleKeyPress = keyValue => {
-    if (!gameState.isPlaying) return
+    if (!playing) return
     if (keyValue === 'enter') handleEnter()
     else if (keyValue === 'clear') handleClear()
     else handleLetter(keyValue)
@@ -63,12 +69,13 @@ const Key = ({ keyValue }) => {
 
   useEffect(() => {
     const listener = event => {
-      if (event.repeat || !gameState.isPlaying) return
+      if (event.repeat || !playing) return
 
       const key = event.key.toLowerCase()
-      if (key === 'backspace') handleClear()
-      if (key === 'enter') handleEnter()
-      if (key.length === 1 && key >= 'a' && key <= 'z') handleLetter(key)
+      console.log(key)
+      if (key === 'backspace') return handleClear()
+      if (key === 'enter') return handleEnter()
+      if (key.length === 1 && key >= 'a' && key <= 'z') return handleLetter(key)
     }
 
     window.addEventListener('keydown', listener)
