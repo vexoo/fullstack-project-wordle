@@ -7,40 +7,27 @@ import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
 import { isEnterOrClear, copyArray, joinWord } from '../../util/helpers'
 import wordService from '../../services/words'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  increaseColumn,
-  letterPress,
-  reduceColumn,
-  setBoard,
-  resetColumn,
-  clearPress,
-  enterPress
-} from '../../reducers/boardReducer'
+import { letterPress, clearPress, enterPress } from '../../reducers/boardReducer'
 
 const Key = ({ keyValue }) => {
   const dispatch = useDispatch()
 
   const { board, currentRow, currentColumn } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const { playing, won, lost } = useSelector(state => state.gameState)
+  const { playing, won } = useSelector(state => state.gameState)
 
   const handleLetter = keyValue => {
-    console.log('current column', currentColumn)
     if (currentColumn < wordLength) {
       dispatch(letterPress(keyValue))
     }
   }
 
   const handleEnter = async () => {
-    console.log('current row', currentRow)
-    console.log('current column', currentColumn)
     if (currentColumn === wordLength) {
       const word = joinWord(board[currentRow])
       const exists = wordService.checkWord(word)
       if (exists) {
         dispatch(enterPress())
-        console.log('current row', currentRow)
-        console.log('current column', currentColumn)
       } else {
         console.log('word not found')
       }
@@ -72,7 +59,6 @@ const Key = ({ keyValue }) => {
       if (event.repeat || !playing) return
 
       const key = event.key.toLowerCase()
-      console.log(key)
       if (key === 'backspace') return handleClear()
       if (key === 'enter') return handleEnter()
       if (key.length === 1 && key >= 'a' && key <= 'z') return handleLetter(key)

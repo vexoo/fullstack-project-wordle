@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
 const User = require('../models/user')
-const { tokenExtractor } = require('../utils/middleware')
 
 router.get('/', async (request, response) => {
   const users = await User.find({})
@@ -16,12 +15,7 @@ router.post('/', async (request, response) => {
 
   const user = new User({
     username,
-    passwordHash,
-    played: 0,
-    won: 0,
-    currStreak: 0,
-    maxStreak: 0,
-    guessDistribution: [0, 0, 0, 0, 0, 0]
+    passwordHash
   })
 
   const savedUser = await user.save()
@@ -33,8 +27,12 @@ router.put('/:username', async (req, res) => {
   const { username } = req.params
   const { newUsername } = req.body
 
+  if (!req.decodedToken) {
+    return res.status(401).json({ error: 'missing token' })
+  }
+
   if (!req.decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
+    return res.status(401).json({ error: 'token invalid' })
   }
 
   const user = await User.findOne({ username })
@@ -66,7 +64,7 @@ router.put('/:username/stats', async (req, res) => {
 
   await user.save()
 
-  res.status(200).json({ message: 'User stats updated successfully' })
+  res.status(200).json({ message: 'Stats updated successfully' })
 })
 
 module.exports = router

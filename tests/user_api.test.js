@@ -6,6 +6,8 @@ const app = require('../app')
 
 const api = supertest(app)
 
+let authHeader
+
 describe('when there is initially one user in db', () => {
   beforeEach(async () => {
     await User.deleteMany({})
@@ -14,6 +16,11 @@ describe('when there is initially one user in db', () => {
     const user = new User({ username: 'root', passwordHash })
 
     await user.save()
+
+    const response = await api
+      .post('/api/login')
+      .send({ username: 'root', password: 'sekret' })
+    authHeader = `Bearer ${response.body.token}`
   })
 
   test('user creation succeeds with a fresh username', async () => {
@@ -72,5 +79,33 @@ describe('when there is initially one user in db', () => {
     }
 
     await api.put('/api/users/user/stats').send(stats).expect(404)
+  })
+  test('updating the username of a user with authorization is successful', async () => {
+    const newUsername = {
+      newUsername: 'rooter'
+    }
+
+    await api
+      .put('/api/users/root')
+      .set('Authorization', authHeader)
+      .send(newUsername)
+
+    const usersAtEnd = await helper.usersInDb()
+    const updatedUser = usersAtEnd.find(user => user.username === 'rooter')
+
+    expect(updatedUser.username).toEqual('rooter')
+  })
+
+  test('updating the username without authorization is not succesful', async () => {
+    const newUsername = {
+      newUsername: 'rooter'
+    }
+
+    await api.put('/api/users/root').send(newUsername).expect(401)
+
+    const usersAtEnd = await helper.usersInDb()
+    const updatedUser = usersAtEnd.find(user => user.username === 'root')
+
+    expect(updatedUser.username).toEqual('root')
   })
 })

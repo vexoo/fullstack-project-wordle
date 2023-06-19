@@ -17,7 +17,7 @@ const Board = ({ word }) => {
   const dispatch = useDispatch()
   const { board, currentRow, currentColumn } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const { playing, won, lost } = useSelector(state => state.gameState)
+  const { playing, won } = useSelector(state => state.gameState)
 
   const letters = word.split('')
 
