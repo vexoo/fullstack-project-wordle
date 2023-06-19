@@ -12,3 +12,9 @@ export const currentState = {
   WON: 'won',
   LOST: 'lost'
 }
+
+export let token = null
+
+export const setToken = newToken => {
+  token = `Bearer ${newToken}`
+}

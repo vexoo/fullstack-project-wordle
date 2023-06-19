@@ -4,7 +4,7 @@ export const gameStateSlice = createSlice({
   name: 'gameState',
   initialState: {
     playing: true,
-    won: false,
+    won: false
   },
   reducers: {
     setWon(state, action) {
@@ -13,6 +13,7 @@ export const gameStateSlice = createSlice({
     },
     setLost(state, action) {
       state.playing = false
+      state.won = false
     },
     setPlaying(state, action) {
       state.won = false

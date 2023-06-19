@@ -8,10 +8,12 @@ import { isEnterOrClear, copyArray, joinWord } from '../../util/helpers'
 import wordService from '../../services/words'
 import { useSelector, useDispatch } from 'react-redux'
 import { letterPress, clearPress, enterPress } from '../../reducers/boardReducer'
+import { isAnyModalOpen } from '../../reducers/modalReducer'
 
 const Key = ({ keyValue }) => {
   const dispatch = useDispatch()
 
+  const isModalOpen = useSelector(isAnyModalOpen)
   const { board, currentRow, currentColumn } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
   const { playing, won } = useSelector(state => state.gameState)
@@ -56,7 +58,8 @@ const Key = ({ keyValue }) => {
 
   useEffect(() => {
     const listener = event => {
-      if (event.repeat || !playing) return
+      console.log(isModalOpen)
+      if (event.repeat || !playing || isModalOpen) return
 
       const key = event.key.toLowerCase()
       if (key === 'backspace') return handleClear()

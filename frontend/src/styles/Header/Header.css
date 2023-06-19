@@ -79,3 +79,10 @@
   border: none;
   color: var(--lightgrey);
 }
+
+.box-left {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  flex-direction: row;
+}

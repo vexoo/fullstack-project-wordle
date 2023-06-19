@@ -1,38 +1,40 @@
 import '../../styles/Header/Header.css'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Paper,
-  TextField,
-  Button
-} from '@mui/material'
+import { TextField, Button } from '@mui/material'
 
 import loginService from '../../services/login'
-import { setUser, clearUser } from '../../reducers/userReducer'
+import { setToken } from '../../util/config'
+import { setUser } from '../../reducers/userReducer'
+import { onClose } from '../../reducers/modalReducer'
 
-const Login = props => {
+const Login = () => {
   const dispatch = useDispatch()
+  const { token } = useSelector(state => state.user)
+  const { isLoginModalOpen } = useSelector(state => state.modals)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const usernameRef = useRef(null)
 
   const onSubmit = async event => {
     event.preventDefault()
 
     try {
-      await loginService.login({
+      const user = await loginService.login({
         username,
         password
       })
-      dispatch(setUser(username, password))
+      window.localStorage.setItem('loggedWordleUser', JSON.stringify(user))
+      setToken(user.token)
+      dispatch(
+        setUser({
+          username: user.username,
+          token: user.token
+        })
+      )
       setUsername('')
       setPassword('')
-      props.setLoginModalOpen(false)
+      dispatch(onClose())
     } catch (exception) {
       //setErrorMessage('Wrong credentials')
       console.log(exception)
@@ -42,6 +44,12 @@ const Login = props => {
     }
   }
 
+  useEffect(() => {
+    if (isLoginModalOpen) {
+      usernameRef.current.focus()
+    }
+  }, [isLoginModalOpen])
+
   return (
     <div className='modal'>
       <h1>Login</h1>
@@ -50,6 +58,7 @@ const Login = props => {
           <TextField
             label='username'
             onChange={({ target }) => setUsername(target.value)}
+            inputRef={usernameRef}
           />
         </div>
         <div>

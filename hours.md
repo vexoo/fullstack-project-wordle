@@ -17,6 +17,7 @@
 | 16.6 | 6.5 | Working with multiple contexts ended up being difficult. Refactor board and game state contexts into Redux states. Ended up being a little difficult to get it working, took a while to fix everything that ended up broken. Function handleBackgroundColor still didn't account for every situation. Tried to fix it more. To do: figure out what to do with keyboard color context |
 | 17.6 | 2.5 | add token authentication and a route for changing username to the backend. Add tests for changing username, make sure tests work with token authentication |
 | 18.6 | 1.5 | change header in frontend to use Material UI library. Struggled for a while to find a way to keep the title centered even when adding buttons to the side |
+| 19.6 | 8 | Implement sessions in database. Implement modal window and functionality for logging into frontend. Implement modal base for the other ones needed later. Currently the other ones do not render anything useful. Refactor modal component out of Header into its own thing |
 | :----:|:-----| :-----|
-| total | 47 ||
+| total | 55 ||
 

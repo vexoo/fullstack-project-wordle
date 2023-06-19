@@ -1,224 +1,105 @@
 import '../../styles/Header/Header.css'
 import '../../styles/colors.css'
-import { useState } from 'react'
+
+import { useSelector, useDispatch } from 'react-redux'
+
+import logoutService from '../../services/logout'
+import {
+  setHelpModalOpen,
+  setSettingsModalOpen,
+  setStatsModalOpen,
+  setLoginModalOpen
+} from '../../reducers/modalReducer'
+import { clearUser, isUserSetSelector } from '../../reducers/userReducer'
+
+import { IconButton, Button, AppBar, Toolbar, Typography, Box } from '@mui/material'
 import SettingsIcon from '@mui/icons-material/Settings'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import BarChartIcon from '@mui/icons-material/BarChart'
 
-import Login from '../Login'
-
-import {
-  IconButton,
-  Button,
-  AppBar,
-  Toolbar,
-  Typography,
-  Box,
-  Modal
-} from '@mui/material'
-
 const Header = () => {
-  const [user, setUser] = useState('')
-  const [isHelpModalOpen, setHelpModalOpen] = useState(false)
-  const [isSettingsModalOpen, setSettingsModalOpen] = useState(false)
-  const [isStatsModalOpen, setStatsModalOpen] = useState(false)
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false)
+  const dispatch = useDispatch()
+  const { username } = useSelector(state => state.user)
+  const isUserSet = useSelector(isUserSetSelector)
 
-  const handleHelpButtonClick = () => {
-    setHelpModalOpen(true)
+  const handleLogout = async () => {
+    try {
+      await logoutService.logout()
+      dispatch(clearUser())
+      window.localStorage.removeItem('loggedWordleUser')
+    } catch (e) {
+      console.log(e)
+    }
   }
 
-  const handleSettingsButtonClick = () => {
-    setSettingsModalOpen(true)
-  }
-
-  const handleStatsButtonClick = () => {
-    setStatsModalOpen(true)
-  }
-
-  const handleLoginButtonClick = () => {
-    setLoginModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setHelpModalOpen(false)
-    setSettingsModalOpen(false)
-    setStatsModalOpen(false)
-    setLoginModalOpen(false)
-  }
-
-  return (
-    <>
-      <AppBar position='static' sx={{ bgcolor: 'var(--black)' }}>
-        <Toolbar>
-          <Box
-            sx={{
-              position: 'absolute',
-              left: '16px',
-              display: 'flex',
-              flexDirection: 'row'
-            }}
-          >
-            <IconButton color='inherit' onClick={() => setHelpModalOpen(true)}>
-              <HelpOutlineIcon />
-            </IconButton>
-            <IconButton color='inherit' onClick={handleSettingsButtonClick}>
-              <SettingsIcon />
-            </IconButton>
-            <IconButton color='inherit' onClick={handleStatsButtonClick}>
-              <BarChartIcon />
-            </IconButton>
-          </Box>
-          <Typography
-            variant='h6'
-            align='center'
-            sx={{
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontSize: '40px',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            }}
-          >
-            WORDLE
-          </Typography>
-          <Box
-            sx={{
-              position: 'absolute',
-              right: '16px',
-              display: 'flex',
-              flexDirection: 'row'
-            }}
-          >
-            <p>{user ? user.username : ''}</p>
-            <Button onClick={handleLoginButtonClick} color='inherit'>
-              Login
-            </Button>
-            <Button color='inherit'>Sign up</Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
-
-      {/* Help Modal */}
-      <Modal
-        open={isHelpModalOpen}
-        onClose={handleCloseModal}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <div
-          sx={{
-            width: '10px', // Custom width
-            height: '10px', // Custom height
-            backgroundColor: 'white',
-            padding: '10px',
-            border: '1px solid white', // Border style
-            borderRadius: '10px' // Border radius
-          }}
-        >
-          Help Modal Content
-        </div>
-      </Modal>
-
-      {/* Settings Modal */}
-      <Modal open={isSettingsModalOpen} onClose={handleCloseModal}>
-        <div>Settings Modal Content</div>
-      </Modal>
-
-      {/* Stats Modal */}
-      <Modal open={isStatsModalOpen} onClose={handleCloseModal}>
-        <div>Stats Modal Content</div>
-      </Modal>
-
-      {/* Login Modal */}
-      <Modal
-        open={isLoginModalOpen}
-        onClose={handleCloseModal}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minWidth: 300
-        }}
-      >
-        <div
-          sx={{
-            bgcolor: 'white',
-            backgroundColor: 'white',
-            padding: '20px',
-            borderRadius: '8px',
-            minWidth: 300
-          }}
-        >
-          <Login setUser={setUser} setLoginModalOpen={setLoginModalOpen} />
-        </div>
-      </Modal>
-    </>
-  )
-}
-
-/*
-const Header = () => {
-  const handleClick = buttonName => {
-    console.log(`${buttonName} clicked`)
-  }
   return (
     <AppBar position='static' sx={{ bgcolor: 'var(--black)' }}>
       <Toolbar>
         <Box
           sx={{
-            position: 'absolute',
-            left: '16px',
-            display: 'flex',
-            flexDirection: 'row'
+            ...boxStyle,
+            left: '16px'
           }}
         >
-          <IconButton color='inherit'>
+          <IconButton color='inherit' onClick={() => dispatch(setHelpModalOpen())}>
             <HelpOutlineIcon />
           </IconButton>
-          <IconButton color='inherit'>
+
+          <IconButton
+            color='inherit'
+            onClick={() => dispatch(setSettingsModalOpen())}
+          >
             <SettingsIcon />
           </IconButton>
-          <IconButton color='inherit'>
+
+          <IconButton color='inherit' onClick={() => dispatch(setStatsModalOpen())}>
             <BarChartIcon />
           </IconButton>
         </Box>
-        <Typography
-          variant='h6'
-          align='center'
-          sx={{
-            flexGrow: 1,
-            fontFamily: 'monospace',
-            fontSize: '40px',
-            fontWeight: 700,
-            letterSpacing: '.3rem',
-            color: 'inherit',
-            textDecoration: 'none'
-          }}
-        >
+        <Typography variant='h6' align='center' sx={titleStyle}>
           WORDLE
         </Typography>
         <Box
           sx={{
-            position: 'absolute',
-            right: '16px',
-            display: 'flex',
-            flexDirection: 'row'
+            ...boxStyle,
+            right: '16px'
           }}
         >
-          <p>username</p>
-          <Button color='inherit'>Login</Button>
-          <Button color='inherit'>Sign up</Button>
+          {isUserSet ? (
+            <div>
+              <Button>{username}</Button>
+              <Button color='inherit' onClick={handleLogout}>
+                Logout
+              </Button>{' '}
+            </div>
+          ) : (
+            <div>
+              <Button color='inherit'>Sign up</Button>
+              <Button onClick={() => dispatch(setLoginModalOpen())} color='inherit'>
+                Login
+              </Button>
+            </div>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
   )
 }
-*/
 
 export default Header
+
+const titleStyle = {
+  flexGrow: 1,
+  fontFamily: 'monospace',
+  fontSize: '40px',
+  fontWeight: 700,
+  letterSpacing: '.3rem',
+  color: 'inherit',
+  textDecoration: 'none'
+}
+
+const boxStyle = {
+  position: 'absolute',
+  display: 'flex',
+  flexDirection: 'row'
+}

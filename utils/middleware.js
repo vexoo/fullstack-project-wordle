@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { SECRET } = require('../utils/config')
+const Session = require('../models/session')
 
 const unknownEndpoint = (_request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
@@ -23,6 +24,13 @@ const tokenExtractor = async (req, res, next) => {
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
     req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
   }
+
+  let token = authorization?.substring(7)
+  const session = await Session.findOne({ token })
+  if (!session) {
+    return res.status(401).json({ error: 'No session found, login required' })
+  }
+
   next()
 }
 
