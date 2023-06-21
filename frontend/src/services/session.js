@@ -2,7 +2,6 @@ import axios from 'axios'
 const baseUrl = '/api/session'
 
 const verifySession = async token => {
-  console.log(token)
   const response = await axios.get(`${baseUrl}?token=${token}`)
   return response.data
 }

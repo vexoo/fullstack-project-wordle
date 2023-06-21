@@ -2,7 +2,7 @@ import './App.css'
 
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import Header from './components/Header/Header'
 import Keyboard from './components/Keyboard'
@@ -11,12 +11,23 @@ import Modals from './components/Modals'
 
 import wordService from './services/words'
 import sessionService from './services/session'
+
 import { setUser } from './reducers/userReducer'
+import { setBoard } from './reducers/boardReducer'
+
 import { setToken } from './util/config'
+import {
+  getLocalDailyWord,
+  getLocalWordleBoard,
+  getLocalLoggedUser,
+  setLocalDailyWord,
+  removeLocalWordleBoard,
+  removeLocalLoggedUser
+} from './util/localStorageHelper'
 
 const App = () => {
   const dispatch = useDispatch()
-  const [word, setWord] = useState('')
+  const [word, setWord] = useState(null)
 
   useEffect(() => {
     const fetchDailyWord = async () => {
@@ -32,23 +43,35 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedWordleUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
+    const fetchBoard = async () => {
+      const dailyWord = getLocalDailyWord()
+      if (word === dailyWord) {
+        const state = getLocalWordleBoard()
+        if (state) {
+          dispatch(setBoard(state))
+        }
+      } else {
+        setLocalDailyWord(word)
+        removeLocalWordleBoard()
+      }
+    }
+    if (word) fetchBoard()
+  }, [word])
+
+  useEffect(() => {
+    const user = getLocalLoggedUser()
+    if (user) {
       const sessionExists = sessionService.verifySession(user.token)
       if (sessionExists) {
         setToken(user.token)
-        dispatch(
-          setUser({
-            username: user.username,
-            token: user.token
-          })
-        )
+        dispatch(setUser(user))
+      } else {
+        removeLocalLoggedUser()
       }
     }
   }, [])
 
-  if (word === '') return <div>loading</div>
+  if (!word) return <div>loading</div>
 
   return (
     <div className='container'>

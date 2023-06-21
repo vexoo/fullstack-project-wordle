@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { tryAmount, wordLength } from '../util/config'
+import { setLocalWordleBoard } from '../util/localStorageHelper'
 
 export const boardSlice = createSlice({
   name: 'board',
@@ -20,10 +21,16 @@ export const boardSlice = createSlice({
     enterPress(state) {
       state.currentColumn = 0
       state.currentRow = state.currentRow + 1
+      setLocalWordleBoard(state)
+    },
+    setBoard(state, action) {
+      state.board = action.payload.board
+      state.currentRow = action.payload.currentRow
+      state.currentColumn = action.payload.currentColumn
     }
   }
 })
 
-export const { letterPress, clearPress, enterPress } = boardSlice.actions
+export const { letterPress, clearPress, enterPress, setBoard } = boardSlice.actions
 
 export default boardSlice.reducer

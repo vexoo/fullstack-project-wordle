@@ -25,7 +25,15 @@ router.post('/', async (request, response) => {
   const token = jwt.sign(userForToken, config.SECRET)
   Session.create({ token: token, userId: user.id })
 
-  response.status(200).send({ token, username: user.username })
+  response.status(200).send({
+    token,
+    username: user.username,
+    played: user.played,
+    won: user.won,
+    currStreak: user.currStreak,
+    maxStreak: user.maxStreak,
+    guessDistribution: user.guessDistribution
+  })
 })
 
 module.exports = router

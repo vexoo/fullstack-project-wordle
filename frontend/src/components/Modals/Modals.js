@@ -5,7 +5,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Modal } from '@mui/material'
 
 import Login from '../Login'
+import SignUp from '../SignUp'
 import { onClose } from '../../reducers/modalReducer'
+import UserInfo from '../UserInfo'
 
 const Modals = () => {
   const dispatch = useDispatch()
@@ -13,7 +15,9 @@ const Modals = () => {
     isHelpModalOpen,
     isSettingsModalOpen,
     isStatsModalOpen,
-    isLoginModalOpen
+    isLoginModalOpen,
+    isSignUpModalOpen,
+    isUserModalOpen
   } = useSelector(state => state.modals)
 
   return (
@@ -53,6 +57,28 @@ const Modals = () => {
       >
         <div>
           <Login />
+        </div>
+      </Modal>
+
+      {/* Signup Modal */}
+      <Modal
+        open={isSignUpModalOpen}
+        onClose={() => dispatch(onClose())}
+        sx={modalStyle}
+      >
+        <div>
+          <SignUp />
+        </div>
+      </Modal>
+
+      {/* User Modal */}
+      <Modal
+        open={isUserModalOpen}
+        onClose={() => dispatch(onClose())}
+        sx={modalStyle}
+      >
+        <div>
+          <UserInfo />
         </div>
       </Modal>
     </div>

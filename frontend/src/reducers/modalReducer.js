@@ -6,7 +6,9 @@ export const modalSlice = createSlice({
     isHelpModalOpen: false,
     isSettingsModalOpen: false,
     isStatsModalOpen: false,
-    isLoginModalOpen: false
+    isLoginModalOpen: false,
+    isSignUpModalOpen: false,
+    isUserModalOpen: false
   },
   reducers: {
     setHelpModalOpen: state => {
@@ -21,11 +23,19 @@ export const modalSlice = createSlice({
     setLoginModalOpen: state => {
       state.isLoginModalOpen = true
     },
+    setSignUpModalOpen: state => {
+      state.isSignUpModalOpen = true
+    },
+    setUserModalOpen: state => {
+      state.isUserModalOpen = true
+    },
     onClose: state => {
       state.isHelpModalOpen = false
       state.isSettingsModalOpen = false
       state.isStatsModalOpen = false
       state.isLoginModalOpen = false
+      state.isSignUpModalOpen = false
+      state.isUserModalOpen = false
     }
   }
 })
@@ -35,6 +45,8 @@ export const {
   setSettingsModalOpen,
   setStatsModalOpen,
   setLoginModalOpen,
+  setSignUpModalOpen,
+  setUserModalOpen,
   onClose
 } = modalSlice.actions
 
@@ -43,13 +55,17 @@ export const isAnyModalOpen = state => {
     isHelpModalOpen,
     isSettingsModalOpen,
     isStatsModalOpen,
-    isLoginModalOpen
+    isLoginModalOpen,
+    isSignUpModalOpen,
+    isUserModalOpen
   } = state.modals
   return [
     isHelpModalOpen,
     isSettingsModalOpen,
     isStatsModalOpen,
-    isLoginModalOpen
+    isLoginModalOpen,
+    isSignUpModalOpen,
+    isUserModalOpen
   ].some(Boolean)
 }
 

@@ -58,7 +58,6 @@ const Key = ({ keyValue }) => {
 
   useEffect(() => {
     const listener = event => {
-      console.log(isModalOpen)
       if (event.repeat || !playing || isModalOpen) return
 
       const key = event.key.toLowerCase()

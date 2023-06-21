@@ -18,6 +18,13 @@
 | 17.6 | 2.5 | add token authentication and a route for changing username to the backend. Add tests for changing username, make sure tests work with token authentication |
 | 18.6 | 1.5 | change header in frontend to use Material UI library. Struggled for a while to find a way to keep the title centered even when adding buttons to the side |
 | 19.6 | 8 | Implement sessions in database. Implement modal window and functionality for logging into frontend. Implement modal base for the other ones needed later. Currently the other ones do not render anything useful. Refactor modal component out of Header into its own thing |
+| 20.6 | 5 | more modal work. implement board states into local storage to keep game from reseting on refresh |
+| 20.6 | 6 | Change reducer and local storage structure a little. Implement saving stats to backend after game ends |
 | :----:|:-----| :-----|
-| total | 55 ||
+| total | 60 ||
 
+
+//todo -
+figure out saving board state until word resets,
+notification,
+help, stats, setting, user modals

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { setWinStats } from './userReducer'
 
 export const gameStateSlice = createSlice({
   name: 'gameState',
@@ -23,5 +24,4 @@ export const gameStateSlice = createSlice({
 })
 
 export const { setWon, setLost, setPlaying } = gameStateSlice.actions
-
 export default gameStateSlice.reducer

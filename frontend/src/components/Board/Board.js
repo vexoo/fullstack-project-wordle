@@ -5,19 +5,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
 import { tryAmount } from '../../util/config'
 import { countOccurrences } from '../../util/helpers'
-import {
-  increaseColumn,
-  letterPress,
-  reduceColumn,
-  setBoard
-} from '../../reducers/boardReducer'
 import { setLost, setWon } from '../../reducers/gameStateReducer'
+import { setWinStats, setLossStats } from '../../reducers/userReducer'
 
 const Board = ({ word }) => {
   const dispatch = useDispatch()
-  const { board, currentRow, currentColumn } = useSelector(state => state.board)
+  const { board, currentRow } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const { playing, won } = useSelector(state => state.gameState)
+  const user = useSelector(state => state.user)
 
   const letters = word.split('')
 
@@ -27,10 +22,14 @@ const Board = ({ word }) => {
   }, [currentRow])
 
   const checkGameState = () => {
+    console.log(user)
+
     if (winCondition()) {
       dispatch(setWon())
+      dispatch(setWinStats(currentRow - 1))
     } else if (loseCondition()) {
       dispatch(setLost())
+      dispatch(setLossStats())
     }
   }
 
@@ -58,7 +57,7 @@ const Board = ({ word }) => {
       case letters.includes(letter) && letterCountInWord > 1:
       case letters.includes(letter) &&
         letterCountInWord === 1 &&
-        firstRowOccurrence(letter, row, col):
+        isFirstRowOccurrence(letter, row, col):
         orangeKeys.add(letter)
         return styleSheet + 'cell-orange'
 
@@ -68,7 +67,7 @@ const Board = ({ word }) => {
     }
   }
 
-  const firstRowOccurrence = (letter, row, col) => {
+  const isFirstRowOccurrence = (letter, row, col) => {
     for (let c = 0; c < col; c++) {
       if (board[row][c] === letter) {
         return false

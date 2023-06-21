@@ -8,7 +8,9 @@ import {
   setHelpModalOpen,
   setSettingsModalOpen,
   setStatsModalOpen,
-  setLoginModalOpen
+  setLoginModalOpen,
+  setSignUpModalOpen,
+  setUserModalOpen
 } from '../../reducers/modalReducer'
 import { clearUser, isUserSetSelector } from '../../reducers/userReducer'
 
@@ -16,20 +18,26 @@ import { IconButton, Button, AppBar, Toolbar, Typography, Box } from '@mui/mater
 import SettingsIcon from '@mui/icons-material/Settings'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import BarChartIcon from '@mui/icons-material/BarChart'
+import { removeLocalLoggedUser } from '../../util/localStorageHelper'
 
 const Header = () => {
   const dispatch = useDispatch()
-  const { username } = useSelector(state => state.user)
+  const user = useSelector(state => state.user)
   const isUserSet = useSelector(isUserSetSelector)
 
   const handleLogout = async () => {
     try {
       await logoutService.logout()
       dispatch(clearUser())
-      window.localStorage.removeItem('loggedWordleUser')
+      removeLocalLoggedUser()
     } catch (e) {
       console.log(e)
     }
+  }
+
+  const handleClick = () => {
+    console.log(user)
+    console.log(isUserSet)
   }
 
   return (
@@ -41,7 +49,8 @@ const Header = () => {
             left: '16px'
           }}
         >
-          <IconButton color='inherit' onClick={() => dispatch(setHelpModalOpen())}>
+          <IconButton color='inherit' onClick={handleClick}>
+            {/* onClick={() => dispatch(setHelpModalOpen())} */}
             <HelpOutlineIcon />
           </IconButton>
 
@@ -67,14 +76,18 @@ const Header = () => {
         >
           {isUserSet ? (
             <div>
-              <Button>{username}</Button>
+              <Button onClick={() => dispatch(setUserModalOpen())}>
+                {user.username}
+              </Button>
               <Button color='inherit' onClick={handleLogout}>
                 Logout
-              </Button>{' '}
+              </Button>
             </div>
           ) : (
             <div>
-              <Button color='inherit'>Sign up</Button>
+              <Button onClick={() => dispatch(setSignUpModalOpen())} color='inherit'>
+                Sign up
+              </Button>
               <Button onClick={() => dispatch(setLoginModalOpen())} color='inherit'>
                 Login
               </Button>

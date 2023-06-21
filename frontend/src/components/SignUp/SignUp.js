@@ -3,15 +3,16 @@ import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import loginService from '../../services/login'
+import userService from '../../services/user'
 import InputForm from '../InputForm'
 import { setToken } from '../../util/config'
 import { setLocalLoggedUser } from '../../util/localStorageHelper'
 import { setUser } from '../../reducers/userReducer'
 import { onClose } from '../../reducers/modalReducer'
 
-const Login = () => {
+const SignUp = () => {
   const dispatch = useDispatch()
-  const { isLoginModalOpen } = useSelector(state => state.modals)
+  const { isSignUpModalOpen } = useSelector(state => state.modals)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const usernameRef = useRef(null)
@@ -20,6 +21,10 @@ const Login = () => {
     event.preventDefault()
 
     try {
+      const newUser = await userService.create({
+        username,
+        password
+      })
       const user = await loginService.login({
         username,
         password
@@ -30,9 +35,9 @@ const Login = () => {
       setUsername('')
       setPassword('')
       dispatch(onClose())
-    } catch (exception) {
+    } catch (e) {
       //setErrorMessage('Wrong credentials')
-      console.log(exception)
+      console.log(e)
       /*setTimeout(() => {
         setErrorMessage(null)
       }, 5000)*/
@@ -40,10 +45,10 @@ const Login = () => {
   }
 
   useEffect(() => {
-    if (isLoginModalOpen) {
+    if (isSignUpModalOpen) {
       usernameRef.current.focus()
     }
-  }, [isLoginModalOpen])
+  }, [isSignUpModalOpen])
 
   return (
     <InputForm
@@ -51,10 +56,10 @@ const Login = () => {
       usernameRef={usernameRef}
       setUsername={setUsername}
       setPassword={setPassword}
-      buttonText={'Login'}
-      titleText={'Login'}
+      buttonText={'Sign up'}
+      titleText={'Create an account'}
     />
   )
 }
 
-export default Login
+export default SignUp
