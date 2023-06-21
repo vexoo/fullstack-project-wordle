@@ -1,32 +1,81 @@
 @import '../colors.css';
 
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--black);
+}
 
 .header {
   display: flex;
-	align-items: center;
-	width:25%;
+  align-items: center;
+  width: 25%;
 }
 
-.title-container {
-	display: flex;
-	justify-content: center;
+.header-toolbar {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 1%;
-	width: 100%;
+}
+
+.header-title {
+  flex-grow: 1;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.header-buttons {
+  margin-right: 0.5rem;
+}
+
+.modal {
+  background-color: var(--lightgrey);
+  height: 400px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 25%;
+}
+
+.modal-container {
+  flex-direction: column;
+}
+
+.modal form > div {
+  margin-bottom: 10px;
+}
+
+.modal > h1 {
+  color: var(--black);
+  margin-bottom: 60px;
+}
+
+.modal > div {
+  color: var(--black);
 }
 
 .title {
-  font-size: 2.1rem;
+  display: none;
+  font-family: monospace;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.3rem;
+  color: inherit;
+  text-decoration: none;
 }
 
 .left-container {
-	justify-content: flex-start;
-	width: 25%;
+  justify-content: flex-start;
+  width: 25%;
 }
 
 .right-container {
   justify-content: flex-end;
-	
 }
 
 .button {
@@ -37,4 +86,11 @@
   outline: none;
   border: none;
   color: var(--lightgrey);
+}
+
+.box-left {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  flex-direction: row;
 }

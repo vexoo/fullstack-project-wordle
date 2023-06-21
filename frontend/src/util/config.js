@@ -7,8 +7,14 @@ export const keys = [
   ['enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'clear']
 ]
 
-export const currentState = {
-  PLAYING: 'playing',
-  WON: 'won',
-  LOST: 'lost'
+export let token = null
+
+export const setToken = newToken => {
+  token = `Bearer ${newToken}`
+}
+
+export const localStorage = {
+	dailyWord: 'wordleClone-dailyWord',
+	wordleBoard: 'wordleClone-board',
+	loggedUser: 'wordleClone-loggedUser'
 }

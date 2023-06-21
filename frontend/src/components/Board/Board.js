@@ -1,29 +1,35 @@
 import '../../styles/Board/Board.css'
 
 import { useContext, useEffect } from 'react'
-import { BoardContext } from '../../contexts/BoardContext'
+import { useDispatch, useSelector } from 'react-redux'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
-import { useGameStateContext } from '../../contexts/GameStateContext'
 import { tryAmount } from '../../util/config'
 import { countOccurrences } from '../../util/helpers'
+import { setLost, setWon } from '../../reducers/gameStateReducer'
+import { setWinStats, setLossStats } from '../../reducers/userReducer'
 
 const Board = ({ word }) => {
-  const { board, currentRow } = useContext(BoardContext)
+  const dispatch = useDispatch()
+  const { board, currentRow } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const gameState = useGameStateContext()
+  const user = useSelector(state => state.user)
 
   const letters = word.split('')
 
   useEffect(() => {
     if (currentRow > 0) checkGameState()
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [currentRow])
 
   const checkGameState = () => {
+    console.log(user)
+
     if (winCondition()) {
-      gameState.setWon()
+      dispatch(setWon())
+      dispatch(setWinStats(currentRow - 1))
     } else if (loseCondition()) {
-      gameState.setLost()
+      dispatch(setLost())
+      dispatch(setLossStats())
     }
   }
 
@@ -38,17 +44,20 @@ const Board = ({ word }) => {
   const handleBackgroundColor = (row, col) => {
     const letter = board[row][col]
     const styleSheet = 'cell '
-    const letterCount = countOccurrences(letters, letter)
-
-    if (row >= currentRow) return styleSheet + 'cell-black'
+    const letterCountInWord = countOccurrences(letters, letter)
 
     switch (true) {
+      case row >= currentRow:
+        return styleSheet + 'cell-black'
+
       case letter === letters[col]:
         greenKeys.add(letter)
         return styleSheet + 'cell-green'
 
-      case letters.includes(letter) && letterCount > 1:
-      case letters.includes(letter) && letterCount === 1 && !greenKeys.has(letter):
+      case letters.includes(letter) && letterCountInWord > 1:
+      case letters.includes(letter) &&
+        letterCountInWord === 1 &&
+        isFirstRowOccurrence(letter, row, col):
         orangeKeys.add(letter)
         return styleSheet + 'cell-orange'
 
@@ -56,6 +65,15 @@ const Board = ({ word }) => {
         greyKeys.add(letter)
         return styleSheet + 'cell-darkgrey'
     }
+  }
+
+  const isFirstRowOccurrence = (letter, row, col) => {
+    for (let c = 0; c < col; c++) {
+      if (board[row][c] === letter) {
+        return false
+      }
+    }
+    return true
   }
 
   return (

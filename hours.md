@@ -14,6 +14,17 @@
 | 14.6 | 4 | handleBackgroundColor in Board.js did not account for every situation. Refactored the component, should be fixed. Tests for handleEnter broke after adding backend connection through axios. Spent quite a while trying to fix, currently unsure how to |
 | 14.6 | 2 | add model and route for user in the backend. Add backend tests for word and user |
 | 15.6 | 4 | add a few end-to-end tests with Cypress to frontend. Add CI/CD pipeline to github actions, verify it works. Pipeline does not yet include deploying to Render. Will add later when app is more complete |
+| 16.6 | 6.5 | Working with multiple contexts ended up being difficult. Refactor board and game state contexts into Redux states. Ended up being a little difficult to get it working, took a while to fix everything that ended up broken. Function handleBackgroundColor still didn't account for every situation. Tried to fix it more. To do: figure out what to do with keyboard color context |
+| 17.6 | 2.5 | add token authentication and a route for changing username to the backend. Add tests for changing username, make sure tests work with token authentication |
+| 18.6 | 1.5 | change header in frontend to use Material UI library. Struggled for a while to find a way to keep the title centered even when adding buttons to the side |
+| 19.6 | 8 | Implement sessions in database. Implement modal window and functionality for logging into frontend. Implement modal base for the other ones needed later. Currently the other ones do not render anything useful. Refactor modal component out of Header into its own thing |
+| 20.6 | 5 | more modal work. implement board states into local storage to keep game from reseting on refresh |
+| 20.6 | 6 | Change reducer and local storage structure a little. Implement saving stats to backend after game ends |
 | :----:|:-----| :-----|
-| total | 36.5 ||
+| total | 60 ||
 
+
+//todo -
+figure out saving board state until word resets,
+notification,
+help, stats, setting, user modals

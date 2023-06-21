@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/users/testuser
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWQiOiI2NDhkN2Y5Yjg5ZWVhNmZhNWRmODI1ODUiLCJpYXQiOjE2ODcxODkzMTN9.3zQAPvYPMbUGrJIoURIZZQDAphzz_GRa2mWEwJFqmAg
+
+{
+	"newUsername": "testuser" 
+}

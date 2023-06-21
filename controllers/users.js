@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt')
 const router = require('express').Router()
 const User = require('../models/user')
 
+const { tokenExtractor } = require('../utils/middleware')
+
 router.get('/', async (request, response) => {
   const users = await User.find({})
   response.json(users)
@@ -15,43 +17,58 @@ router.post('/', async (request, response) => {
 
   const user = new User({
     username,
-    passwordHash,
-    played: 0,
-    won: 0,
-    currStreak: 0,
-    maxStreak: 0,
-    guessDistribution: [0, 0, 0, 0, 0, 0]
+    passwordHash
   })
 
   const savedUser = await user.save()
+  console.log(savedUser)
+  response
+    .status(201)
+    .json({ message: 'User created', username: savedUser.username })
+})
 
-  response.status(201).json(savedUser)
+router.put('/:username', tokenExtractor, async (req, res) => {
+  const { username } = req.params
+  const { newUsername } = req.body
+
+  if (!req.decodedToken) {
+    return res.status(401).json({ error: 'missing token' })
+  }
+
+  if (!req.decodedToken.id) {
+    return res.status(401).json({ error: 'token invalid' })
+  }
+
+  const user = await User.findOne({ username })
+
+  if (user && newUsername) {
+    user.username = newUsername
+    await user.save()
+    res.json(user)
+  } else {
+    res.status(404).end()
+  }
 })
 
 router.put('/:username/stats', async (req, res) => {
   const { username } = req.params
   const { played, won, currStreak, maxStreak, guessDistribution } = req.body
 
-  try {
-    const user = await User.findOne({ username })
+  const user = await User.findOne({ username })
 
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' })
-    }
-
-    user.played = played
-    user.won = won
-    user.currStreak = currStreak
-    user.maxStreak = maxStreak
-    user.guessDistribution = guessDistribution
-
-    await user.save()
-
-    res.status(200).json({ message: 'User stats updated successfully' })
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'Server error' })
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' })
   }
+
+  user.played = played
+  user.won = won
+  user.currStreak = currStreak
+  user.maxStreak = maxStreak
+  user.guessDistribution = guessDistribution
+
+  await user.save()
+
+  res.status(200).json({ message: 'Stats updated successfully' })
 })
 
 module.exports = router

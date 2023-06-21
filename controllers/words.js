@@ -9,19 +9,15 @@ router.get('/', async (req, res) => {
 router.get('/daily-word', async (req, res) => {
   if (process.env.NODE_ENV === 'test') {
     res.json({ word: 'stout' })
-  } else
-    try {
-      const currentDate = new Date().toISOString().split('T')[0]
-      const seed = parseInt(currentDate.replace(/-/g, ''))
-      const totalCount = await Word.countDocuments()
-      const randomIndex = Math.floor(seed % totalCount)
+  } else {
+    const currentDate = new Date().toISOString().split('T')[0]
+    const seed = parseInt(currentDate.replace(/-/g, ''))
+    const totalCount = await Word.countDocuments()
+    const randomIndex = Math.floor(seed % totalCount)
 
-      const word = await Word.findOne().skip(randomIndex)
-      res.json({ word: word.word })
-    } catch (error) {
-      console.error(error)
-      res.status(500).json({ error: 'Internal Server Error' })
-    }
+    const word = await Word.findOne().skip(randomIndex)
+    res.json({ word: word.word })
+  }
 })
 
 router.get('/:word', async (req, res) => {
