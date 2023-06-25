@@ -21,7 +21,6 @@ router.post('/', async (request, response) => {
   })
 
   const savedUser = await user.save()
-  console.log(savedUser)
   response
     .status(201)
     .json({ message: 'User created', username: savedUser.username })
@@ -69,6 +68,13 @@ router.put('/:username/stats', async (req, res) => {
   await user.save()
 
   res.status(200).json({ message: 'Stats updated successfully' })
+})
+
+router.delete('/:username', tokenExtractor, async (req, res) => {
+  const { username } = req.params
+
+  await User.deleteOne({ username })
+  res.status(200).json()
 })
 
 module.exports = router

@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 const router = require('express').Router()
-const Session = require('../models/session')
 const { SECRET } = require('../utils/config')
 
 router.get('/', async (request, response) => {

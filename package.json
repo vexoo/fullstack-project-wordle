@@ -26,6 +26,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.4",
     "mongoose-unique-validator": "^4.0.0",
+    "react-bootstrap": "^2.8.0",
     "react-redux": "^8.1.0",
     "redux": "^4.2.1"
   },

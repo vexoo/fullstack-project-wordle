@@ -6,6 +6,7 @@ import { Modal } from '@mui/material'
 
 import Login from '../Login'
 import SignUp from '../SignUp'
+import Stats from '../Stats'
 import { onClose } from '../../reducers/modalReducer'
 import UserInfo from '../UserInfo'
 
@@ -46,7 +47,9 @@ const Modals = () => {
         onClose={() => dispatch(onClose())}
         sx={modalStyle}
       >
-        <div>Stats Modal Content</div>
+        <div>
+          <Stats />
+        </div>
       </Modal>
 
       {/* Login Modal */}

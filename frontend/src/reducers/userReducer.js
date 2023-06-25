@@ -1,21 +1,10 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 import { setLost, setWon } from './gameStateReducer'
+import { onClose } from './modalReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import userService from '../services/user'
-
-const updateStats = state => {
-  if (state) {
-    const { username, played, won, currStreak, maxStreak, guessDistribution } = state
-    const stats = {
-      played,
-      won,
-      currStreak,
-      maxStreak,
-      guessDistribution
-    }
-    userService.updateStats(username, stats)
-  }
-}
+import logoutService from '../services/logout'
+import { removeLocalLoggedUser } from '../util/localStorageHelper'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -27,9 +16,13 @@ export const userSlice = createSlice({
     clearUser: () => {
       return null
     },
+    setUsername: (state, action) => {
+      if (state) {
+        state.username = action.payload
+      }
+    },
     setWinStats: (state, action) => {
       const currentRow = action.payload
-      console.log(currentRow)
       if (state) {
         state.played += 1
         state.won += 1
@@ -51,7 +44,49 @@ export const userSlice = createSlice({
   }
 })
 
-export const { setUser, clearUser, setWinStats, setLossStats } = userSlice.actions
+export const { setUser, clearUser, setUsername, setWinStats, setLossStats } =
+  userSlice.actions
+
+const updateStats = state => {
+  if (state) {
+    const { username, played, won, currStreak, maxStreak, guessDistribution } = state
+    const stats = {
+      played,
+      won,
+      currStreak,
+      maxStreak,
+      guessDistribution
+    }
+    userService.updateStats(username, stats)
+  }
+}
+
+export const changeUsername = newUsername => {
+  return async (dispatch, getState) => {
+    const { user } = getState()
+    try {
+      await userService.updateUsername(user.username, newUsername)
+      dispatch(setUsername(newUsername))
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export const deleteUser = () => {
+  return async (dispatch, getState) => {
+    const { user } = getState()
+    try {
+      await userService.deleteAccount(user.username)
+      await logoutService.logout()
+      dispatch(clearUser())
+      removeLocalLoggedUser()
+      dispatch(onClose())
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
 
 export const isUserSetSelector = state => {
   const user = state.user
