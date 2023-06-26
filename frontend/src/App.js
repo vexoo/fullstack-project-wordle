@@ -24,6 +24,7 @@ import {
   removeLocalWordleBoard,
   removeLocalLoggedUser
 } from './util/localStorageHelper'
+import { words } from './util/words'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -41,6 +42,20 @@ const App = () => {
 
     fetchDailyWord()
   }, [])
+
+  /*
+  useEffect(() => {
+    const getDailyWord = () => {
+      const currentDate = new Date().toISOString().split('T')[0]
+      const seed = parseInt(currentDate.replace(/-/g, ''))
+      const totalCount = words.length
+      const randomIndex = seed % totalCount
+      setWord(words[randomIndex])
+    }
+
+    getDailyWord()
+  }, [])
+	*/
 
   useEffect(() => {
     const fetchBoard = async () => {
@@ -73,6 +88,7 @@ const App = () => {
 
   if (!word) return <div>loading</div>
 
+  console.log(word)
   return (
     <div className='container'>
       <Header />

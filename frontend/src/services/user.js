@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { token } from '../util/config'
 const baseUrl = '/api/users'
 
 const create = async credentials => {
@@ -6,10 +7,26 @@ const create = async credentials => {
   return response.data
 }
 
-const updateStats = async (user, stats) => {
-  const response = await axios.put(`${baseUrl}/${user}/stats`, stats)
+const updateUsername = async (username, newUsername) => {
+  const config = { headers: { Authorization: token } }
+  const data = {
+    newUsername: newUsername
+  }
+
+  const response = await axios.put(`${baseUrl}/${username}`, data, config)
+  return response.data
+}
+
+const updateStats = async (username, stats) => {
+  const response = await axios.put(`${baseUrl}/${username}/stats`, stats)
+  return response.data
+}
+
+const deleteAccount = async username => {
+  const config = { headers: { Authorization: token } }
+  const response = await axios.delete(`${baseUrl}/${username}`, config)
   return response.data
 }
 
 // eslint-disable-next-line
-export default { create, updateStats }
+export default { create, updateUsername, updateStats, deleteAccount }

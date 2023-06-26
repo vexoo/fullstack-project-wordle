@@ -33,6 +33,7 @@
 
 .modal {
   background-color: var(--lightgrey);
+	color: var(--black);
   height: 400px;
   width: 500px;
   display: flex;
@@ -44,6 +45,8 @@
 
 .modal-container {
   flex-direction: column;
+	position: relative;
+	margin-top: 100px;
 }
 
 .modal form > div {

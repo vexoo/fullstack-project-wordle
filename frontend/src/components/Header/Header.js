@@ -41,7 +41,7 @@ const Header = () => {
   }
 
   return (
-    <AppBar position='static' sx={{ bgcolor: 'var(--black)' }}>
+    <AppBar position='relative' sx={{ bgcolor: 'var(--black)' }}>
       <Toolbar>
         <Box
           sx={{

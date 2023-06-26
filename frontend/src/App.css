@@ -6,6 +6,7 @@ html {
 }
 
 .container {
+	background-color: var(--black);
   display: flex;
   flex-direction: column;
   align-items: center;

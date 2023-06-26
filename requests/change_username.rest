@@ -1,7 +1,7 @@
-PUT http://localhost:3001/api/users/testuser
+PUT http://localhost:3001/api/users/potatomouse
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWQiOiI2NDhkN2Y5Yjg5ZWVhNmZhNWRmODI1ODUiLCJpYXQiOjE2ODcxODkzMTN9.3zQAPvYPMbUGrJIoURIZZQDAphzz_GRa2mWEwJFqmAg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMiIsImlkIjoiNjQ5MWEwZjEyODQ4MjlhOTU5ZDAzZDMyIiwiaWF0IjoxNjg3NjkwMDUzfQ.pDYh-cKTVxnQYyTrjNOV0__miYDT9_t-SFy0J1vKitA
 
 {
-	"newUsername": "testuser" 
+	"newUsername": "testuser2" 
 }

@@ -11,7 +11,8 @@ const checkWord = async word => {
   const request = axios.get(`${baseUrl}/${word}`)
   const response = await request
   const { exists } = response.data
-  return Boolean(exists)
+  console.log(exists)
+  return exists
 }
 
 // eslint-disable-next-line
