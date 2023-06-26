@@ -1,6 +1,6 @@
 import '../../styles/Board/Board.css'
 
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
 import { tryAmount } from '../../util/config'
@@ -22,8 +22,6 @@ const Board = ({ word }) => {
   }, [currentRow])
 
   const checkGameState = () => {
-    console.log(user)
-
     if (winCondition()) {
       dispatch(setWon())
       dispatch(setWinStats(currentRow - 1))

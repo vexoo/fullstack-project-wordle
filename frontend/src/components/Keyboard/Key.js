@@ -1,22 +1,25 @@
 import '../../styles/Keyboard/Keyboard.css'
 import '../../styles/colors.css'
 
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { wordLength } from '../../util/config'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
 import { isEnterOrClear, copyArray, joinWord } from '../../util/helpers'
-import wordService from '../../services/words'
 import { useSelector, useDispatch } from 'react-redux'
-import { letterPress, clearPress, enterPress } from '../../reducers/boardReducer'
+import {
+  letterPress,
+  clearPress,
+
+  enterHandler
+} from '../../reducers/boardReducer'
 import { isAnyModalOpen } from '../../reducers/modalReducer'
 
 const Key = ({ keyValue }) => {
   const dispatch = useDispatch()
-
   const isModalOpen = useSelector(isAnyModalOpen)
   const { board, currentRow, currentColumn } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const { playing, won } = useSelector(state => state.gameState)
+  const { playing } = useSelector(state => state.gameState)
 
   const handleLetter = keyValue => {
     if (currentColumn < wordLength) {
@@ -24,16 +27,9 @@ const Key = ({ keyValue }) => {
     }
   }
 
-  const handleEnter = async () => {
-    if (currentColumn === wordLength) {
-      const word = joinWord(board[currentRow])
-      const exists = wordService.checkWord(word)
-      if (exists) {
-        dispatch(enterPress())
-      } else {
-        console.log('word not found')
-      }
-    }
+  const handleEnter = () => {
+    if (currentColumn !== 5) return
+    dispatch(enterHandler())
   }
 
   const handleClear = () => {
@@ -61,8 +57,9 @@ const Key = ({ keyValue }) => {
       if (event.repeat || !playing || isModalOpen) return
 
       const key = event.key.toLowerCase()
-      if (key === 'backspace') return handleClear()
+      console.log(key)
       if (key === 'enter') return handleEnter()
+      if (key === 'backspace') return handleClear()
       if (key.length === 1 && key >= 'a' && key <= 'z') return handleLetter(key)
     }
 

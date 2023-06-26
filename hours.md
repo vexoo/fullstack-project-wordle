@@ -21,8 +21,9 @@
 | 20.6 | 5 | more modal work. implement board states into local storage to keep game from reseting on refresh |
 | 21.6 | 6 | Change reducer and local storage structure a little. Implement saving stats to backend after game ends |
 | 25.6 | 5 | modal for changing username and deleting account |
+| 26.6 | 6 | losing my mind on a bug on some combination of keyboard listener / enter handler / word service. Kind of ugly band-aid implemented to prevent additional enter inputs. Small write up about it in boardReducer.js |
 | :----:|:-----| :-----|
-| total | 71 ||
+| total | 77 ||
 
 
 //todo -
