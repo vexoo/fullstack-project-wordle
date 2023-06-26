@@ -52,7 +52,6 @@ const Login = () => {
       setUsername={setUsername}
       setPassword={setPassword}
       buttonText={'Login'}
-      titleText={'Login'}
     />
   )
 }

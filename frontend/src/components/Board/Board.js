@@ -1,18 +1,19 @@
 import '../../styles/Board/Board.css'
 
-import { useContext, useEffect, useCallback } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
+import { setLost, setWon } from '../../reducers/gameStateReducer'
+import { setLossStats, setWinStats } from '../../reducers/userReducer'
 import { tryAmount } from '../../util/config'
 import { countOccurrences } from '../../util/helpers'
-import { setLost, setWon } from '../../reducers/gameStateReducer'
-import { setWinStats, setLossStats } from '../../reducers/userReducer'
 
 const Board = ({ word }) => {
   const dispatch = useDispatch()
-  const { board, currentRow } = useSelector(state => state.board)
+  const { board, currentRow } = useSelector((state) => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user)
 
   const letters = word.split('')
 
@@ -75,16 +76,18 @@ const Board = ({ word }) => {
   }
 
   return (
-    <div className='board' id='board'>
+    <div className="mt-6 self-stretch" id="board">
       {board.map((row, i) => (
-        <div className='row' key={`row-${i}`}>
+        <div className="flex flex-row justify-center" key={`row-${i}`}>
           {row.map((cell, j) => (
             <div
               className={handleBackgroundColor(i, j)}
               key={`cell-${i}-${j}`}
               id={`cell-${i}-${j}`}
             >
-              <p className='cell-text'>{cell}</p>
+              <p className="text-4xl font-bold uppercase dark:text-white short:text-2xl">
+                {cell}
+              </p>
             </div>
           ))}
         </div>

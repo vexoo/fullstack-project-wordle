@@ -1,27 +1,28 @@
 import '../../styles/Header/Header.css'
 import '../../styles/colors.css'
 
-import { useSelector, useDispatch } from 'react-redux'
-
-import logoutService from '../../services/logout'
+import {
+  ChartBarIcon,
+  CogIcon,
+  InformationCircleIcon,
+  UserIcon
+} from '@heroicons/react/outline'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   setHelpModalOpen,
-  setSettingsModalOpen,
-  setStatsModalOpen,
   setLoginModalOpen,
+  setSettingsModalOpen,
   setSignUpModalOpen,
+  setStatsModalOpen,
   setUserModalOpen
 } from '../../reducers/modalReducer'
 import { clearUser, isUserSetSelector } from '../../reducers/userReducer'
-
-import { IconButton, Button, AppBar, Toolbar, Typography, Box } from '@mui/material'
-import SettingsIcon from '@mui/icons-material/Settings'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
-import BarChartIcon from '@mui/icons-material/BarChart'
+import logoutService from '../../services/logout'
 import { removeLocalLoggedUser } from '../../util/localStorageHelper'
 
 const Header = () => {
   const dispatch = useDispatch()
+
   const user = useSelector(state => state.user)
   const isUserSet = useSelector(isUserSetSelector)
 
@@ -41,78 +42,47 @@ const Header = () => {
   }
 
   return (
-    <AppBar position='relative' sx={{ bgcolor: 'var(--black)' }}>
-      <Toolbar>
-        <Box
-          sx={{
-            ...boxStyle,
-            left: '16px'
-          }}
-        >
-          <IconButton color='inherit' onClick={handleClick}>
-            {/* onClick={() => dispatch(setHelpModalOpen())} */}
-            <HelpOutlineIcon />
-          </IconButton>
-
-          <IconButton
-            color='inherit'
+    <div className='navbar'>
+      <div className='navbar-content short:h-auto px-5'>
+        <div className='flex'>
+          <InformationCircleIcon className='h-6 w-6 cursor-pointer dark:stroke-white' />
+          <ChartBarIcon className='ml-3 mr-3 h-6 w-6 cursor-pointer dark:stroke-white' />
+          <CogIcon
+            className='h-6 w-6 cursor-pointer dark:stroke-white'
             onClick={() => dispatch(setSettingsModalOpen())}
-          >
-            <SettingsIcon />
-          </IconButton>
-
-          <IconButton color='inherit' onClick={() => dispatch(setStatsModalOpen())}>
-            <BarChartIcon />
-          </IconButton>
-        </Box>
-        <Typography variant='h6' align='center' sx={titleStyle}>
-          WORDLE
-        </Typography>
-        <Box
-          sx={{
-            ...boxStyle,
-            right: '16px'
-          }}
-        >
-          {isUserSet ? (
-            <div>
-              <Button onClick={() => dispatch(setUserModalOpen())}>
-                {user.username}
-              </Button>
-              <Button color='inherit' onClick={handleLogout}>
-                Logout
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Button onClick={() => dispatch(setSignUpModalOpen())} color='inherit'>
-                Sign up
-              </Button>
-              <Button onClick={() => dispatch(setLoginModalOpen())} color='inherit'>
-                Login
-              </Button>
-            </div>
-          )}
-        </Box>
-      </Toolbar>
-    </AppBar>
+          />
+        </div>
+        <p className='text-3xl font-bold dark:text-white'>W O R D L E</p>
+        {isUserSet ? (
+          <div className='right-icons'>
+            <UserIcon className='mr-3 h-6 w-6 cursor-pointer dark:stroke-white' />
+            <button
+              className='text-x2 font-bold dark:text-white'
+              onClick={handleLogout}
+            >
+              LOGOUT
+            </button>
+          </div>
+        ) : (
+          <div className='right-icons'>
+            <button
+              className='text-x2 mr-3 dark:text-white'
+              onClick={() => dispatch(setSignUpModalOpen())}
+            >
+              SIGN UP
+            </button>
+            <button
+              className='text-x2 dark:text-white'
+              onClick={() => dispatch(setLoginModalOpen())}
+            >
+              LOGIN
+            </button>
+          </div>
+        )}
+      </div>
+      <hr></hr>
+    </div>
   )
 }
 
 export default Header
-
-const titleStyle = {
-  flexGrow: 1,
-  fontFamily: 'monospace',
-  fontSize: '40px',
-  fontWeight: 700,
-  letterSpacing: '.3rem',
-  color: 'inherit',
-  textDecoration: 'none'
-}
-
-const boxStyle = {
-  position: 'absolute',
-  display: 'flex',
-  flexDirection: 'row'
-}

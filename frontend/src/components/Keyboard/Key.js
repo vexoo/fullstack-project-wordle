@@ -1,23 +1,18 @@
-import '../../styles/Keyboard/Keyboard.css'
 import '../../styles/colors.css'
 
-import { useContext, useEffect, useState } from 'react'
-import { wordLength } from '../../util/config'
-import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
-import { isEnterOrClear, copyArray, joinWord } from '../../util/helpers'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  letterPress,
-  clearPress,
+import { useContext, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-  enterHandler
-} from '../../reducers/boardReducer'
+import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
+import { clearPress, enterHandler, letterPress } from '../../reducers/boardReducer'
 import { isAnyModalOpen } from '../../reducers/modalReducer'
+import { wordLength } from '../../util/config'
+import { isEnterOrClear } from '../../util/helpers'
 
 const Key = ({ keyValue }) => {
   const dispatch = useDispatch()
   const isModalOpen = useSelector(isAnyModalOpen)
-  const { board, currentRow, currentColumn } = useSelector(state => state.board)
+  const { currentColumn } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
   const { playing } = useSelector(state => state.gameState)
 
@@ -72,11 +67,14 @@ const Key = ({ keyValue }) => {
   return (
     <button
       id={`${keyValue}-key`}
-      className={isEnterOrClear(keyValue) ? 'key key-large' : 'key'}
+      className='short:h-12 xshort:h-10 xshort:w-10 xxshort:h-8 xxshort:w-8 mx-0.5 flex h-14 cursor-pointer select-none items-center justify-center rounded bg-slate-200 text-xs font-bold hover:bg-slate-300 active:bg-slate-400 dark:bg-slate-600 dark:text-white'
       onClick={() => handleKeyPress(keyValue)}
-      style={{ backgroundColor: getKeyBackgroundColor(keyValue) }}
+      style={{
+        backgroundColor: getKeyBackgroundColor(keyValue),
+        width: isEnterOrClear(keyValue) ? '77px' : '55px'
+      }}
     >
-      <p className='key-text'>{keyValue}</p>
+      <p className='text-lightgray-500 font-bold uppercase'>{keyValue}</p>
     </button>
   )
 }

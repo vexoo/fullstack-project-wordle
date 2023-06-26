@@ -1,14 +1,13 @@
 import '../../styles/Header/Header.css'
 import '../../styles/colors.css'
 
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Modal } from '@mui/material'
-
-import Login from '../Login'
-import SignUp from '../SignUp'
-import Stats from '../Stats'
+import { SettingsModal } from './SettingsModal'
+import { LoginModal } from './LoginModal'
+import { SignUpModal } from './SignUpModal'
+import { setLocalTheme, getLocalTheme } from '../../util/localStorageHelper'
 import { onClose } from '../../reducers/modalReducer'
-import UserInfo from '../UserInfo'
 
 const Modals = () => {
   const dispatch = useDispatch()
@@ -20,10 +19,43 @@ const Modals = () => {
     isSignUpModalOpen,
     isUserModalOpen
   } = useSelector(state => state.modals)
+  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  const [isDarkMode, setIsDarkMode] = useState(
+    getLocalTheme() ? getLocalTheme() === 'dark' : prefersDarkMode ? true : false
+  )
+
+  const handleDarkMode = isDark => {
+    setIsDarkMode(isDark)
+    setLocalTheme(isDark ? 'dark' : 'light')
+  }
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDarkMode])
 
   return (
     <div>
-      {/* Help Modal */}
+      <SettingsModal
+        isOpen={isSettingsModalOpen}
+        handleClose={() => dispatch(onClose())}
+        isDarkMode={isDarkMode}
+        handleDarkMode={handleDarkMode}
+      />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        handleClose={() => dispatch(onClose())}
+      />
+
+      <SignUpModal
+        isOpen={isSignUpModalOpen}
+        handleClose={() => dispatch(onClose())}
+      />
+
+      {/* Help Modal 
       <Modal
         open={isHelpModalOpen}
         onClose={() => dispatch(onClose())}
@@ -31,8 +63,9 @@ const Modals = () => {
       >
         <div>Help Modal Content</div>
       </Modal>
+*/}
 
-      {/* Settings Modal */}
+      {/* Settings Modal 
       <Modal
         open={isSettingsModalOpen}
         onClose={() => dispatch(onClose())}
@@ -40,8 +73,8 @@ const Modals = () => {
       >
         <div>Settings Modal Content</div>
       </Modal>
-
-      {/* Stats Modal */}
+*/}
+      {/* Stats Modal 
       <Modal
         open={isStatsModalOpen}
         onClose={() => dispatch(onClose())}
@@ -51,8 +84,8 @@ const Modals = () => {
           <Stats />
         </div>
       </Modal>
-
-      {/* Login Modal */}
+*/}
+      {/* Login Modal 
       <Modal
         open={isLoginModalOpen}
         onClose={() => dispatch(onClose())}
@@ -62,8 +95,8 @@ const Modals = () => {
           <Login />
         </div>
       </Modal>
-
-      {/* Signup Modal */}
+*/}
+      {/* Signup Modal
       <Modal
         open={isSignUpModalOpen}
         onClose={() => dispatch(onClose())}
@@ -73,8 +106,8 @@ const Modals = () => {
           <SignUp />
         </div>
       </Modal>
-
-      {/* User Modal */}
+ */}
+      {/* User Modal 
       <Modal
         open={isUserModalOpen}
         onClose={() => dispatch(onClose())}
@@ -83,15 +116,9 @@ const Modals = () => {
         <div>
           <UserInfo />
         </div>
-      </Modal>
+      </Modal>*/}
     </div>
   )
 }
 
 export default Modals
-
-const modalStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-}

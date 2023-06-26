@@ -1,7 +1,8 @@
 const localStorage = {
   dailyWord: 'wordleClone-dailyWord',
   wordleBoard: 'wordleClone-board',
-  loggedUser: 'wordleClone-loggedUser'
+  loggedUser: 'wordleClone-loggedUser',
+  theme: 'wordleClone-theme'
 }
 
 export const getLocalDailyWord = () => {
@@ -40,4 +41,18 @@ export const setLocalLoggedUser = user => {
 
 export const removeLocalLoggedUser = () => {
   window.localStorage.removeItem(localStorage.loggedUser)
+}
+
+export const getLocalTheme = () => {
+  const themeJSON = window.localStorage.getItem(localStorage.theme)
+  return JSON.parse(themeJSON)
+}
+
+export const setLocalTheme = theme => {
+  const themeJSON = JSON.stringify(theme)
+  window.localStorage.setItem(localStorage.theme, themeJSON)
+}
+
+export const removeLocalTheme = () => {
+  window.localStorage.removeItem(localStorage.theme)
 }

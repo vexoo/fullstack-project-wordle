@@ -57,7 +57,6 @@ const SignUp = () => {
       setUsername={setUsername}
       setPassword={setPassword}
       buttonText={'Sign up'}
-      titleText={'Create an account'}
     />
   )
 }

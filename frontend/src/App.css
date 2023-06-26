@@ -1,14 +1,3 @@
-@import 'styles/colors.css';
-
-html {
-  background-color: var(--black);
-  color: var(--white);
-}
-
-.container {
-	background-color: var(--black);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+html.dark {
+  background-color: rgb(18, 18, 20);
 }
