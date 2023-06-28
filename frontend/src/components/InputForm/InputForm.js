@@ -1,4 +1,3 @@
-import '../../styles/Header/Header.css'
 import { TextField, Button } from '@mui/material'
 
 const InputForm = ({
@@ -37,10 +36,6 @@ const InputForm = ({
       </form>
     </div>
   )
-}
-
-const colorStyle = {
-
 }
 
 export default InputForm

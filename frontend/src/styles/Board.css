@@ -1,4 +1,4 @@
-@import '../colors.css';
+@import './colors.css';
 
 .board {
   align-self: stretch;
@@ -24,19 +24,19 @@
 }
 
 .cell-green {
-	background-color: var(--green);
+  background-color: var(--green);
 }
 
 .cell-orange {
-	background-color: var(--orange);
+  background-color: var(--orange);
 }
 
 .cell-darkgrey {
-	background-color: var(--darkgrey)
+  background-color: var(--darkgrey);
 }
 
 .cell-text {
   font-weight: bold;
   font-size: 30px;
-	text-transform: uppercase;
+  text-transform: uppercase;
 }

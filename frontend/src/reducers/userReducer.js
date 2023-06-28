@@ -4,7 +4,11 @@ import { onClose } from './modalReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import userService from '../services/user'
 import logoutService from '../services/logout'
-import { removeLocalLoggedUser } from '../util/localStorageHelper'
+import {
+  getLocalLoggedUser,
+  removeLocalLoggedUser,
+  setLocalLoggedUser
+} from '../util/localStorageHelper'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -49,24 +53,34 @@ export const { setUser, clearUser, setUsername, setWinStats, setLossStats } =
 
 const updateStats = state => {
   if (state) {
-    const { username, played, won, currStreak, maxStreak, guessDistribution } = state
-    const stats = {
-      played,
-      won,
-      currStreak,
-      maxStreak,
-      guessDistribution
+    try {
+      const { username, played, won, currStreak, maxStreak, guessDistribution } =
+        state
+      const stats = {
+        played,
+        won,
+        currStreak,
+        maxStreak,
+        guessDistribution
+      }
+      const updatedUser = { ...getLocalLoggedUser(), ...stats }
+      userService.updateStats(username, stats)
+      setLocalLoggedUser(updatedUser)
+    } catch (e) {
+      console.log(e)
     }
-    userService.updateStats(username, stats)
   }
 }
 
 export const changeUsername = newUsername => {
   return async (dispatch, getState) => {
     const { user } = getState()
+    console.log(user)
     try {
       await userService.updateUsername(user.username, newUsername)
       dispatch(setUsername(newUsername))
+      const updatedUser = { ...user, username: newUsername }
+      setLocalLoggedUser(updatedUser)
     } catch (e) {
       console.log(e)
     }

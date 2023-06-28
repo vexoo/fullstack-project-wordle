@@ -1,6 +1,3 @@
-import '../../styles/Header/Header.css'
-import '../../styles/colors.css'
-
 import {
   ChartBarIcon,
   CogIcon,
@@ -22,8 +19,6 @@ import { removeLocalLoggedUser } from '../../util/localStorageHelper'
 
 const Header = () => {
   const dispatch = useDispatch()
-
-  const user = useSelector(state => state.user)
   const isUserSet = useSelector(isUserSetSelector)
 
   const handleLogout = async () => {
@@ -36,17 +31,15 @@ const Header = () => {
     }
   }
 
-  const handleClick = () => {
-    console.log(user)
-    console.log(isUserSet)
-  }
-
   return (
     <div className='navbar'>
       <div className='navbar-content short:h-auto px-5'>
         <div className='flex'>
           <InformationCircleIcon className='h-6 w-6 cursor-pointer dark:stroke-white' />
-          <ChartBarIcon className='ml-3 mr-3 h-6 w-6 cursor-pointer dark:stroke-white' />
+          <ChartBarIcon
+            className='ml-3 mr-3 h-6 w-6 cursor-pointer dark:stroke-white'
+            onClick={() => dispatch(setStatsModalOpen())}
+          />
           <CogIcon
             className='h-6 w-6 cursor-pointer dark:stroke-white'
             onClick={() => dispatch(setSettingsModalOpen())}
@@ -55,7 +48,10 @@ const Header = () => {
         <p className='text-3xl font-bold dark:text-white'>W O R D L E</p>
         {isUserSet ? (
           <div className='right-icons'>
-            <UserIcon className='mr-3 h-6 w-6 cursor-pointer dark:stroke-white' />
+            <UserIcon
+              className='mr-3 h-6 w-6 cursor-pointer dark:stroke-white'
+              onClick={() => dispatch(setUserModalOpen())}
+            />
             <button
               className='text-x2 font-bold dark:text-white'
               onClick={handleLogout}

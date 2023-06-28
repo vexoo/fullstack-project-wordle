@@ -1,7 +1,7 @@
-import { BaseModal } from './BaseModal'
-import Login from '../Login'
+import BaseModal from '../BaseModal/BaseModal'
+import Login from '../../Login'
 
-export const LoginModal = ({ isOpen, handleClose }) => {
+const LoginModal = ({ isOpen, handleClose }) => {
   return (
     <BaseModal title='Login' isOpen={isOpen} handleClose={handleClose}>
       <div className='mt-2 flex flex-col divide-y'>
@@ -10,3 +10,5 @@ export const LoginModal = ({ isOpen, handleClose }) => {
     </BaseModal>
   )
 }
+
+export default LoginModal

@@ -1,12 +1,9 @@
-import '../../styles/Header/Header.css'
-import '../../styles/colors.css'
-
-import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SettingsModal } from './SettingsModal'
-import { LoginModal } from './LoginModal'
-import { SignUpModal } from './SignUpModal'
-import { setLocalTheme, getLocalTheme } from '../../util/localStorageHelper'
+import SettingsModal from './SettingsModal'
+import LoginModal from './LoginModal'
+import SignUpModal from './SignUpModal'
+import UserModal from './UserModal'
+import StatsModal from './StatsModal'
 import { onClose } from '../../reducers/modalReducer'
 
 const Modals = () => {
@@ -19,31 +16,12 @@ const Modals = () => {
     isSignUpModalOpen,
     isUserModalOpen
   } = useSelector(state => state.modals)
-  const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-  const [isDarkMode, setIsDarkMode] = useState(
-    getLocalTheme() ? getLocalTheme() === 'dark' : prefersDarkMode ? true : false
-  )
-
-  const handleDarkMode = isDark => {
-    setIsDarkMode(isDark)
-    setLocalTheme(isDark ? 'dark' : 'light')
-  }
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [isDarkMode])
 
   return (
     <div>
       <SettingsModal
         isOpen={isSettingsModalOpen}
         handleClose={() => dispatch(onClose())}
-        isDarkMode={isDarkMode}
-        handleDarkMode={handleDarkMode}
       />
       <LoginModal
         isOpen={isLoginModalOpen}
@@ -52,6 +30,13 @@ const Modals = () => {
 
       <SignUpModal
         isOpen={isSignUpModalOpen}
+        handleClose={() => dispatch(onClose())}
+      />
+
+      <UserModal isOpen={isUserModalOpen} handleClose={() => dispatch(onClose())} />
+
+      <StatsModal
+        isOpen={isStatsModalOpen}
         handleClose={() => dispatch(onClose())}
       />
 

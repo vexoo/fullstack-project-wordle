@@ -1,8 +1,7 @@
-import '../../styles/Header/Header.css'
-import '../../styles/Modal/Modal.css'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { TextField, Button, Typography } from '@mui/material'
+import { TextField } from '@mui/material'
+import Button from '../Button'
 import { changeUsername, deleteUser } from '../../reducers/userReducer'
 
 const UserInfo = () => {
@@ -27,49 +26,49 @@ const UserInfo = () => {
   }
 
   return (
-    <div className='modal'>
-      <h1>Account Information</h1>
-      <div className='user-info-container'>
-        <Typography variant='body1'>
-          <strong>Username: </strong> {user.username}
-        </Typography>
+    <div className='mt-2 flex flex-col divide-y'>
+      <div className='flex justify-between gap-4 py-10'>
+        <div className=' ml-10 text-left text-gray-500 dark:text-gray-300'>
+          <p className='text-lg leading-none'>
+            <strong>Username: </strong>
+          </p>
+        </div>
+        <div className=' mr-10 text-left text-gray-500 dark:text-gray-300'>
+          <p className='text-lg leading-none'>{user.username}</p>
+        </div>
+      </div>
+      <div className='flex justify-between gap-4 py-3'>
         {isEditingUsername ? (
-          <form onSubmit={handleUsernameUpdate}>
+          <Button onClick={() => setIsEditingUsername(false)} text={'cancel'} />
+        ) : (
+          <Button
+            onClick={() => setIsEditingUsername(true)}
+            text={'change username'}
+          />
+        )}
+        <Button
+          onClick={() => handleDelete()}
+          className={'bg-red-600'}
+          text={'delete account'}
+        />
+      </div>
+
+      <div className='flex justify-between gap-4 py-3'>
+        {isEditingUsername ? (
+          <form className='flex items-center' onSubmit={handleUsernameUpdate}>
             <div>
               <TextField
-                label='New Username'
-                value={newUsername}
+                className='bg-white'
+                label='new username'
+                variant='filled'
                 onChange={({ target }) => setNewUsername(target.value)}
               />
             </div>
-            <div>
-              <Button
-                className='user-info-buttons'
-                variant='contained'
-                type='submit'
-              >
-                Save Username
-              </Button>
-              <Button
-                variant='contained'
-                onClick={() => setIsEditingUsername(false)}
-              >
-                Cancel
-              </Button>
+            <div className='mt-5'>
+              <Button className={'mb-3 ml-3'} text={'save'} type='submit' />
             </div>
           </form>
-        ) : (
-          <div>
-            <Button variant='contained' onClick={() => setIsEditingUsername(true)}>
-              Change Username
-            </Button>
-          </div>
-        )}
-      </div>
-      <div style={{ marginRight: '215px', marginTop: 'auto', marginBottom: '25px' }}>
-        <Button variant='contained' color='secondary' onClick={handleDelete}>
-          Delete Account
-        </Button>
+        ) : null}
       </div>
     </div>
   )

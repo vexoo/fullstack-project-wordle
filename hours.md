@@ -22,12 +22,7 @@
 | 21.6 | 6 | Change reducer and local storage structure a little. Implement saving stats to backend after game ends |
 | 25.6 | 5 | modal for changing username and deleting account |
 | 26.6 | 6 | losing my mind on a bug on some combination of keyboard listener / enter handler / word service. Kind of ugly band-aid implemented to prevent additional enter inputs. Small write up about it in boardReducer.js |
-| 26.6 | 10 | Not satisfied with using Material UI for header. Fixing modals with it proved too annoying for me. Create a new header, refactor the application to use Tailwind for CSS and remove most of Material UI aside from a few uses in InputForm.js where it works fine. Create a base for modals, implement settings modal and add an option for dark/light mode toggle using Tailwind. Application has quite a few unused files now. Cleanup needed |
+| 26.6 | 10 | Not satisfied with using Material UI for header. Fixing modals with it proved too annoying for me. Create a new header, refactor the application to use Tailwind for CSS and remove most of Material UI aside from a few uses in InputForm.js where it works fine. Create a base for modals, implement settings modal and add an option for dark/light mode toggle using Tailwind |
+| 27.6 | 9 | Notification component and its redux state, stats modal, fiddle with colors |
 | :----:|:-----| :-----|
-| total | 87 ||
-
-
-//todo -
-figure out saving board state until word resets,
-notification,
-help, stats, setting, user modals
+| total | 96 ||

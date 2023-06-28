@@ -1,5 +1,3 @@
-import '../../styles/colors.css'
-
 import { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -41,10 +39,10 @@ const Key = ({ keyValue }) => {
   }
 
   const getKeyBackgroundColor = key => {
-    if (greenKeys.has(key)) return 'var(--green)'
-    if (orangeKeys.has(key)) return 'var(--orange)'
-    if (greyKeys.has(key)) return 'var(--darkgrey)'
-    return 'var(--grey)'
+    if (greenKeys.has(key)) return 'bg-[#538d4e]'
+    if (orangeKeys.has(key)) return 'bg-[#b59f3b]'
+    if (greyKeys.has(key)) return 'bg-zinc-600 dark:bg-zinc-700'
+    return ' shadowed bg-slate-400 dark:bg-gray-500'
   }
 
   useEffect(() => {
@@ -52,7 +50,6 @@ const Key = ({ keyValue }) => {
       if (event.repeat || !playing || isModalOpen) return
 
       const key = event.key.toLowerCase()
-      console.log(key)
       if (key === 'enter') return handleEnter()
       if (key === 'backspace') return handleClear()
       if (key.length === 1 && key >= 'a' && key <= 'z') return handleLetter(key)
@@ -63,14 +60,13 @@ const Key = ({ keyValue }) => {
       window.removeEventListener('keydown', listener)
     }
   })
-
   return (
     <button
       id={`${keyValue}-key`}
-      className='short:h-12 xshort:h-10 xshort:w-10 xxshort:h-8 xxshort:w-8 mx-0.5 flex h-14 cursor-pointer select-none items-center justify-center rounded bg-slate-200 text-xs font-bold hover:bg-slate-300 active:bg-slate-400 dark:bg-slate-600 dark:text-white'
+      className={`short:h-12 xshort:h-10 xshort:w-10 xxshort:h-8 xxshort:w-8 mx-0.5 flex h-14 cursor-pointer select-none items-center justify-center rounded text-xs font-bold dark:text-white
+			${getKeyBackgroundColor(keyValue)}`}
       onClick={() => handleKeyPress(keyValue)}
       style={{
-        backgroundColor: getKeyBackgroundColor(keyValue),
         width: isEnterOrClear(keyValue) ? '77px' : '55px'
       }}
     >
