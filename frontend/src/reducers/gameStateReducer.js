@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { setWinStats } from './userReducer'
+import { setWinStats, setLossStats } from './userReducer'
+import { setNotification } from './notificationReducer'
+import { setLocalGameState, getLocalDailyWord } from '../util/localStorageHelper'
+import { setStatsModalOpen } from './modalReducer'
 
 export const gameStateSlice = createSlice({
   name: 'gameState',
@@ -11,17 +14,43 @@ export const gameStateSlice = createSlice({
     setWon(state, action) {
       state.playing = false
       state.won = true
+      setLocalGameState('won')
     },
     setLost(state, action) {
       state.playing = false
       state.won = false
+      setLocalGameState('lost')
     },
     setPlaying(state, action) {
       state.won = false
       state.playing = true
+      setLocalGameState('playing')
     }
   }
 })
 
+export const handleWin = () => {
+  return (dispatch, getState) => {
+    const { currentRow } = getState().board
+    console.log(currentRow)
+    dispatch(setWon())
+    dispatch(setWinStats(currentRow - 1))
+    dispatch(setNotification('Well done', 3))
+    setTimeout(() => {
+      dispatch(setStatsModalOpen())
+    }, 3000)
+  }
+}
+
+export const handleLoss = () => {
+  return dispatch => {
+    dispatch(setLost())
+    dispatch(setLossStats())
+    dispatch(setNotification(getLocalDailyWord(), 3, true))
+    setTimeout(() => {
+      dispatch(setStatsModalOpen())
+    }, 3000)
+  }
+}
 export const { setWon, setLost, setPlaying } = gameStateSlice.actions
 export default gameStateSlice.reducer

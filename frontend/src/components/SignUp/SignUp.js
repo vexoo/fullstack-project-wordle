@@ -1,4 +1,3 @@
-import '../../styles/Header/Header.css'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -29,6 +28,7 @@ const SignUp = () => {
         username,
         password
       })
+      console.log(newUser)
       setLocalLoggedUser(user)
       setToken(user.token)
       dispatch(setUser(user))
@@ -57,7 +57,6 @@ const SignUp = () => {
       setUsername={setUsername}
       setPassword={setPassword}
       buttonText={'Sign up'}
-      titleText={'Create an account'}
     />
   )
 }

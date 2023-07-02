@@ -1,23 +1,16 @@
-import '../../styles/Keyboard/Keyboard.css'
-import '../../styles/colors.css'
+import { useContext, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { useContext, useEffect, useState } from 'react'
-import { wordLength } from '../../util/config'
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
-import { isEnterOrClear, copyArray, joinWord } from '../../util/helpers'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  letterPress,
-  clearPress,
-
-  enterHandler
-} from '../../reducers/boardReducer'
+import { clearPress, enterHandler, letterPress } from '../../reducers/boardReducer'
 import { isAnyModalOpen } from '../../reducers/modalReducer'
+import { wordLength } from '../../util/config'
+import { isEnterOrClear } from '../../util/helpers'
 
 const Key = ({ keyValue }) => {
   const dispatch = useDispatch()
   const isModalOpen = useSelector(isAnyModalOpen)
-  const { board, currentRow, currentColumn } = useSelector(state => state.board)
+  const { currentColumn } = useSelector(state => state.board)
   const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
   const { playing } = useSelector(state => state.gameState)
 
@@ -46,10 +39,10 @@ const Key = ({ keyValue }) => {
   }
 
   const getKeyBackgroundColor = key => {
-    if (greenKeys.has(key)) return 'var(--green)'
-    if (orangeKeys.has(key)) return 'var(--orange)'
-    if (greyKeys.has(key)) return 'var(--darkgrey)'
-    return 'var(--grey)'
+    if (greenKeys.has(key)) return 'bg-[#538d4e]'
+    if (orangeKeys.has(key)) return 'bg-[#b59f3b]'
+    if (greyKeys.has(key)) return 'bg-zinc-600 dark:bg-zinc-700'
+    return ' shadowed bg-slate-400 dark:bg-gray-500'
   }
 
   useEffect(() => {
@@ -57,7 +50,6 @@ const Key = ({ keyValue }) => {
       if (event.repeat || !playing || isModalOpen) return
 
       const key = event.key.toLowerCase()
-      console.log(key)
       if (key === 'enter') return handleEnter()
       if (key === 'backspace') return handleClear()
       if (key.length === 1 && key >= 'a' && key <= 'z') return handleLetter(key)
@@ -68,15 +60,17 @@ const Key = ({ keyValue }) => {
       window.removeEventListener('keydown', listener)
     }
   })
-
   return (
     <button
       id={`${keyValue}-key`}
-      className={isEnterOrClear(keyValue) ? 'key key-large' : 'key'}
+      className={`short:h-12 xshort:h-10 xshort:w-10 xxshort:h-8 xxshort:w-8 mx-0.5 flex h-14 cursor-pointer select-none items-center justify-center rounded text-xs font-bold dark:text-white
+			${getKeyBackgroundColor(keyValue)}`}
       onClick={() => handleKeyPress(keyValue)}
-      style={{ backgroundColor: getKeyBackgroundColor(keyValue) }}
+      style={{
+        width: isEnterOrClear(keyValue) ? '77px' : '55px'
+      }}
     >
-      <p className='key-text'>{keyValue}</p>
+      <p className='text-lightgray-500 font-bold uppercase'>{keyValue}</p>
     </button>
   )
 }

@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dark {
+  --default-cell-bg-color: theme('colors.slate.900');
+  --default-cell-border-color: theme('colors.white');
+  --default-cell-text-color: theme('colors.white');
+}
+
+svg.cursor-pointer {
+  transition: all var(--animation-speed-fast);
+}
+
+svg.cursor-pointer:hover {
+  transform: scale(1.2);
+}
+
+.navbar {
+  margin-bottom: 2%;
+}
+
+.navbar-content {
+  display: flex;
+  height: 4rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.right-icons {
+  display: flex;
+}

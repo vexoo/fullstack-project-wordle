@@ -1,14 +1,11 @@
-import '../../styles/Header/Header.css'
-import '../../styles/colors.css'
-
 import { useSelector, useDispatch } from 'react-redux'
-import { Modal } from '@mui/material'
-
-import Login from '../Login'
-import SignUp from '../SignUp'
-import Stats from '../Stats'
+import SettingsModal from './SettingsModal'
+import LoginModal from './LoginModal'
+import SignUpModal from './SignUpModal'
+import UserModal from './UserModal'
+import StatsModal from './StatsModal'
+import HelpModal from './HelpModal'
 import { onClose } from '../../reducers/modalReducer'
-import UserInfo from '../UserInfo'
 
 const Modals = () => {
   const dispatch = useDispatch()
@@ -23,75 +20,30 @@ const Modals = () => {
 
   return (
     <div>
-      {/* Help Modal */}
-      <Modal
-        open={isHelpModalOpen}
-        onClose={() => dispatch(onClose())}
-        sx={modalStyle}
-      >
-        <div>Help Modal Content</div>
-      </Modal>
+      <SettingsModal
+        isOpen={isSettingsModalOpen}
+        handleClose={() => dispatch(onClose())}
+      />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        handleClose={() => dispatch(onClose())}
+      />
 
-      {/* Settings Modal */}
-      <Modal
-        open={isSettingsModalOpen}
-        onClose={() => dispatch(onClose())}
-        sx={modalStyle}
-      >
-        <div>Settings Modal Content</div>
-      </Modal>
+      <SignUpModal
+        isOpen={isSignUpModalOpen}
+        handleClose={() => dispatch(onClose())}
+      />
 
-      {/* Stats Modal */}
-      <Modal
-        open={isStatsModalOpen}
-        onClose={() => dispatch(onClose())}
-        sx={modalStyle}
-      >
-        <div>
-          <Stats />
-        </div>
-      </Modal>
+      <UserModal isOpen={isUserModalOpen} handleClose={() => dispatch(onClose())} />
 
-      {/* Login Modal */}
-      <Modal
-        open={isLoginModalOpen}
-        onClose={() => dispatch(onClose())}
-        sx={modalStyle}
-      >
-        <div>
-          <Login />
-        </div>
-      </Modal>
+      <StatsModal
+        isOpen={isStatsModalOpen}
+        handleClose={() => dispatch(onClose())}
+      />
 
-      {/* Signup Modal */}
-      <Modal
-        open={isSignUpModalOpen}
-        onClose={() => dispatch(onClose())}
-        sx={modalStyle}
-      >
-        <div>
-          <SignUp />
-        </div>
-      </Modal>
-
-      {/* User Modal */}
-      <Modal
-        open={isUserModalOpen}
-        onClose={() => dispatch(onClose())}
-        sx={modalStyle}
-      >
-        <div>
-          <UserInfo />
-        </div>
-      </Modal>
+      <HelpModal isOpen={isHelpModalOpen} handleClose={() => dispatch(onClose())} />
     </div>
   )
 }
 
 export default Modals
-
-const modalStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-}

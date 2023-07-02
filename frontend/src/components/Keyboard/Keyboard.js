@@ -1,13 +1,11 @@
-import '../../styles/Keyboard/Keyboard.css'
-
-import Key from './Key'
 import { keys } from '../../util/config'
+import Key from './Key'
 
 const Keyboard = () => {
   return (
-    <div className='keyboard' id='keyboard'>
+    <div className="mt-16 flex flex-col items-center" id="keyboard">
       {keys.map((keyRow, i) => (
-        <div className='key-row' key={`row-${i}`}>
+        <div className="mb-1 flex justify-center" key={`row-${i}`}>
           {keyRow.map((keyValue, j) => (
             <Key keyValue={keyValue} key={`cell-${i}-${j}`} />
           ))}

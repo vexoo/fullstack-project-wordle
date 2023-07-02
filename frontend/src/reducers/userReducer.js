@@ -1,10 +1,12 @@
-import { createSlice, current } from '@reduxjs/toolkit'
-import { setLost, setWon } from './gameStateReducer'
+import { createSlice } from '@reduxjs/toolkit'
 import { onClose } from './modalReducer'
-import { useDispatch, useSelector } from 'react-redux'
 import userService from '../services/user'
 import logoutService from '../services/logout'
-import { removeLocalLoggedUser } from '../util/localStorageHelper'
+import {
+  getLocalLoggedUser,
+  removeLocalLoggedUser,
+  setLocalLoggedUser
+} from '../util/localStorageHelper'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -22,14 +24,14 @@ export const userSlice = createSlice({
       }
     },
     setWinStats: (state, action) => {
-      const currentRow = action.payload
+      const winningRow = action.payload
       if (state) {
         state.played += 1
         state.won += 1
         state.currStreak += 1
         state.maxStreak = Math.max(state.currStreak, state.maxStreak)
         state.guessDistribution = state.guessDistribution.map((value, index) =>
-          index === currentRow ? value + 1 : value
+          index === winningRow ? value + 1 : value
         )
         updateStats(state)
       }
@@ -49,24 +51,34 @@ export const { setUser, clearUser, setUsername, setWinStats, setLossStats } =
 
 const updateStats = state => {
   if (state) {
-    const { username, played, won, currStreak, maxStreak, guessDistribution } = state
-    const stats = {
-      played,
-      won,
-      currStreak,
-      maxStreak,
-      guessDistribution
+    try {
+      const { username, played, won, currStreak, maxStreak, guessDistribution } =
+        state
+      const stats = {
+        played,
+        won,
+        currStreak,
+        maxStreak,
+        guessDistribution
+      }
+      const updatedUser = { ...getLocalLoggedUser(), ...stats }
+      userService.updateStats(username, stats)
+      setLocalLoggedUser(updatedUser)
+    } catch (e) {
+      console.log(e)
     }
-    userService.updateStats(username, stats)
   }
 }
 
 export const changeUsername = newUsername => {
   return async (dispatch, getState) => {
     const { user } = getState()
+    console.log(user)
     try {
       await userService.updateUsername(user.username, newUsername)
       dispatch(setUsername(newUsername))
+      const updatedUser = { ...user, username: newUsername }
+      setLocalLoggedUser(updatedUser)
     } catch (e) {
       console.log(e)
     }
