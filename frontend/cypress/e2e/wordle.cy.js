@@ -5,7 +5,7 @@ describe('Wordle app', function () {
     cy.visit('http://localhost:3001')
   })
   it('main page can be opened', function () {
-    cy.contains('Wordle')
+    cy.contains('wordle')
   })
   it('letter keys function', function () {
     cy.get('#p-key').click()
