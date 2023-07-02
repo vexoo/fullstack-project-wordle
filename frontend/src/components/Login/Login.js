@@ -7,6 +7,7 @@ import { setToken } from '../../util/config'
 import { setLocalLoggedUser } from '../../util/localStorageHelper'
 import { setUser } from '../../reducers/userReducer'
 import { onClose } from '../../reducers/modalReducer'
+import { setNotification } from '../../reducers/notificationReducer'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -29,12 +30,9 @@ const Login = () => {
       setUsername('')
       setPassword('')
       dispatch(onClose())
-    } catch (exception) {
-      //setErrorMessage('Wrong credentials')
-      console.log(exception)
-      /*setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)*/
+      dispatch(setNotification('Logged in', 3))
+    } catch (e) {
+      dispatch(setNotification(e.response.data.error, 3, true))
     }
   }
 

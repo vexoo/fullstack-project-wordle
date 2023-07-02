@@ -8,6 +8,7 @@ import { setToken } from '../../util/config'
 import { setLocalLoggedUser } from '../../util/localStorageHelper'
 import { setUser } from '../../reducers/userReducer'
 import { onClose } from '../../reducers/modalReducer'
+import { setNotification } from '../../reducers/notificationReducer'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -35,12 +36,9 @@ const SignUp = () => {
       setUsername('')
       setPassword('')
       dispatch(onClose())
+      dispatch(setNotification('Account created, logged in', 3))
     } catch (e) {
-      //setErrorMessage('Wrong credentials')
-      console.log(e)
-      /*setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)*/
+      dispatch(setNotification(e.response.data.error, 3, true))
     }
   }
 

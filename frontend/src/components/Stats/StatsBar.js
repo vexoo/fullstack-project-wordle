@@ -9,7 +9,7 @@ const StatisticItem = ({ label, value }) => {
   )
 }
 
-const StatBar = () => {
+const StatsBar = () => {
   const user = useSelector(state => state.user)
 
   const calculateWinPercentage = () => {
@@ -27,4 +27,4 @@ const StatBar = () => {
   )
 }
 
-export default StatBar
+export default StatsBar
