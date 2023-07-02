@@ -6,14 +6,15 @@ import { useDispatch } from 'react-redux'
 
 import Board from './components/Board'
 import Keyboard from './components/Keyboard'
-import wordService from './services/words'
-import sessionService from './services/session'
 import Modals from './components/Modals/'
 import Notification from './components/Notification'
 import Header from './components/Header'
 
 import { setUser } from './reducers/userReducer'
 import { setBoard } from './reducers/boardReducer'
+
+import wordService from './services/words'
+import sessionService from './services/session'
 
 import { setToken } from './util/config'
 
@@ -27,8 +28,6 @@ import {
   getLocalGameState,
   setLocalGameState
 } from './util/localStorageHelper'
-
-import { setNotification } from './reducers/notificationReducer'
 import { setLost, setPlaying, setWon } from './reducers/gameStateReducer'
 
 const App = () => {
@@ -89,6 +88,7 @@ const App = () => {
         setLocalGameState('playing')
       }
     }
+    // eslint-disable-next-line
   }, [])
 
   if (!word) return <div>loading</div>

@@ -21,7 +21,7 @@ const BaseModal = ({ title, children, isOpen, handleClose }) => {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Dialog.Overlay className='fixed inset-0 min-h-screen bg-gray-500 bg-opacity-75 transition-opacity' />
+            <Dialog.Overlay className='fixed inset-0 min-h-screen bg-gray-800 bg-opacity-75 transition-opacity' />
           </Transition.Child>
           <Transition.Child
             as={Fragment}

@@ -28,6 +28,7 @@ const SignUp = () => {
         username,
         password
       })
+      console.log(newUser)
       setLocalLoggedUser(user)
       setToken(user.token)
       dispatch(setUser(user))

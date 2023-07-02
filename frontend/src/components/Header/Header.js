@@ -35,7 +35,10 @@ const Header = () => {
     <div className='navbar'>
       <div className='navbar-content short:h-auto px-5'>
         <div className='flex'>
-          <InformationCircleIcon className='h-6 w-6 cursor-pointer dark:stroke-white' />
+          <InformationCircleIcon
+            className='h-6 w-6 cursor-pointer dark:stroke-white'
+            onClick={() => dispatch(setHelpModalOpen())}
+          />
           <ChartBarIcon
             className='ml-3 mr-3 h-6 w-6 cursor-pointer dark:stroke-white'
             onClick={() => dispatch(setStatsModalOpen())}

@@ -27,7 +27,7 @@ const Notification = () => {
 				text-white shadow-lg ring-1 ring-black ring-opacity-5`}
       >
         <div className='p-2'>
-          <p className='text-1x text-center font-normal'>{message}</p>
+          <p className='text-1x text-center font-normal uppercase'>{message}</p>
         </div>
       </div>
     </Transition>

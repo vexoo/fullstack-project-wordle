@@ -3,7 +3,6 @@ import { tryAmount, wordLength } from '../util/config'
 import { joinWord } from '../util/helpers'
 import { setLocalWordleBoard } from '../util/localStorageHelper'
 import wordService from '../services/words'
-import { checkWord } from '../util/helpers'
 import { setNotification } from './notificationReducer'
 /*
 		Note about enterEnabled:
@@ -14,7 +13,7 @@ import { setNotification } from './notificationReducer'
 		Whether that's the cause of the issue I'm not sure, but what happens is that pressing Enter (on your own physical keyboard specifically, not clicking the on-screen one) 
 		causes some sort of loop that fills the entire board with empty cells and then crashes.
 
-		The three ways that I've found to stop it from happening are removing the await keyword from line 70 in this file, which then breaks the functionality of checking whether the word exists as
+		The three ways that I've found to stop it from happening are removing the await keyword from line 76 in this file, which then breaks the functionality of checking whether the word exists as
 		then the function does not wait for the promise, or creating a state that prevents additional enter inputs which is what's currently implemented.
 		The last idea I had would be to move the entire wordlist to client side, which to me is clearly the cleanest solution of the three, but it feels kind of weird to do in a fullstack project
 
@@ -27,7 +26,6 @@ export const boardSlice = createSlice({
     board: Array.from({ length: tryAmount }, () => new Array(wordLength).fill('')),
     currentRow: 0,
     currentColumn: 0,
-
     enterEnabled: true
   },
   reducers: {

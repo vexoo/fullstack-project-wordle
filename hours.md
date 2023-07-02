@@ -24,5 +24,6 @@
 | 26.6 | 6 | losing my mind on a bug on some combination of keyboard listener / enter handler / word service. Kind of ugly band-aid implemented to prevent additional enter inputs. Small write up about it in boardReducer.js |
 | 26.6 | 10 | Not satisfied with using Material UI for header. Fixing modals with it proved too annoying for me. Create a new header, refactor the application to use Tailwind for CSS and remove most of Material UI aside from a few uses in InputForm.js where it works fine. Create a base for modals, implement settings modal and add an option for dark/light mode toggle using Tailwind |
 | 27.6 | 9 | Notification component and its redux state, stats modal, fiddle with colors |
+| 28.6 | 2 | Refactor how gamestate reducer is called, fix a few lints |
 | :----:|:-----| :-----|
-| total | 96 ||
+| total | 98 ||

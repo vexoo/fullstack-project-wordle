@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { KeyBoardColorContext } from '../../contexts/KeyboardColorContext'
-import { setLost, setWon } from '../../reducers/gameStateReducer'
-import { setLossStats, setWinStats } from '../../reducers/userReducer'
+import { handleLoss, handleWin } from '../../reducers/gameStateReducer'
+
 import { tryAmount } from '../../util/config'
 import { countOccurrences } from '../../util/helpers'
 
@@ -23,11 +23,9 @@ const Board = ({ word }) => {
 
   const checkGameState = () => {
     if (winCondition()) {
-      dispatch(setWon())
-      dispatch(setWinStats(currentRow - 1))
+      dispatch(handleWin())
     } else if (loseCondition()) {
-      dispatch(setLost())
-      dispatch(setLossStats())
+      dispatch(handleLoss())
     }
   }
 

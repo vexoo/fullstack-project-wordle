@@ -1,7 +1,5 @@
-import { createSlice, current } from '@reduxjs/toolkit'
-import { setLost, setWon } from './gameStateReducer'
+import { createSlice } from '@reduxjs/toolkit'
 import { onClose } from './modalReducer'
-import { useDispatch, useSelector } from 'react-redux'
 import userService from '../services/user'
 import logoutService from '../services/logout'
 import {
@@ -26,14 +24,14 @@ export const userSlice = createSlice({
       }
     },
     setWinStats: (state, action) => {
-      const currentRow = action.payload
+      const winningRow = action.payload
       if (state) {
         state.played += 1
         state.won += 1
         state.currStreak += 1
         state.maxStreak = Math.max(state.currStreak, state.maxStreak)
         state.guessDistribution = state.guessDistribution.map((value, index) =>
-          index === currentRow ? value + 1 : value
+          index === winningRow ? value + 1 : value
         )
         updateStats(state)
       }

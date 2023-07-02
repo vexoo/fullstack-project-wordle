@@ -29,22 +29,11 @@ export const modalSlice = createSlice({
     setUserModalOpen: state => {
       state.isUserModalOpen = true
     },
-		onClose: state => {
-			Object.keys(state).forEach(key => {
-				state[key] = false;
-			});
-		}
-
-		/*
     onClose: state => {
-      state.isHelpModalOpen = false
-      state.isSettingsModalOpen = false
-      state.isStatsModalOpen = false
-      state.isLoginModalOpen = false
-      state.isSignUpModalOpen = false
-      state.isUserModalOpen = false
+      Object.keys(state).forEach(key => {
+        state[key] = false
+      })
     }
-		*/
   }
 })
 
