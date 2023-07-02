@@ -26,5 +26,6 @@
 | 27.6 | 9 | Notification component and its redux state, stats modal, fiddle with colors |
 | 28.6 | 2 | Refactor how gamestate reducer is called, fix a few lints |
 | 2.7 | 7 | modals are complete, merge tailwind branch |
+| 2.7 | 6 | fix stats modal when user is not logged in, add render deployment to pipeline |
 | :----:|:-----| :-----|
-| total | 105 ||
+| total | 111 ||
