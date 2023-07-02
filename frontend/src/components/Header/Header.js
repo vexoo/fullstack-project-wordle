@@ -48,7 +48,9 @@ const Header = () => {
             onClick={() => dispatch(setSettingsModalOpen())}
           />
         </div>
-        <p className='text-3xl font-bold dark:text-white'>W O R D L E</p>
+        <p className='text-3xl font-bold uppercase tracking-widest dark:text-white'>
+          wordle
+        </p>
         {isUserSet ? (
           <div className='right-icons'>
             <UserIcon
