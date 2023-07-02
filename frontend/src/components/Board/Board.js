@@ -16,26 +16,22 @@ const Board = ({ word }) => {
   const letters = word.split('')
 
   useEffect(() => {
-    console.log(playing)
-    if (currentRow > 0 && playing) checkGameState()
-    // eslint-disable-next-line
-  }, [currentRow])
-
-  const checkGameState = () => {
-    if (winCondition()) {
-      dispatch(handleWin())
-    } else if (loseCondition()) {
-      dispatch(handleLoss())
+    const checkGameState = () => {
+      if (winCondition()) {
+        dispatch(handleWin())
+      } else if (loseCondition()) {
+        dispatch(handleLoss())
+      }
     }
-  }
+    const winCondition = () => {
+      return board[currentRow - 1].every((letter, i) => letter === letters[i])
+    }
+    const loseCondition = () => {
+      return currentRow === tryAmount
+    }
 
-  const winCondition = () => {
-    return board[currentRow - 1].every((letter, i) => letter === letters[i])
-  }
-
-  const loseCondition = () => {
-    return currentRow === tryAmount
-  }
+    if (currentRow > 0 && playing) checkGameState()
+  }, [currentRow])
 
   const handleBackgroundColor = (row, col) => {
     const letter = board[row][col]
