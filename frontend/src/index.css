@@ -2,10 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --animation-speed: 1000ms;
+  --animation-speed-fast: 250ms;
+  --default-cell-bg-color: theme('colors.white');
+  --default-cell-border-color: theme('colors.black');
+  --default-cell-text-color: theme('colors.black');
+  --gray-cell-bg-color: theme('colors.zinc.500');
+  --yellow-cell-bg-color: #b59f3b;
+  --green-cell-bg-color: #538d4e;
+}
+
 .dark {
   --default-cell-bg-color: theme('colors.slate.900');
   --default-cell-border-color: theme('colors.white');
   --default-cell-text-color: theme('colors.white');
+  --gray-cell-bg-color: theme('colors.zinc.700');
 }
 
 svg.cursor-pointer {
@@ -29,4 +41,68 @@ svg.cursor-pointer:hover {
 
 .right-icons {
   display: flex;
+}
+
+.cell-reveal {
+  animation-duration: 0.35s;
+  animation-timing-function: linear;
+  animation-fill-mode: backwards;
+}
+
+.cell-reveal.gray {
+  animation-name: flip;
+  --background: var(--gray-cell-bg-color);
+  --border-color: var(--gray-cell-bg-color);
+}
+
+.cell-reveal.yellow {
+  animation-name: flip;
+  --background: var(--yellow-cell-bg-color);
+  --border-color: var(--yellow-cell-bg-color);
+}
+
+.cell-reveal.green {
+  animation-name: flip;
+  --background: var(--green-cell-bg-color);
+  --border-color: var(--green-cell-bg-color);
+}
+
+.cell-fill {
+  animation: bounce 0.2s ease-in-out forwards;
+	animation-delay: 0;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0deg);
+    background-color: var(--default-cell-bg-color);
+    color: var(--default-cell-text-color);
+  }
+  45% {
+    transform: rotateX(90deg);
+    background-color: var(--default-cell-bg-color);
+    color: var(--default-cell-text-color);
+  }
+  55% {
+    transform: rotateX(90deg);
+    background-color: var(--background);
+    border-color: var(--background);
+  }
+  100% {
+    transform: rotateX(0deg);
+    background-color: var(--background);
+    border-color: var(--background);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

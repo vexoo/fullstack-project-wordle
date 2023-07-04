@@ -101,8 +101,9 @@ const App = () => {
         <div className='short:pb-2 flex grow flex-col justify-center pb-6'>
           <Board word={word} />
         </div>
-        <Keyboard />
-        <div className='short:pb-2 short:pt-2 mx-auto flex w-full grow flex-col px-1 pb-8 pt-2 sm:px-6 md:max-w-7xl lg:px-8'></div>
+        <div className='short:pb-2 short:pt-2 mx-auto flex w-full grow flex-col px-1 pb-8 pt-2 sm:px-6 md:max-w-7xl lg:px-8'>
+          <Keyboard />
+        </div>
       </div>
       <Modals />
     </Div100vh>

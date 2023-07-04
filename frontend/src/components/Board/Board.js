@@ -36,7 +36,7 @@ const Board = ({ word }) => {
   const handleBackgroundColor = (row, col) => {
     const letter = board[row][col]
     const styleSheet =
-      'xxshort:w-12 xxshort:h-12 short:text-2xl short:w-14 short:h-14 w-16 h-16 border-solid border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center mx-0.5 text-4xl font-bold rounded dark:text-white '
+      'xxshort:w-12 xxshort:h-12 short:text-2xl short:w-14 short:h-14 w-16 h-16 mr-1 border-solid border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center mx-0.5 text-4xl font-bold dark:text-white '
     const letterCountInWord = countOccurrences(letters, letter)
 
     switch (true) {
@@ -45,18 +45,18 @@ const Board = ({ word }) => {
 
       case letter === letters[col]:
         greenKeys.add(letter)
-        return styleSheet + 'bg-[#538d4e]'
+        return styleSheet + 'bg-[#538d4e] cell-reveal green'
 
       case letters.includes(letter) && letterCountInWord > 1:
       case letters.includes(letter) &&
         letterCountInWord === 1 &&
         (!rowHasGreen(row) || isFirstRowOccurrence(letter, row, col)):
         orangeKeys.add(letter)
-        return styleSheet + 'bg-[#b59f3b]'
+        return styleSheet + 'bg-[#b59f3b] cell-reveal yellow'
 
       default:
         greyKeys.add(letter)
-        return styleSheet + 'bg-zinc-500 dark:bg-zinc-700'
+        return styleSheet + 'bg-zinc-500 dark:bg-zinc-700 cell-reveal gray'
     }
   }
 
@@ -80,17 +80,26 @@ const Board = ({ word }) => {
     return result
   }
 
+  const handleBounceAnimation = (row, col) => {
+    if (board[row][col] !== '') return 'cell-fill'
+    else return ''
+  }
+
   return (
     <div className='mt-6 self-stretch' id='board'>
       {board.map((row, i) => (
-        <div className='flex flex-row justify-center' key={`row-${i}`}>
+        <div className='mt-1 flex flex-row justify-center' key={`row-${i}`}>
           {row.map((cell, j) => (
             <div
               className={handleBackgroundColor(i, j)}
               key={`cell-${i}-${j}`}
               id={`cell-${i}-${j}`}
+              style={{ animationDelay: `${j * 250}ms` }}
             >
-              <p className='short:text-2xl text-4xl font-bold uppercase dark:text-white'>
+              <p
+                className={`short:text-2xl cell-fix text-4xl font-bold uppercase dark:text-white 
+								${handleBounceAnimation(i, j)}`}
+              >
                 {cell}
               </p>
             </div>
