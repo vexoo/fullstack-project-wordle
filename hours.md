@@ -26,6 +26,7 @@
 | 27.6 | 9 | Notification component and its redux state, stats modal, fiddle with colors |
 | 28.6 | 2 | Refactor how gamestate reducer is called, fix a few lints |
 | 2.7 | 7 | modals are complete, merge tailwind branch |
-| 2.7 | 6 | fix stats modal when user is not logged in, add render deployment to pipeline |
+| 3.7 | 6 | fix stats modal when user is not logged in, add render deployment to pipeline |
+| 4.7 | 9 | Figure out how add css animations to game board. Add animations for typing in a letter and for revealing the colors on a row |
 | :----:|:-----| :-----|
-| total | 111 ||
+| total | 120 ||
