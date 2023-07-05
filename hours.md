@@ -28,5 +28,7 @@
 | 2.7 | 7 | modals are complete, merge tailwind branch |
 | 3.7 | 6 | fix stats modal when user is not logged in, add render deployment to pipeline |
 | 4.7 | 9 | Figure out how add css animations to game board. Add animations for typing in a letter and for revealing the colors on a row |
+| 4.7 | 3 | Starting to set up readme.md, some investigating on how to change the keyboard listener |
+| 6.7 | 9 | more investigating, extract titles and notifications to strings.js, change layout of userinfo modal, few more backend tests |
 | :----:|:-----| :-----|
-| total | 120 ||
+| total | 132 ||

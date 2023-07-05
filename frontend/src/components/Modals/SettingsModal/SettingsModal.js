@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getLocalTheme, setLocalTheme } from '../../../util/localStorageHelper'
 import BaseModal from '../BaseModal/BaseModal'
 import SettingsToggle from './SettingsToggle'
+import { settingsModalTitle } from '../../../util/strings'
 
 const SettingsModal = ({ isOpen, handleClose }) => {
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -23,7 +24,7 @@ const SettingsModal = ({ isOpen, handleClose }) => {
   }, [isDarkMode])
 
   return (
-    <BaseModal title='Settings' isOpen={isOpen} handleClose={handleClose}>
+    <BaseModal title={settingsModalTitle} isOpen={isOpen} handleClose={handleClose}>
       <div className='mt-2 flex flex-col divide-y'>
         <SettingsToggle
           settingName='Dark Mode'

@@ -1,8 +1,8 @@
 import './App.css'
 
 import { useEffect, useState } from 'react'
-import Div100vh from 'react-div-100vh'
 import { useDispatch } from 'react-redux'
+import Div100vh from 'react-div-100vh'
 
 import Board from './components/Board'
 import Keyboard from './components/Keyboard'
@@ -77,7 +77,6 @@ const App = () => {
 
   useEffect(() => {
     const user = getLocalLoggedUser()
-    console.log(user)
     if (user) {
       const sessionExists = sessionService.verifySession(user.token)
       if (sessionExists) {

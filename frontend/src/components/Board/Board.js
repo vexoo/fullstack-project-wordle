@@ -11,7 +11,7 @@ const Board = ({ word }) => {
   const dispatch = useDispatch()
   const { board, currentRow } = useSelector(state => state.board)
   const { playing } = useSelector(state => state.gameState)
-  const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
+  const { greenKeys, yellowKeys, grayKeys } = useContext(KeyBoardColorContext)
 
   const letters = word.split('')
 
@@ -51,11 +51,11 @@ const Board = ({ word }) => {
       case letters.includes(letter) &&
         letterCountInWord === 1 &&
         (!rowHasGreen(row) || isFirstRowOccurrence(letter, row, col)):
-        orangeKeys.add(letter)
+        yellowKeys.add(letter)
         return styleSheet + 'bg-[#b59f3b] cell-reveal yellow'
 
       default:
-        greyKeys.add(letter)
+        grayKeys.add(letter)
         return styleSheet + 'bg-zinc-500 dark:bg-zinc-700 cell-reveal gray'
     }
   }

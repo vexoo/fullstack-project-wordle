@@ -4,6 +4,7 @@ import { joinWord } from '../util/helpers'
 import { setLocalWordleBoard } from '../util/localStorageHelper'
 import wordService from '../services/words'
 import { setNotification } from './notificationReducer'
+import { wordNotFoundNotification } from '../util/strings'
 /*
 		Note about enterEnabled:
 		For some reason the keyboard listener in Key.js does not seem to properly ignore repeated Enter events.
@@ -77,7 +78,7 @@ export const enterHandler = () => {
           dispatch(enterPress())
           dispatch(enableEnter())
         } else {
-          dispatch(setNotification('Word not found', 3, true))
+          dispatch(setNotification(wordNotFoundNotification, 3, true))
           dispatch(enableEnter())
         }
       }

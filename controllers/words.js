@@ -13,7 +13,7 @@ router.get('/daily-word', async (req, res) => {
     const currentDate = new Date().toISOString().split('T')[0]
     const seed = parseInt(currentDate.replace(/-/g, ''))
     const totalCount = await Word.countDocuments()
-    const randomIndex = Math.floor(seed % totalCount)
+    const randomIndex = seed % totalCount
 
     const word = await Word.findOne().skip(randomIndex)
     res.json({ word: word.word })

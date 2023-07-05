@@ -11,7 +11,7 @@ const Key = ({ keyValue }) => {
   const dispatch = useDispatch()
   const isModalOpen = useSelector(isAnyModalOpen)
   const { currentColumn } = useSelector(state => state.board)
-  const { greenKeys, orangeKeys, greyKeys } = useContext(KeyBoardColorContext)
+  const { greenKeys, yellowKeys, grayKeys } = useContext(KeyBoardColorContext)
   const { playing } = useSelector(state => state.gameState)
 
   const handleLetter = keyValue => {
@@ -40,8 +40,8 @@ const Key = ({ keyValue }) => {
 
   const getKeyBackgroundColor = key => {
     if (greenKeys.has(key)) return 'bg-[#538d4e]'
-    if (orangeKeys.has(key)) return 'bg-[#b59f3b]'
-    if (greyKeys.has(key)) return 'bg-zinc-600 dark:bg-zinc-700'
+    if (yellowKeys.has(key)) return 'bg-[#b59f3b]'
+    if (grayKeys.has(key)) return 'bg-zinc-600 dark:bg-zinc-700'
     return ' shadowed bg-slate-400 dark:bg-gray-500'
   }
 

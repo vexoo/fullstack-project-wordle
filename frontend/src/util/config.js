@@ -12,9 +12,3 @@ export let token = null
 export const setToken = newToken => {
   token = `Bearer ${newToken}`
 }
-
-export const localStorage = {
-	dailyWord: 'wordleClone-dailyWord',
-	wordleBoard: 'wordleClone-board',
-	loggedUser: 'wordleClone-loggedUser'
-}

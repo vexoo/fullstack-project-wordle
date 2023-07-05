@@ -9,6 +9,7 @@ import { setLocalLoggedUser } from '../../util/localStorageHelper'
 import { setUser } from '../../reducers/userReducer'
 import { onClose } from '../../reducers/modalReducer'
 import { setNotification } from '../../reducers/notificationReducer'
+import { signUpButtonText, signupNotification } from '../../util/strings'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -36,7 +37,7 @@ const SignUp = () => {
       setUsername('')
       setPassword('')
       dispatch(onClose())
-      dispatch(setNotification('Account created, logged in', 3))
+      dispatch(setNotification(signupNotification, 3))
     } catch (e) {
       dispatch(setNotification(e.response.data.error, 3, true))
     }
@@ -54,7 +55,7 @@ const SignUp = () => {
       usernameRef={usernameRef}
       setUsername={setUsername}
       setPassword={setPassword}
-      buttonText={'Sign up'}
+      buttonText={signUpButtonText}
     />
   )
 }

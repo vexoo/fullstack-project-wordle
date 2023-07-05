@@ -28,11 +28,11 @@ svg.cursor-pointer:hover {
   transform: scale(1.2);
 }
 
-.navbar {
+.header {
   margin-bottom: 2%;
 }
 
-.navbar-content {
+.header-content {
   display: flex;
   height: 4rem;
   align-items: center;

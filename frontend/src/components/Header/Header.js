@@ -16,6 +16,12 @@ import {
 import { clearUser, isUserSetSelector } from '../../reducers/userReducer'
 import logoutService from '../../services/logout'
 import { removeLocalLoggedUser } from '../../util/localStorageHelper'
+import {
+  gameTitle,
+  loginButtonText,
+  logoutButtonText,
+  signUpButtonText
+} from '../../util/strings'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -32,8 +38,8 @@ const Header = () => {
   }
 
   return (
-    <div className='navbar'>
-      <div className='navbar-content short:h-auto px-5'>
+    <div className='header'>
+      <div className='header-content short:h-auto px-5'>
         <div className='flex'>
           <InformationCircleIcon
             className='h-6 w-6 cursor-pointer dark:stroke-white'
@@ -49,7 +55,7 @@ const Header = () => {
           />
         </div>
         <p className='text-3xl font-bold uppercase tracking-widest dark:text-white'>
-          wordle
+          {gameTitle}
         </p>
         {isUserSet ? (
           <div className='right-icons'>
@@ -58,25 +64,25 @@ const Header = () => {
               onClick={() => dispatch(setUserModalOpen())}
             />
             <button
-              className='text-x2 font-bold dark:text-white'
+              className='text-x2 font-bold uppercase dark:text-white'
               onClick={handleLogout}
             >
-              LOGOUT
+              {logoutButtonText}
             </button>
           </div>
         ) : (
           <div className='right-icons'>
             <button
-              className='text-x2 mr-3 dark:text-white'
+              className='text-x2 mr-3 uppercase dark:text-white'
               onClick={() => dispatch(setSignUpModalOpen())}
             >
-              SIGN UP
+              {signUpButtonText}
             </button>
             <button
-              className='text-x2 dark:text-white'
+              className='text-x2 uppercase dark:text-white'
               onClick={() => dispatch(setLoginModalOpen())}
             >
-              LOGIN
+              {loginButtonText}
             </button>
           </div>
         )}

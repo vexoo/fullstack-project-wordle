@@ -7,6 +7,8 @@ import {
   removeLocalLoggedUser,
   setLocalLoggedUser
 } from '../util/localStorageHelper'
+import { setNotification } from './notificationReducer'
+import { accountDeletionText, usernameChangeText } from '../util/strings'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -79,8 +81,9 @@ export const changeUsername = newUsername => {
       dispatch(setUsername(newUsername))
       const updatedUser = { ...user, username: newUsername }
       setLocalLoggedUser(updatedUser)
+      dispatch(setNotification(usernameChangeText, 3))
     } catch (e) {
-      console.log(e)
+      dispatch(setNotification(e.response.data.error, 5, true))
     }
   }
 }
@@ -94,6 +97,7 @@ export const deleteUser = () => {
       dispatch(clearUser())
       removeLocalLoggedUser()
       dispatch(onClose())
+      dispatch(setNotification(accountDeletionText, 3))
     } catch (e) {
       console.log(e)
     }

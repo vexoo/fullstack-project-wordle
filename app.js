@@ -29,8 +29,6 @@ app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
 
-//app.use(middleware.tokenExtractor)
-
 app.use('/api/words', wordsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
@@ -38,5 +36,6 @@ app.use('/api/logout', logoutRouter)
 app.use('/api/session', sessionRouter)
 
 app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 module.exports = app

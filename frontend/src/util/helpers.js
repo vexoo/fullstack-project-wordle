@@ -1,5 +1,3 @@
-import { words } from './words'
-
 export const isEnterOrClear = keyValue => {
   return keyValue === 'enter' || keyValue === 'clear'
 }
@@ -15,9 +13,4 @@ export const joinWord = row => {
 
 export const countOccurrences = (array, element) => {
   return array.filter(cell => cell === element).length
-}
-
-export const checkWord = word => {
-  const exists = words.includes(word)
-  return exists
 }
