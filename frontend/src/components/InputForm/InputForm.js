@@ -1,4 +1,5 @@
-import { TextField, Button } from '@mui/material'
+import { TextField } from '@mui/material'
+import Button from '../Button'
 
 const InputForm = ({
   onSubmit,
@@ -29,9 +30,7 @@ const InputForm = ({
           />
         </div>
         <div className='mt-5'>
-          <Button variant='contained' type='submit' sx={{backgroundColor: 'gray'}}>
-            {buttonText}
-          </Button>
+          <Button text={buttonText} type='submit' />
         </div>
       </form>
     </div>

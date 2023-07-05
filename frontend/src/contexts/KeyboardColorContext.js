@@ -4,13 +4,13 @@ const KeyBoardColorContext = createContext()
 
 const KeyBoardColorContextProvider = ({ children }) => {
   const greenKeys = new Set()
-  const orangeKeys = new Set()
-  const greyKeys = new Set()
+  const yellowKeys = new Set()
+  const grayKeys = new Set()
 
   const contextValue = {
     greenKeys,
-    orangeKeys,
-    greyKeys
+    yellowKeys,
+    grayKeys
   }
 
   return (

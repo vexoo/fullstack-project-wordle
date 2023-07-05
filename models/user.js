@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
   guessDistribution: {
     type: [Number],
     default: [0, 0, 0, 0, 0, 0]
-  }
+  },
 })
 
 userSchema.plugin(uniqueValidator)

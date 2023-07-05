@@ -3,6 +3,7 @@ import { setWinStats, setLossStats } from './userReducer'
 import { setNotification } from './notificationReducer'
 import { setLocalGameState, getLocalDailyWord } from '../util/localStorageHelper'
 import { setStatsModalOpen } from './modalReducer'
+import { victoryText } from '../util/strings'
 
 export const gameStateSlice = createSlice({
   name: 'gameState',
@@ -35,7 +36,10 @@ export const handleWin = () => {
     console.log(currentRow)
     dispatch(setWon())
     dispatch(setWinStats(currentRow - 1))
-    dispatch(setNotification('Well done', 3))
+    setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * victoryText.length)
+      dispatch(setNotification(victoryText[randomIndex], 3))
+    }, 1500)
     setTimeout(() => {
       dispatch(setStatsModalOpen())
     }, 3000)
@@ -46,7 +50,9 @@ export const handleLoss = () => {
   return dispatch => {
     dispatch(setLost())
     dispatch(setLossStats())
-    dispatch(setNotification(getLocalDailyWord(), 3, true))
+    setTimeout(() => {
+      dispatch(setNotification(getLocalDailyWord(), 3, true))
+    }, 1500)
     setTimeout(() => {
       dispatch(setStatsModalOpen())
     }, 3000)

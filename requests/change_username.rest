@@ -3,5 +3,5 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMiIsImlkIjoiNjQ5MWEwZjEyODQ4MjlhOTU5ZDAzZDMyIiwiaWF0IjoxNjg3NjkwMDUzfQ.pDYh-cKTVxnQYyTrjNOV0__miYDT9_t-SFy0J1vKitA
 
 {
-	"newUsername": "testuser2" 
+	"newUsername": "testerer" 
 }

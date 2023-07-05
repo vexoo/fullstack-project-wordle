@@ -108,4 +108,20 @@ describe('when there is initially one user in db', () => {
 
     expect(updatedUser.username).toEqual('root')
   })
+
+  test('deleting the user with authorization is successful', async () => {
+    await api.delete('/api/users/root').set('Authorization', authHeader).expect(200)
+
+    const usersAtEnd = await helper.usersInDb()
+
+    expect(usersAtEnd.length).toEqual(0)
+  })
+
+  test('deleting the user without authorization is unsuccessful', async () => {
+    await api.delete('/api/users/root').expect(401)
+
+    const usersAtEnd = await helper.usersInDb()
+
+    expect(usersAtEnd.length).toEqual(1)
+  })
 })
