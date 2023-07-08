@@ -110,7 +110,7 @@ describe('Wordle app user account functions', function () {
     cy.contains('testuser3')
   })
 
-  it.only('user can delete account', function () {
+  it('user can delete account', function () {
     cy.get('#login-button').click()
     cy.get('#username-form').type('testuser')
     cy.get('#password-form').type('secret')
