@@ -22,7 +22,7 @@ const Key = ({ keyValue }) => {
 
   const handleEnter = () => {
     if (currentColumn !== 5) return
-    dispatch(enterHandler())
+    return dispatch(enterHandler())
   }
 
   const handleClear = () => {
@@ -54,12 +54,12 @@ const Key = ({ keyValue }) => {
       if (key === 'backspace') return handleClear()
       if (key.length === 1 && key >= 'a' && key <= 'z') return handleLetter(key)
     }
-
     window.addEventListener('keydown', listener)
     return () => {
       window.removeEventListener('keydown', listener)
     }
   })
+
   return (
     <button
       id={`${keyValue}-key`}

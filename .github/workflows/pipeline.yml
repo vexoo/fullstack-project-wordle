@@ -6,8 +6,7 @@ on:
       - main
   pull_request:
     branches: [main]
-    types:
-      [opened, synchronize]
+    types: [opened, synchronize]
 
 jobs:
   deployment_pipeline:
@@ -37,6 +36,7 @@ jobs:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           PORT: ${{ secrets.PORT }}
+          SECRET: ${{ secrets.SECRET }}
 
       - name: e2e tests
         uses: cypress-io/github-action@v5
@@ -48,11 +48,11 @@ jobs:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           PORT: ${{ secrets.PORT }}
+          SECRET: ${{ secrets.SECRET }}
 
       - name: Deploy to Render
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
-
 
   tag_release:
     needs: [deployment_pipeline]

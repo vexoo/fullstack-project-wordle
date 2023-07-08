@@ -13,6 +13,7 @@ const InputForm = ({
       <form onSubmit={onSubmit}>
         <div>
           <TextField
+            id='username-form'
             className='bg-white'
             label='username'
             variant='filled'
@@ -22,6 +23,7 @@ const InputForm = ({
         </div>
         <div>
           <TextField
+            id='password-form'
             className='bg-white'
             label='password'
             variant='filled'
@@ -30,7 +32,7 @@ const InputForm = ({
           />
         </div>
         <div className='mt-5'>
-          <Button text={buttonText} type='submit' />
+          <Button id='inputform-button' text={buttonText} type='submit' />
         </div>
       </form>
     </div>

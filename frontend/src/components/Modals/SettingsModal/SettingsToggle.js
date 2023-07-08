@@ -11,6 +11,7 @@ const SettingsToggle = ({ settingName, flag, handleFlag, description }) => {
           )}
         </div>
         <div
+          id={`${settingName}-toggle`}
           className={`flex h-8 w-14 shrink-0 cursor-pointer items-center rounded-full bg-gray-300 p-1 duration-300 ease-in-out 
 					${flag ? 'bg-green-400' : 'bg-gray-300'}`}
           onClick={() => handleFlag(!flag)}
