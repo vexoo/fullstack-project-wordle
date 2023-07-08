@@ -12,6 +12,7 @@ const UserInfo = () => {
 
   const handleUsernameUpdate = event => {
     event.preventDefault()
+    console.log('hello')
     dispatch(changeUsername(newUsername))
     setNewUsername('')
     setIsEditingUsername(false)
@@ -21,56 +22,65 @@ const UserInfo = () => {
     if (window.confirm('Are you sure you want to delete your account?')) {
       if (window.confirm('This action is irreversible. Are you absolutely sure?')) {
         dispatch(deleteUser())
-				setIsEditingUsername(false)
+        setIsEditingUsername(false)
       }
     }
   }
 
   return (
     <div className='mt-2 flex flex-col divide-y'>
-      <form className='divide-y' onSubmit={handleUsernameUpdate}>
-        <div className='flex justify-between gap-4 py-10'>
-          <div className=' ml-10 text-left text-gray-500 dark:text-gray-300'>
-            <p className='text-lg leading-none'>
-              <strong>Username: </strong>
-            </p>
-          </div>
-          <div className=' mr-10 text-left text-gray-500 dark:text-gray-300'>
-            <p className='text-lg leading-none'>{user.username}</p>
-          </div>
+      <div className='flex justify-between gap-4 py-10'>
+        <div className=' ml-10 text-left text-gray-500 dark:text-gray-300'>
+          <p className='text-lg leading-none'>
+            <strong>Username: </strong>
+          </p>
         </div>
-        <div className='flex justify-between gap-4 py-3'>
-          {isEditingUsername ? (
-            <div>
-              <Button onClick={() => setIsEditingUsername(false)} text={'cancel'} />
-              <Button className='ml-3' text={'save'} type='submit' />
-            </div>
-          ) : (
+        <div className=' mr-10 text-left text-gray-500 dark:text-gray-300'>
+          <p className='text-lg leading-none'>{user.username}</p>
+        </div>
+      </div>
+      <div className='flex justify-between gap-4 py-3'>
+        {isEditingUsername ? (
+          <div>
+            <Button onClick={() => setIsEditingUsername(false)} text={'cancel'} />
             <Button
-              onClick={() => setIsEditingUsername(true)}
-              text={'change username'}
+              id='save-newusername-button'
+              className='ml-3'
+              type='submit'
+              onClick={handleUsernameUpdate}
+              text={'save'}
             />
-          )}
+          </div>
+        ) : (
           <Button
-            onClick={() => handleDelete()}
-            className={'bg-red-600'}
-            text={'delete account'}
+            onClick={() => setIsEditingUsername(true)}
+            text={'change username'}
+            id='change-username-button'
           />
-        </div>
+        )}
+        <Button
+          id='delete-account-button'
+          onClick={() => handleDelete()}
+          className={'bg-red-600'}
+          text={'delete account'}
+        />
+      </div>
 
-        <div className='flex py-3'>
-          {isEditingUsername ? (
+      <div className='flex py-3'>
+        {isEditingUsername ? (
+          <form className='flex items-center'>
             <div>
               <TextField
+                id='new-username-form'
                 className='bg-white'
                 label='new username'
                 variant='filled'
                 onChange={({ target }) => setNewUsername(target.value)}
               />
             </div>
-          ) : null}
-        </div>
-      </form>
+          </form>
+        ) : null}
+      </div>
     </div>
   )
 }

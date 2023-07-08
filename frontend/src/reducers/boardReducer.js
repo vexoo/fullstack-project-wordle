@@ -68,9 +68,9 @@ export const {
 
 export const enterHandler = () => {
   return async (dispatch, getState) => {
-    const { board, currentColumn, currentRow } = getState().board
+    const { board, currentColumn, currentRow, enterEnabled } = getState().board
     try {
-      if (currentColumn === wordLength) {
+      if (currentColumn === wordLength && enterEnabled) {
         dispatch(disableEnter())
         const word = joinWord(board[currentRow])
         const exists = await wordService.checkWord(word)

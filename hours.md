@@ -30,5 +30,7 @@
 | 4.7 | 9 | Figure out how add css animations to game board. Add animations for typing in a letter and for revealing the colors on a row |
 | 4.7 | 3 | Starting to set up readme.md, some investigating on how to change the keyboard listener |
 | 6.7 | 9 | more investigating, extract titles and notifications to strings.js, change layout of userinfo modal, few more backend tests |
+| 8.7 | 4 | some testing functionality to backend. expand cypress tests, continue project write up |
+| 9.7 | 4 | more cypress tests, minor refactor on UserInfo.js as change username button did not work as expected in cypress |
 | :----:|:-----| :-----|
-| total | 132 ||
+| total | 140 ||
