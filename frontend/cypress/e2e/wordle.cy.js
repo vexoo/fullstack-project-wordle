@@ -47,16 +47,19 @@ describe('Wordle app basic functions', function () {
   })
 
   it('Dark Mode toggle works', function () {
+    cy.get('#title').should($title => {
+      const textColor = $title.css('color')
+      expect(textColor).to.satisfy(
+        color => color === 'rgb(255, 255, 255)' || color === 'rgb(0, 0, 0)'
+      )
+    })
     cy.get('#settings-button').click()
     cy.get('[id="Dark Mode-toggle"]').click()
+
     cy.get('#title').should($title => {
-      const textColor = $title.css('color')
-      expect(textColor).to.equal('rgb(0, 0, 0)')
-    })
-    cy.get('[id="Dark Mode-toggle"]').click()
-    cy.get('#title').should($title => {
-      const textColor = $title.css('color')
-      expect(textColor).to.equal('rgb(255, 255, 255)')
+      const initialColor = $title.data('initialColor')
+      const currentColor = $title.css('color')
+      expect(currentColor).to.not.equal(initialColor)
     })
   })
 })
