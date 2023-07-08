@@ -36,8 +36,8 @@ app.use('/api/logout', logoutRouter)
 app.use('/api/session', sessionRouter)
 
 if (process.env.NODE_ENV === 'test') {
-	const testingRouter = require('./controllers/testing')
-	app.use('/api/testing', testingRouter)
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
 }
 
 app.use(middleware.unknownEndpoint)
