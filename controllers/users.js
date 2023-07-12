@@ -12,6 +12,10 @@ router.get('/', async (request, response) => {
 router.post('/', async (request, response) => {
   const { username, password } = request.body
 
+	if (!password){
+		return res.status(401).json({ error: 'password required' })
+	}
+
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 

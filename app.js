@@ -10,6 +10,7 @@ const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const logoutRouter = require('./controllers/logout')
 const sessionRouter = require('./controllers/session')
+const securityQuestionRouter = require('./controllers/securityQuestion')
 const middleware = require('./utils/middleware')
 
 mongoose.set('strictQuery', false)
@@ -34,6 +35,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/logout', logoutRouter)
 app.use('/api/session', sessionRouter)
+app.use('/api/security-questions', securityQuestionRouter)
 
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')

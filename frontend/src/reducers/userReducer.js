@@ -52,23 +52,20 @@ export const { setUser, clearUser, setUsername, setWinStats, setLossStats } =
   userSlice.actions
 
 const updateStats = state => {
-  if (state) {
-    try {
-      const { username, played, won, currStreak, maxStreak, guessDistribution } =
-        state
-      const stats = {
-        played,
-        won,
-        currStreak,
-        maxStreak,
-        guessDistribution
-      }
-      const updatedUser = { ...getLocalLoggedUser(), ...stats }
-      userService.updateStats(username, stats)
-      setLocalLoggedUser(updatedUser)
-    } catch (e) {
-      console.log(e)
+  try {
+    const { username, played, won, currStreak, maxStreak, guessDistribution } = state
+    const stats = {
+      played,
+      won,
+      currStreak,
+      maxStreak,
+      guessDistribution
     }
+    const updatedUser = { ...getLocalLoggedUser(), ...stats }
+    userService.updateStats(username, stats)
+    setLocalLoggedUser(updatedUser)
+  } catch (e) {
+    console.log(e)
   }
 }
 

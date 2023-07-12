@@ -1,7 +1,7 @@
 import './App.css'
 
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Div100vh from 'react-div-100vh'
 
 import Board from './components/Board'
@@ -22,11 +22,11 @@ import {
   getLocalDailyWord,
   getLocalWordleBoard,
   getLocalLoggedUser,
-  setLocalDailyWord,
-  removeLocalWordleBoard,
-  removeLocalLoggedUser,
   getLocalGameState,
-  setLocalGameState
+  setLocalDailyWord,
+  setLocalGameState,
+  removeLocalWordleBoard,
+  removeLocalLoggedUser
 } from './util/localStorageHelper'
 import { setLost, setPlaying, setWon } from './reducers/gameStateReducer'
 

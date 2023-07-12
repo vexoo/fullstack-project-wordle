@@ -1,0 +1,8 @@
+POST http://localhost:3001/api/securityQuestions
+Content-Type: application/json
+
+{
+	"username": "testuser",
+	"question": "first pet name",
+	"answer": "riku"
+}
