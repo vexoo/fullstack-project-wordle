@@ -7,6 +7,11 @@ export const keys = [
   ['enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'clear']
 ]
 
+export const securityQuestions = [
+  'What is your favorite color?',
+  'What is the name of your first pet?'
+]
+
 export let token = null
 
 export const setToken = newToken => {

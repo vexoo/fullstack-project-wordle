@@ -34,5 +34,6 @@
 | 9.7 | 4 | more cypress tests, minor refactor on UserInfo.js as change username button did not work as expected in cypress |
 | 10.7 | 7 | no code written, try to figure out what to do next with the project |
 | 12.7 | 5 | start implementing security questions to be able to reset (possibly forgotten) password, and ability to change password after |
+| 13.7 | 6 | change sign up and login forms to use Formik, add form validation with yup |
 | :----:|:-----| :-----|
-| total | 152 ||
+| total | 158 ||

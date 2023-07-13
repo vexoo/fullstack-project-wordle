@@ -15,7 +15,7 @@ router.get('/:username', async (req, res) => {
     return res.status(404).json({ message: 'User not found' })
   }
 
-  const securityQuestion = await SecurityQuestion.findOne({ user: user._id })
+  const securityQuestion = await SecurityQuestion.findOne({ user: user.id })
 
   if (!securityQuestion) {
     return res.status(404).json({ message: 'Security question not found' })

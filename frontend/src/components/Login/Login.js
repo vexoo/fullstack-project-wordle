@@ -8,29 +8,33 @@ import { setLocalLoggedUser } from '../../util/localStorageHelper'
 import { setUser } from '../../reducers/userReducer'
 import { onClose } from '../../reducers/modalReducer'
 import { setNotification } from '../../reducers/notificationReducer'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import Button from '../Button'
+import { loginButtonText, loginNotification } from '../../util/strings'
+import * as Yup from 'yup'
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required('Username is required'),
+  password: Yup.string().required('Password is required')
+})
 
 const Login = () => {
   const dispatch = useDispatch()
   const { isLoginModalOpen } = useSelector(state => state.modals)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const usernameRef = useRef(null)
 
-  const onSubmit = async event => {
-    event.preventDefault()
-
+  const onSubmit = async (values, { resetForm }) => {
     try {
       const user = await loginService.login({
-        username,
-        password
+        username: values.username,
+        password: values.password
       })
       setLocalLoggedUser(user)
       setToken(user.token)
       dispatch(setUser(user))
-      setUsername('')
-      setPassword('')
+      resetForm()
       dispatch(onClose())
-      dispatch(setNotification('Logged in', 3))
+      dispatch(setNotification(loginNotification, 3))
     } catch (e) {
       dispatch(setNotification(e.response.data.error, 3, true))
     }
@@ -43,13 +47,23 @@ const Login = () => {
   }, [isLoginModalOpen])
 
   return (
-    <InputForm
-      onSubmit={onSubmit}
-      usernameRef={usernameRef}
-      setUsername={setUsername}
-      setPassword={setPassword}
-      buttonText={'Login'}
-    />
+    <div>
+      <Formik
+        initialValues={{
+          username: '',
+          password: ''
+        }}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        <Form>
+          <InputForm usernameRef={usernameRef} />
+          <div className='mt-5'>
+            <Button text={loginButtonText} type='submit' />
+          </div>
+        </Form>
+      </Formik>
+    </div>
   )
 }
 
