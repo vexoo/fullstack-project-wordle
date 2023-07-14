@@ -3,8 +3,7 @@ const localStorage = {
   wordleBoard: 'wordleClone-board',
   loggedUser: 'wordleClone-loggedUser',
   theme: 'wordleClone-theme',
-  gameState: 'wordleClone-gameState',
-	stats: 'wordleClone-stats'
+  gameState: 'wordleClone-gameState'
 }
 
 export const getLocalDailyWord = () => {
@@ -71,18 +70,4 @@ export const setLocalGameState = gameState => {
 
 export const removeLocalGameState = () => {
   window.localStorage.removeItem(localStorage.gameState)
-}
-
-export const getLocalStats = () => {
-  const statsJSON = window.localStorage.getItem(localStorage.stats)
-  return JSON.parse(statsJSON)
-}
-
-export const setLocalStats = stats => {
-  const statsJSON = JSON.stringify(stats)
-  window.localStorage.setItem(localStorage.stats, statsJSON)
-}
-
-export const removeLocalstats = () => {
-  window.localStorage.removeItem(localStorage.stats)
 }

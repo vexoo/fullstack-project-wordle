@@ -1,5 +1,4 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { TextField } from '@mui/material'
+import { Field, ErrorMessage } from 'formik'
 import { securityQuestions } from '../../util/config'
 import {
   securityAnswerPlaceholder,
@@ -31,11 +30,7 @@ const SecurityQuestion = ({ values }) => {
               placeholder={securityAnswerPlaceholder}
             />
             <div className='error'>
-              <ErrorMessage
-                name='answer'
-                component='div'
-                className='text-red-500'
-              />
+              <ErrorMessage name='answer' component='div' className='text-red-500' />
             </div>
           </div>
         )}

@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
 import loginService from '../../services/login'
 import userService from '../../services/user'
 import securityQuestionService from '../../services/securityQuestion'
@@ -12,7 +11,7 @@ import { setUser } from '../../reducers/userReducer'
 import { onClose } from '../../reducers/modalReducer'
 import { setNotification } from '../../reducers/notificationReducer'
 import { signUpButtonText, signupNotification } from '../../util/strings'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form } from 'formik'
 import Button from '../Button'
 import * as Yup from 'yup'
 
@@ -32,19 +31,11 @@ const SignUp = () => {
 
   const onSubmit = async (values, { resetForm }) => {
     try {
-      await userService.create({
-        username: values.username,
-        password: values.password
-      })
-      const user = await loginService.login({
-        username: values.username,
-        password: values.password
-      })
-      await securityQuestionService.create(
-        values.username,
-        values.securityQuestion,
-        values.answer
-      )
+      const { username, password, securityQuestion, answer } = values
+      await userService.create({ username, password })
+      const user = await loginService.login({ username, password })
+      await securityQuestionService.create(username, securityQuestion, answer)
+
       setLocalLoggedUser(user)
       setToken(user.token)
       dispatch(setUser(user))

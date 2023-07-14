@@ -1,16 +1,15 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
 import loginService from '../../services/login'
 import InputForm from '../InputForm'
-import { setToken } from '../../util/config'
 import { setLocalLoggedUser } from '../../util/localStorageHelper'
 import { setUser } from '../../reducers/userReducer'
 import { onClose } from '../../reducers/modalReducer'
 import { setNotification } from '../../reducers/notificationReducer'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form } from 'formik'
 import Button from '../Button'
 import { loginButtonText, loginNotification } from '../../util/strings'
+import { setToken } from '../../util/config'
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object().shape({

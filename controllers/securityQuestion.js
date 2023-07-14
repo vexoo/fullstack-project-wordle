@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const router = require('express').Router()
 const User = require('../models/user')
 const SecurityQuestion = require('../models/securityQuestion')
@@ -33,10 +34,13 @@ router.post('/', async (req, res) => {
     return res.status(404).json({ message: 'User not found' })
   }
 
+  const saltRounds = 10
+  const answerHash = await bcrypt.hash(answer, saltRounds)
+
   const securityQuestion = new SecurityQuestion({
     user: user._id,
     question,
-    answer
+    answerHash
   })
 
   await securityQuestion.save()

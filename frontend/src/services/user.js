@@ -9,11 +9,21 @@ const create = async credentials => {
 
 const updateUsername = async (username, newUsername) => {
   const config = { headers: { Authorization: token } }
-  const data = {
-    newUsername: newUsername
-  }
+  const data = { newUsername }
 
   const response = await axios.put(`${baseUrl}/${username}`, data, config)
+  return response.data
+}
+
+const updatePassword = async (username, currentPassword, newPassword) => {
+  const config = { headers: { Authorization: token } }
+  const data = { currentPassword, newPassword }
+
+  const response = await axios.put(
+    `${baseUrl}/${username}/password-change`,
+    data,
+    config
+  )
   return response.data
 }
 
@@ -29,4 +39,4 @@ const deleteAccount = async username => {
 }
 
 // eslint-disable-next-line
-export default { create, updateUsername, updateStats, deleteAccount }
+export default { create, updateUsername, updatePassword, updateStats, deleteAccount }

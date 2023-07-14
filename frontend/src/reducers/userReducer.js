@@ -8,7 +8,10 @@ import {
   setLocalLoggedUser
 } from '../util/localStorageHelper'
 import { setNotification } from './notificationReducer'
-import { accountDeletionNotification, usernameChangeNotification } from '../util/strings'
+import {
+  accountDeletionNotification,
+  usernameChangeNotification
+} from '../util/strings'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -69,16 +72,41 @@ const updateStats = state => {
   }
 }
 
+/*
+export const setUser = (user, notification) => {
+  return async (dispatch) => {
+			dispatch(setUser(user))
+      dispatch(onClose())
+      dispatch(setNotification(notification, 3))
+  }
+}
+*/
+
 export const changeUsername = newUsername => {
   return async (dispatch, getState) => {
     const { user } = getState()
-    console.log(user)
     try {
       await userService.updateUsername(user.username, newUsername)
       dispatch(setUsername(newUsername))
       const updatedUser = { ...user, username: newUsername }
       setLocalLoggedUser(updatedUser)
       dispatch(setNotification(usernameChangeNotification, 3))
+    } catch (e) {
+      dispatch(setNotification(e.response.data.error, 5, true))
+    }
+  }
+}
+
+export const changePassword = (currentPassword, newPassword) => {
+  return async (dispatch, getState) => {
+    const { user } = getState()
+    try {
+      const response = await userService.updatePassword(
+        user.username,
+        currentPassword,
+        newPassword
+      )
+      dispatch(setNotification(response.message, 3))
     } catch (e) {
       dispatch(setNotification(e.response.data.error, 5, true))
     }

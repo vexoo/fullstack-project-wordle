@@ -35,5 +35,6 @@
 | 10.7 | 7 | no code written, try to figure out what to do next with the project |
 | 12.7 | 5 | start implementing security questions to be able to reset (possibly forgotten) password, and ability to change password after |
 | 13.7 | 6 | change sign up and login forms to use Formik, add form validation with yup |
+| 14.7 | 7 | Implement changing password. Refactor UserInfo component to use Formik and split it into multiple smaller components |
 | :----:|:-----| :-----|
-| total | 158 ||
+| total | 165 ||

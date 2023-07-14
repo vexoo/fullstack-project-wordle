@@ -1,7 +1,7 @@
 import './App.css'
 
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Div100vh from 'react-div-100vh'
 
 import Board from './components/Board'

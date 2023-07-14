@@ -12,7 +12,7 @@ const securityQuestionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  answer: {
+  answerHash: {
     type: String,
     required: true
   }

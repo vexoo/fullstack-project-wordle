@@ -1,8 +1,14 @@
 // Header
 export const gameTitle = 'wordle'
+
+// Button text
 export const signUpButtonText = 'Sign up'
 export const loginButtonText = 'Login'
 export const logoutButtonText = 'Logout'
+export const changeUserNameButtonText = 'Change username'
+export const changePasswordButtonText = 'Change password'
+export const deleteAccountButtonText = 'Delete account'
+export const cancelButtonText = 'Cancel'
 
 // Modals
 export const helpModalTitle = 'How to play'
