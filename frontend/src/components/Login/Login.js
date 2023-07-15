@@ -4,7 +4,7 @@ import loginService from '../../services/login'
 import InputForm from '../InputForm'
 import { setLocalLoggedUser } from '../../util/localStorageHelper'
 import { setUser } from '../../reducers/userReducer'
-import { onClose } from '../../reducers/modalReducer'
+import { onClose, setPasswordResetModalOpen } from '../../reducers/modalReducer'
 import { setNotification } from '../../reducers/notificationReducer'
 import { Formik, Form } from 'formik'
 import Button from '../Button'
@@ -39,6 +39,11 @@ const Login = () => {
     }
   }
 
+  const handlePasswordResetTransition = () => {
+    dispatch(onClose())
+    dispatch(setPasswordResetModalOpen())
+  }
+
   useEffect(() => {
     if (isLoginModalOpen) {
       usernameRef.current.focus()
@@ -52,7 +57,6 @@ const Login = () => {
           username: '',
           password: ''
         }}
-        validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         <Form>
@@ -62,6 +66,15 @@ const Login = () => {
           </div>
         </Form>
       </Formik>
+      <div className='absolute bottom-0 right-0'>
+        <button
+          id='signup-button'
+          className='text-x2 mr-3 dark:text-gray-500'
+          onClick={handlePasswordResetTransition}
+        >
+          {'Forgot password?'}
+        </button>
+      </div>
     </div>
   )
 }

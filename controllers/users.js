@@ -1,8 +1,10 @@
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
 const User = require('../models/user')
+const config = require('../utils/config')
 
-const { tokenExtractor } = require('../utils/middleware')
+const { tokenExtractor, sessionChecker } = require('../utils/middleware')
 
 router.get('/', async (req, res) => {
   const users = await User.find({})
@@ -28,7 +30,7 @@ router.post('/', async (req, res) => {
   res.status(201).json({ message: 'User created', username: savedUser.username })
 })
 
-router.put('/:username', tokenExtractor, async (req, res) => {
+router.put('/:username', tokenExtractor, sessionChecker, async (req, res) => {
   const { username } = req.params
   const { newUsername } = req.body
 
@@ -51,9 +53,41 @@ router.put('/:username', tokenExtractor, async (req, res) => {
   }
 })
 
-router.put('/:username/password-change', tokenExtractor, async (req, res) => {
+router.post(
+  '/:username/check-password',
+  tokenExtractor,
+  sessionChecker,
+  async (req, res) => {
+    const { username } = req.params
+    const { currentPassword } = req.body
+
+    if (!req.decodedToken) {
+      return res.status(401).json({ error: 'missing token' })
+    }
+
+    if (!req.decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' })
+    }
+
+    const user = await User.findOne({ username })
+
+    if (!user) {
+      return res.status(404).json({ error: 'user not found' })
+    }
+
+    const passwordMatch = await bcrypt.compare(currentPassword, user.passwordHash)
+
+    if (!passwordMatch) {
+      return res.status(401).json({ match: false, error: 'incorrect password' })
+    }
+
+    res.status(200).json({ match: true })
+  }
+)
+
+router.put('/:username/change-password', tokenExtractor, async (req, res) => {
   const { username } = req.params
-  const { currentPassword, newPassword } = req.body
+  const { newPassword } = req.body
 
   if (!req.decodedToken) {
     return res.status(401).json({ error: 'missing token' })
@@ -67,12 +101,6 @@ router.put('/:username/password-change', tokenExtractor, async (req, res) => {
 
   if (!user) {
     return res.status(404).json({ error: 'user not found' })
-  }
-
-  const passwordMatch = await bcrypt.compare(currentPassword, user.passwordHash)
-
-  if (!passwordMatch) {
-    return res.status(401).json({ error: 'incorrect password' })
   }
 
   const saltRounds = 10
@@ -105,7 +133,7 @@ router.put('/:username/stats', async (req, res) => {
   res.status(200).json({ message: 'Stats updated successfully' })
 })
 
-router.delete('/:username', tokenExtractor, async (req, res) => {
+router.delete('/:username', tokenExtractor, sessionChecker, async (req, res) => {
   const { username } = req.params
 
   await User.deleteOne({ username })

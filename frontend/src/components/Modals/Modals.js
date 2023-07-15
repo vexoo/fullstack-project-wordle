@@ -6,6 +6,7 @@ import UserModal from './UserModal'
 import StatsModal from './StatsModal'
 import HelpModal from './HelpModal'
 import { onClose } from '../../reducers/modalReducer'
+import PasswordResetModal from './PasswordResetModal'
 
 const Modals = () => {
   const dispatch = useDispatch()
@@ -15,7 +16,8 @@ const Modals = () => {
     isStatsModalOpen,
     isLoginModalOpen,
     isSignUpModalOpen,
-    isUserModalOpen
+    isUserModalOpen,
+    isPasswordResetModalOpen
   } = useSelector(state => state.modals)
 
   return (
@@ -42,6 +44,11 @@ const Modals = () => {
       />
 
       <HelpModal isOpen={isHelpModalOpen} handleClose={() => dispatch(onClose())} />
+
+      <PasswordResetModal
+        isOpen={isPasswordResetModalOpen}
+        handleClose={() => dispatch(onClose())}
+      />
     </div>
   )
 }

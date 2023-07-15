@@ -7,5 +7,16 @@ const create = async (username, question, answer) => {
   return response.data
 }
 
-// eslint-disable-next-line
-export default { create }
+const checkAnswer = async (username, answer) => {
+  const response = await axios.post(`${baseUrl}/${username}/check-answer`, {
+    answer
+  })
+  return response.data
+}
+
+const findUser = async username => {
+  const response = await axios.get(`${baseUrl}/${username}`)
+  return response.data
+}
+
+export default { create, checkAnswer, findUser }

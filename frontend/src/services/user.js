@@ -15,15 +15,29 @@ const updateUsername = async (username, newUsername) => {
   return response.data
 }
 
-const updatePassword = async (username, currentPassword, newPassword) => {
+const checkPassword = async (username, currentPassword) => {
   const config = { headers: { Authorization: token } }
-  const data = { currentPassword, newPassword }
+  const data = { currentPassword }
 
-  const response = await axios.put(
-    `${baseUrl}/${username}/password-change`,
+  const response = await axios.post(
+    `${baseUrl}/${username}/check-password`,
     data,
     config
   )
+  return response.data.match
+}
+
+const updatePassword = async (username, newPassword) => {
+  const config = { headers: { Authorization: token } }
+  const data = { newPassword }
+  console.log(data)
+
+  const response = await axios.put(
+    `${baseUrl}/${username}/change-password`,
+    data,
+    config
+  )
+  console.log(response)
   return response.data
 }
 
@@ -38,5 +52,11 @@ const deleteAccount = async username => {
   return response.data
 }
 
-// eslint-disable-next-line
-export default { create, updateUsername, updatePassword, updateStats, deleteAccount }
+export default {
+  create,
+  checkPassword,
+  updateUsername,
+  updatePassword,
+  updateStats,
+  deleteAccount
+}

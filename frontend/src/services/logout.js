@@ -8,5 +8,4 @@ const logout = async () => {
   return response.data
 }
 
-// eslint-disable-next-line
 export default { logout }

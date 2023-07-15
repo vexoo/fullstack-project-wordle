@@ -5,7 +5,6 @@ const { SECRET } = require('../utils/config')
 router.get('/', async (request, response) => {
   const { token } = request.query
 
-  console.log(token)
   const decodedToken = jwt.verify(token, SECRET)
 
   if (decodedToken) {

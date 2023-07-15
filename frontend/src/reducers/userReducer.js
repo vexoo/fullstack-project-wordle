@@ -101,12 +101,14 @@ export const changePassword = (currentPassword, newPassword) => {
   return async (dispatch, getState) => {
     const { user } = getState()
     try {
-      const response = await userService.updatePassword(
+      const passwordMatch = await userService.checkPassword(
         user.username,
-        currentPassword,
-        newPassword
+        currentPassword
       )
-      dispatch(setNotification(response.message, 3))
+      if (passwordMatch) {
+        const response = await userService.updatePassword(user.username, newPassword)
+        dispatch(setNotification(response.message, 3))
+      }
     } catch (e) {
       dispatch(setNotification(e.response.data.error, 5, true))
     }

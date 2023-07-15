@@ -36,5 +36,6 @@
 | 12.7 | 5 | start implementing security questions to be able to reset (possibly forgotten) password, and ability to change password after |
 | 13.7 | 6 | change sign up and login forms to use Formik, add form validation with yup |
 | 14.7 | 7 | Implement changing password. Refactor UserInfo component to use Formik and split it into multiple smaller components |
+| 15.7 | 6 | new modal for changing (a possibly forgotten) password, some backend adjustments |
 | :----:|:-----| :-----|
-| total | 165 ||
+| total | 171 ||

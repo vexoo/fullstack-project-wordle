@@ -24,7 +24,18 @@ const tokenExtractor = async (req, res, next) => {
   if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
     req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
   }
+  /*
+  let token = authorization?.substring(7)
+  const session = await Session.findOne({ token })
+  if (!session) {
+    return res.status(401).json({ error: 'No session found, login required' })
+  }
+*/
+  next()
+}
 
+const sessionChecker = async (req, res, next) => {
+  const authorization = req.get('authorization')
   let token = authorization?.substring(7)
   const session = await Session.findOne({ token })
   if (!session) {
@@ -37,5 +48,6 @@ const tokenExtractor = async (req, res, next) => {
 module.exports = {
   unknownEndpoint,
   errorHandler,
-  tokenExtractor
+  tokenExtractor,
+  sessionChecker
 }

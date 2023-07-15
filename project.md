@@ -3,7 +3,7 @@
 The project attempts to mimic the Wordle game, now owned by New York Times.
 <br>User instructions for the actual game are found in the deployed application by clicking the information icon on the top left.
 
-One thing to note is that stats are currently only saved to the user table in the database, and not to local storage, so creating an account is heavily incentivized before testing the app.
+One thing to note is that stats are currently only saved to the user table in the database, with no copy being saved to local storage, so creating an account is heavily incentivized before testing the app.
 Adding a separate 'infinite' mode 
 
 Frontend of the project is made in React. Project started off with using plain css modules for styling. Header and modals were implemented with [Material UI](https://mui.com/).
