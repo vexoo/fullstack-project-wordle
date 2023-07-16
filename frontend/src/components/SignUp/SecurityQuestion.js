@@ -28,6 +28,7 @@ const SecurityQuestion = ({ values }) => {
               name='answer'
               className='block w-full border border-gray-300 p-2'
               placeholder={securityAnswerPlaceholder}
+              id='security-answer-form'
             />
             <div className='error'>
               <ErrorMessage name='answer' component='div' className='text-red-500' />

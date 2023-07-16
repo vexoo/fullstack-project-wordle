@@ -38,5 +38,6 @@
 | 14.7 | 7 | Implement changing password. Refactor UserInfo component to use Formik and split it into multiple smaller components |
 | 15.7 | 6 | new modal for changing (a possibly forgotten) password, some backend adjustments |
 | 16.7 | 4 | refactor input forms, fix backend tests after backend adjustment, some minor stuff |
+| 16.7 | 1 | fix cypress tests failing after the refactor to use formik |
 | :----:|:-----| :-----|
-| total | 175 ||
+| total | 176 ||

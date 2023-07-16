@@ -72,7 +72,11 @@ const SignUp = () => {
               <SecurityQuestion values={values} />
             </div>
             <div className='mt-5'>
-              <Button text={signUpButtonText} type='submit' />
+              <Button
+                text={signUpButtonText}
+                type='submit'
+                id='modal-signup-button'
+              />
             </div>
           </Form>
         )}

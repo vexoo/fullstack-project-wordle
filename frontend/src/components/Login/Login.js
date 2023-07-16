@@ -60,7 +60,7 @@ const Login = () => {
         <Form>
           <InputForm usernameRef={usernameRef} />
           <div className='mt-5'>
-            <Button text={loginButtonText} type='submit' />
+            <Button text={loginButtonText} type='submit' id='modal-login-button' />
           </div>
         </Form>
       </Formik>
