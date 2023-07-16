@@ -4,6 +4,7 @@ import Button from '../Button'
 import { changeUsername } from '../../reducers/userReducer'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
+import InputField from '../InputForm/InputField'
 
 const usernameValidationSchema = Yup.object({
   newUsername: Yup.string().required('Username can not be empty')
@@ -31,14 +32,10 @@ const UsernameChangeForm = ({ isEditingUsername, setIsEditingUsername }) => {
           {({ isValid }) => (
             <Form className='flex'>
               <div className='flex flex-col items-start'>
-                <Field
-                  type='text'
+                <InputField
                   name='newUsername'
-                  id='new-username-form'
-                  as={TextField}
                   label='New username'
-                  variant='filled'
-                  className='bg-white'
+                  id='new-username-form'
                 />
                 <ErrorMessage
                   name='newUsername'
