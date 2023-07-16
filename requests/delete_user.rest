@@ -1,8 +1,4 @@
-POST http://localhost:3001/api/login
+DELETE http://localhost:3001/api/users/sadkaposd
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWQiOiI2NDhkN2Y5Yjg5ZWVhNmZhNWRmODI1ODUiLCJpYXQiOjE2ODcxODkzMTN9.3zQAPvYPMbUGrJIoURIZZQDAphzz_GRa2mWEwJFqmAg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhZGthcG9zZCIsImlkIjoiNjRhZjRhMGY5MDhkODk1NjQ3MjA4Mjc5IiwiaWF0IjoxNjg5MzkzMzAxfQ.JafNsCfvZe5SrC8GjjNEshWNxnWeLVqoUzAGx4XhUxY
 
-{
-	"username": "testuser",
-	"password": "secret"
-}

@@ -16,9 +16,9 @@ const CountdownTimer = () => {
   const timeUntilNextDay = calculateTimeUntilNextDay()
 
   return (
-    <div className='mt-5 items-center justify-center text-center dark:text-white sm:mt-6'>
-      <div className=''>
-        <h1>{timeUntilNextWordText}: </h1>
+    <div className='mt-5 flex items-center justify-center text-center dark:text-white sm:mt-6'>
+      <div className='flex flex-col items-center'>
+        <h1>{timeUntilNextWordText} </h1>
         <Countdown
           className='text-lg font-medium text-gray-900 dark:text-gray-100'
           date={Date.now() + timeUntilNextDay}

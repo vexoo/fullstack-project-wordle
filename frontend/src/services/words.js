@@ -15,7 +15,6 @@ const checkWord = async word => {
   return exists
 }
 
-// eslint-disable-next-line
 export default {
   getDaily,
   checkWord

@@ -1,39 +1,45 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
 import loginService from '../../services/login'
 import InputForm from '../InputForm'
-import { setToken } from '../../util/config'
 import { setLocalLoggedUser } from '../../util/localStorageHelper'
 import { setUser } from '../../reducers/userReducer'
-import { onClose } from '../../reducers/modalReducer'
+import { onClose, setPasswordResetModalOpen } from '../../reducers/modalReducer'
 import { setNotification } from '../../reducers/notificationReducer'
+import { Formik, Form } from 'formik'
+import Button from '../Button'
+import {
+  loginButtonText,
+  loginNotification,
+  openPasswordResetButtonText
+} from '../../util/strings'
+import { setToken } from '../../util/config'
 
 const Login = () => {
   const dispatch = useDispatch()
   const { isLoginModalOpen } = useSelector(state => state.modals)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const usernameRef = useRef(null)
 
-  const onSubmit = async event => {
-    event.preventDefault()
-
+  const onSubmit = async (values, { resetForm }) => {
     try {
       const user = await loginService.login({
-        username,
-        password
+        username: values.username,
+        password: values.password
       })
       setLocalLoggedUser(user)
       setToken(user.token)
       dispatch(setUser(user))
-      setUsername('')
-      setPassword('')
+      resetForm()
       dispatch(onClose())
-      dispatch(setNotification('Logged in', 3))
+      dispatch(setNotification(loginNotification, 3))
     } catch (e) {
       dispatch(setNotification(e.response.data.error, 3, true))
     }
+  }
+
+  const handlePasswordResetTransition = () => {
+    dispatch(onClose())
+    dispatch(setPasswordResetModalOpen())
   }
 
   useEffect(() => {
@@ -43,13 +49,30 @@ const Login = () => {
   }, [isLoginModalOpen])
 
   return (
-    <InputForm
-      onSubmit={onSubmit}
-      usernameRef={usernameRef}
-      setUsername={setUsername}
-      setPassword={setPassword}
-      buttonText={'Login'}
-    />
+    <div className='mt-4'>
+      <Formik
+        initialValues={{
+          username: '',
+          password: ''
+        }}
+        onSubmit={onSubmit}
+      >
+        <Form>
+          <InputForm usernameRef={usernameRef} />
+          <div className='mt-5'>
+            <Button text={loginButtonText} type='submit' id='modal-login-button' />
+          </div>
+        </Form>
+      </Formik>
+      <div className='absolute bottom-0 right-0'>
+        <Button
+          className='mr-3 dark:text-gray-400'
+          onClick={handlePasswordResetTransition}
+          text={openPasswordResetButtonText}
+          buttonType='text'
+        />
+      </div>
+    </div>
   )
 }
 

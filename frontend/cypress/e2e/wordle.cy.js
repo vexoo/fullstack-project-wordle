@@ -1,8 +1,10 @@
 /* global cy */
 
+const baseUrl = 'http://localhost:3001'
+
 describe('Wordle app basic functions', function () {
   beforeEach(function () {
-    cy.visit('http://localhost:3001')
+    cy.visit(baseUrl)
   })
   it('main page can be opened', function () {
     cy.contains('wordle')
@@ -66,19 +68,19 @@ describe('Wordle app basic functions', function () {
 
 describe('Wordle app user account functions', function () {
   beforeEach(function () {
-    cy.request('POST', 'http://localhost:3001/api/testing/reset')
+    cy.request('POST', `${baseUrl}/api/testing/reset`)
     const user = {
       username: 'testuser',
       password: 'secret'
     }
-    cy.request('POST', 'http://localhost:3001/api/users/', user)
-    cy.visit('http://localhost:3001')
+    cy.request('POST', `${baseUrl}/api/users`, user)
+    cy.visit(baseUrl)
   })
   it('user can login', function () {
     cy.get('#login-button').click()
     cy.get('#username-form').type('testuser')
     cy.get('#password-form').type('secret')
-    cy.get('#inputform-button').click()
+    cy.get('#modal-login-button').click()
     cy.get('#logout-button').should('exist')
   })
 
@@ -86,7 +88,7 @@ describe('Wordle app user account functions', function () {
     cy.get('#login-button').click()
     cy.get('#username-form').type('testuser')
     cy.get('#password-form').type('secret')
-    cy.get('#inputform-button').click()
+    cy.get('#modal-login-button').click()
     cy.get('#logout-button').should('exist')
     cy.get('#logout-button').click()
     cy.get('#logout-button').should('not.exist')
@@ -96,7 +98,9 @@ describe('Wordle app user account functions', function () {
     cy.get('#signup-button').click()
     cy.get('#username-form').type('testuser2')
     cy.get('#password-form').type('secret')
-    cy.get('#inputform-button').click()
+    cy.get('[name="securityQuestion"]').select('What is your favorite color?')
+    cy.get('#security-answer-form').type('blue')
+    cy.get('#modal-signup-button').click()
     cy.get('#logout-button').should('exist')
   })
 
@@ -104,7 +108,7 @@ describe('Wordle app user account functions', function () {
     cy.get('#login-button').click()
     cy.get('#username-form').type('testuser')
     cy.get('#password-form').type('secret')
-    cy.get('#inputform-button').click()
+    cy.get('#modal-login-button').click()
     cy.get('#user-button').click()
     cy.get('#change-username-button').click()
     cy.get('#new-username-form').type('testuser3')
@@ -117,7 +121,7 @@ describe('Wordle app user account functions', function () {
     cy.get('#login-button').click()
     cy.get('#username-form').type('testuser')
     cy.get('#password-form').type('secret')
-    cy.get('#inputform-button').click()
+    cy.get('#modal-login-button').click()
     cy.get('#user-button').click()
     cy.get('#delete-account-button').click()
     cy.on('window:confirm', () => true)
@@ -129,7 +133,7 @@ describe('Wordle app user account functions', function () {
     cy.get('#login-button').click()
     cy.get('#username-form').type('testuser')
     cy.get('#password-form').type('secret')
-    cy.get('#inputform-button').click()
+    cy.get('#modal-login-button').click()
     cy.get('#stats-button').click()
     cy.contains('played')
   })
@@ -138,7 +142,7 @@ describe('Wordle app user account functions', function () {
     cy.get('#login-button').click()
     cy.get('#username-form').type('testuser')
     cy.get('#password-form').type('secret')
-    cy.get('#inputform-button').click()
+    cy.get('#modal-login-button').click()
     cy.get('#s-key').click()
     cy.get('#t-key').click()
     cy.get('#o-key').click()

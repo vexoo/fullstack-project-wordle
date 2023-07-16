@@ -20,8 +20,11 @@ import {
   gameTitle,
   loginButtonText,
   logoutButtonText,
+  logoutNotification,
   signUpButtonText
 } from '../../util/strings'
+import Button from '../Button'
+import { setNotification } from '../../reducers/notificationReducer'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -32,6 +35,7 @@ const Header = () => {
       await logoutService.logout()
       dispatch(clearUser())
       removeLocalLoggedUser()
+      dispatch(setNotification(logoutNotification, 3))
     } catch (e) {
       console.log(e)
     }
@@ -70,30 +74,30 @@ const Header = () => {
               className='mr-3 h-6 w-6 cursor-pointer dark:stroke-white'
               onClick={() => dispatch(setUserModalOpen())}
             />
-            <button
+            <Button
               id='logout-button'
-              className='text-x2 font-bold uppercase dark:text-white'
+              className='uppercase'
               onClick={handleLogout}
-            >
-              {logoutButtonText}
-            </button>
+              text={logoutButtonText}
+              buttonType='text'
+            />
           </div>
         ) : (
           <div className='right-icons'>
-            <button
+            <Button
               id='signup-button'
-              className='text-x2 mr-3 uppercase dark:text-white'
+              className='mr-3 uppercase'
               onClick={() => dispatch(setSignUpModalOpen())}
-            >
-              {signUpButtonText}
-            </button>
-            <button
+              text={signUpButtonText}
+              buttonType='text'
+            />
+            <Button
               id='login-button'
-              className='text-x2 uppercase dark:text-white'
+              className='uppercase'
               onClick={() => dispatch(setLoginModalOpen())}
-            >
-              {loginButtonText}
-            </button>
+              text={loginButtonText}
+              buttonType='text'
+            />
           </div>
         )}
       </div>

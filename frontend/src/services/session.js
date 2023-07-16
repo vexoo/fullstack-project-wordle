@@ -6,5 +6,4 @@ const verifySession = async token => {
   return response.data
 }
 
-// eslint-disable-next-line
 export default { verifySession }

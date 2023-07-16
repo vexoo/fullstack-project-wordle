@@ -22,11 +22,11 @@ import {
   getLocalDailyWord,
   getLocalWordleBoard,
   getLocalLoggedUser,
-  setLocalDailyWord,
-  removeLocalWordleBoard,
-  removeLocalLoggedUser,
   getLocalGameState,
-  setLocalGameState
+  setLocalDailyWord,
+  setLocalGameState,
+  removeLocalWordleBoard,
+  removeLocalLoggedUser
 } from './util/localStorageHelper'
 import { setLost, setPlaying, setWon } from './reducers/gameStateReducer'
 

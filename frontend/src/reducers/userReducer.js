@@ -8,7 +8,10 @@ import {
   setLocalLoggedUser
 } from '../util/localStorageHelper'
 import { setNotification } from './notificationReducer'
-import { accountDeletionText, usernameChangeText } from '../util/strings'
+import {
+  accountDeletionNotification,
+  usernameChangeNotification
+} from '../util/strings'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -52,36 +55,50 @@ export const { setUser, clearUser, setUsername, setWinStats, setLossStats } =
   userSlice.actions
 
 const updateStats = state => {
-  if (state) {
-    try {
-      const { username, played, won, currStreak, maxStreak, guessDistribution } =
-        state
-      const stats = {
-        played,
-        won,
-        currStreak,
-        maxStreak,
-        guessDistribution
-      }
-      const updatedUser = { ...getLocalLoggedUser(), ...stats }
-      userService.updateStats(username, stats)
-      setLocalLoggedUser(updatedUser)
-    } catch (e) {
-      console.log(e)
+  try {
+    const { username, played, won, currStreak, maxStreak, guessDistribution } = state
+    const stats = {
+      played,
+      won,
+      currStreak,
+      maxStreak,
+      guessDistribution
     }
+    const updatedUser = { ...getLocalLoggedUser(), ...stats }
+    userService.updateStats(username, stats)
+    setLocalLoggedUser(updatedUser)
+  } catch (e) {
+    console.log(e)
   }
 }
 
 export const changeUsername = newUsername => {
   return async (dispatch, getState) => {
     const { user } = getState()
-    console.log(user)
     try {
       await userService.updateUsername(user.username, newUsername)
       dispatch(setUsername(newUsername))
       const updatedUser = { ...user, username: newUsername }
       setLocalLoggedUser(updatedUser)
-      dispatch(setNotification(usernameChangeText, 3))
+      dispatch(setNotification(usernameChangeNotification, 3))
+    } catch (e) {
+      dispatch(setNotification(e.response.data.error, 5, true))
+    }
+  }
+}
+
+export const changePassword = (currentPassword, newPassword) => {
+  return async (dispatch, getState) => {
+    const { user } = getState()
+    try {
+      const passwordMatch = await userService.checkPassword(
+        user.username,
+        currentPassword
+      )
+      if (passwordMatch) {
+        const response = await userService.updatePassword(user.username, newPassword)
+        dispatch(setNotification(response.message, 3))
+      }
     } catch (e) {
       dispatch(setNotification(e.response.data.error, 5, true))
     }
@@ -97,7 +114,7 @@ export const deleteUser = () => {
       dispatch(clearUser())
       removeLocalLoggedUser()
       dispatch(onClose())
-      dispatch(setNotification(accountDeletionText, 3))
+      dispatch(setNotification(accountDeletionNotification, 3))
     } catch (e) {
       console.log(e)
     }

@@ -7,7 +7,7 @@ const notifSlice = createSlice({
     set(state, action) {
       return { message: action.payload.message, isError: action.payload.isError }
     },
-    clear(state, action) {
+    clear() {
       return { message: null, isError: false }
     }
   }

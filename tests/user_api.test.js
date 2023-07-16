@@ -124,4 +124,45 @@ describe('when there is initially one user in db', () => {
 
     expect(usersAtEnd.length).toEqual(1)
   })
+
+  test('changing password is successful', async () => {
+    const passwordChange = {
+      newPassword: 'secret'
+    }
+    await api
+      .put('/api/users/root/change-password')
+      .set('Authorization', authHeader)
+      .send(passwordChange)
+      .expect(200)
+  })
+
+  test('changing password without authorization is unsuccessful', async () => {
+    const passwordChange = {
+      currentPassword: 'sekret',
+      newPassword: 'secret'
+    }
+    await api.put('/api/users/root/change-password').send(passwordChange).expect(401)
+  })
+
+  test('checking current password match with right password is successful', async () => {
+    const passwordChange = {
+      currentPassword: 'sekret'
+    }
+    await api
+      .post('/api/users/root/check-password')
+      .set('Authorization', authHeader)
+      .send(passwordChange)
+      .expect(200)
+  })
+
+  test('checking current password match with wrong password is unsuccessful', async () => {
+    const passwordChange = {
+      currentPassword: 'lllllllll'
+    }
+    await api
+      .post('/api/users/root/check-password')
+      .set('Authorization', authHeader)
+      .send(passwordChange)
+      .expect(401)
+  })
 })

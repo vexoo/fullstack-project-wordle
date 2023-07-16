@@ -1,41 +1,33 @@
-import { TextField } from '@mui/material'
-import Button from '../Button'
+import { ErrorMessage } from 'formik'
+import PasswordField from './PasswordField'
+import InputField from './InputField'
 
-const InputForm = ({
-  onSubmit,
-  usernameRef,
-  setUsername,
-  setPassword,
-  buttonText
-}) => {
+const InputForm = ({ usernameRef }) => {
   return (
-    <div className='mt-5'>
-      <form onSubmit={onSubmit}>
-        <div>
-          <TextField
-            id='username-form'
-            className='bg-white'
-            label='username'
-            variant='filled'
-            onChange={({ target }) => setUsername(target.value)}
-            inputRef={usernameRef}
-          />
+    <>
+      <div>
+        <div className='error'>
+          <ErrorMessage name='username' component='div' className='text-red-500' />
         </div>
-        <div>
-          <TextField
-            id='password-form'
-            className='bg-white'
-            label='password'
-            variant='filled'
-            type='password'
-            onChange={({ target }) => setPassword(target.value)}
-          />
+        <InputField
+          name='username'
+          label='username'
+          inputRef={usernameRef}
+          id='username-form'
+        />
+      </div>
+      <div>
+        <PasswordField
+          name='password'
+          label='password'
+          size='67%'
+          id='password-form'
+        />
+        <div className='error'>
+          <ErrorMessage name='password' component='div' className='text-red-500' />
         </div>
-        <div className='mt-5'>
-          <Button id='inputform-button' text={buttonText} type='submit' />
-        </div>
-      </form>
-    </div>
+      </div>
+    </>
   )
 }
 
