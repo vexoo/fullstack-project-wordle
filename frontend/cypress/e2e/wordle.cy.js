@@ -1,6 +1,6 @@
 /* global cy */
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://localhost:3001'
 
 describe('Wordle app basic functions', function () {
   beforeEach(function () {
