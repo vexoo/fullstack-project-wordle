@@ -72,16 +72,6 @@ const updateStats = state => {
   }
 }
 
-/*
-export const setUser = (user, notification) => {
-  return async (dispatch) => {
-			dispatch(setUser(user))
-      dispatch(onClose())
-      dispatch(setNotification(notification, 3))
-  }
-}
-*/
-
 export const changeUsername = newUsername => {
   return async (dispatch, getState) => {
     const { user } = getState()

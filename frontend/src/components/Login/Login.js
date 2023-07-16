@@ -8,14 +8,12 @@ import { onClose, setPasswordResetModalOpen } from '../../reducers/modalReducer'
 import { setNotification } from '../../reducers/notificationReducer'
 import { Formik, Form } from 'formik'
 import Button from '../Button'
-import { loginButtonText, loginNotification } from '../../util/strings'
+import {
+  loginButtonText,
+  loginNotification,
+  openPasswordResetButtonText
+} from '../../util/strings'
 import { setToken } from '../../util/config'
-import * as Yup from 'yup'
-
-const validationSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required'),
-  password: Yup.string().required('Password is required')
-})
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -51,7 +49,7 @@ const Login = () => {
   }, [isLoginModalOpen])
 
   return (
-    <div>
+    <div className='mt-4'>
       <Formik
         initialValues={{
           username: '',
@@ -67,13 +65,12 @@ const Login = () => {
         </Form>
       </Formik>
       <div className='absolute bottom-0 right-0'>
-        <button
-          id='signup-button'
-          className='text-x2 mr-3 dark:text-gray-500'
+        <Button
+          className='mr-3 dark:text-gray-400'
           onClick={handlePasswordResetTransition}
-        >
-          {'Forgot password?'}
-        </button>
+          text={openPasswordResetButtonText}
+          buttonType='text'
+        />
       </div>
     </div>
   )

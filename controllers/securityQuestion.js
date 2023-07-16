@@ -5,11 +5,6 @@ const User = require('../models/user')
 const SecurityQuestion = require('../models/securityQuestion')
 const config = require('../utils/config')
 
-router.get('/', async (req, res) => {
-  const securityQuestions = await SecurityQuestion.find({})
-  return res.json(securityQuestions)
-})
-
 router.get('/:username', async (req, res) => {
   const { username } = req.params
   const user = await User.findOne({ username })

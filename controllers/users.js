@@ -1,15 +1,8 @@
-const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
 const User = require('../models/user')
-const config = require('../utils/config')
 
 const { tokenExtractor, sessionChecker } = require('../utils/middleware')
-
-router.get('/', async (req, res) => {
-  const users = await User.find({})
-  res.json(users)
-})
 
 router.post('/', async (req, res) => {
   const { username, password } = req.body

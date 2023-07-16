@@ -37,5 +37,6 @@
 | 13.7 | 6 | change sign up and login forms to use Formik, add form validation with yup |
 | 14.7 | 7 | Implement changing password. Refactor UserInfo component to use Formik and split it into multiple smaller components |
 | 15.7 | 6 | new modal for changing (a possibly forgotten) password, some backend adjustments |
+| 16.7 | 4 | refactor input forms, fix backend tests after backend adjustment, some minor stuff |
 | :----:|:-----| :-----|
-| total | 171 ||
+| total | 175 ||

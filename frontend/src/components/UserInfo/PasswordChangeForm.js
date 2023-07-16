@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux'
-import { TextField } from '@mui/material'
 import Button from '../Button'
 import { changePassword } from '../../reducers/userReducer'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
+import PasswordField from '../InputForm/PasswordField'
 
 const passwordValidationSchema = Yup.object({
   currentPassword: Yup.string().required(),
@@ -40,33 +40,22 @@ const PasswordChangeForm = ({ isEditingPassword, setIsEditingPassword }) => {
           {({ isValid }) => (
             <Form className='flex'>
               <div className='flex flex-col items-start'>
-                <Field
-                  type='password'
+                <PasswordField
                   name='currentPassword'
-                  id='current-pass-form'
-                  as={TextField}
                   label='Current password'
-                  variant='filled'
-                  className='bg-white'
+                  id='current-pass-form'
                 />
-                <Field
-                  type='password'
+                <PasswordField
                   name='newPassword'
-                  id='new-pass-form'
-                  as={TextField}
                   label='New password'
-                  variant='filled'
-                  className='bg-white'
+                  id='new-pass-form'
                 />
-                <Field
-                  type='password'
+                <PasswordField
                   name='confirmNewPassword'
+                  label='Confirm new password'
                   id='confirm-new-pass-form'
-                  as={TextField}
-                  label={'Confirm new password'}
-                  variant='filled'
-                  className='bg-white'
                 />
+
                 <ErrorMessage
                   name='newPassword'
                   component='div'

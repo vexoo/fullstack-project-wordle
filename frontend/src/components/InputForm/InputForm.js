@@ -1,5 +1,6 @@
-import { TextField } from '@mui/material'
-import { Field, ErrorMessage } from 'formik'
+import { ErrorMessage } from 'formik'
+import PasswordField from './PasswordField'
+import InputField from './InputField'
 
 const InputForm = ({ usernameRef }) => {
   return (
@@ -8,25 +9,10 @@ const InputForm = ({ usernameRef }) => {
         <div className='error'>
           <ErrorMessage name='username' component='div' className='text-red-500' />
         </div>
-        <Field
-          type='text'
-          name='username'
-          label='username'
-          as={TextField}
-          variant='filled'
-          className='bg-white'
-          inputRef={usernameRef}
-        />
+        <InputField name='username' label='username' inputRef={usernameRef} />
       </div>
       <div>
-        <Field
-          type='password'
-          name='password'
-          label='password'
-          as={TextField}
-          variant='filled'
-          className='bg-white'
-        />
+        <PasswordField name='password' label='password' size='67%' />
         <div className='error'>
           <ErrorMessage name='password' component='div' className='text-red-500' />
         </div>
