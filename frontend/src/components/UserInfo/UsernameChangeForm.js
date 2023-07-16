@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux'
-import { TextField } from '@mui/material'
 import Button from '../Button'
 import { changeUsername } from '../../reducers/userReducer'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import InputField from '../InputForm/InputField'
 
