@@ -61,11 +61,10 @@ export const enterHandler = () => {
         const exists = await wordService.checkWord(word)
         if (exists) {
           dispatch(enterPress())
-          dispatch(enableEnter())
         } else {
           dispatch(setNotification(wordNotFoundNotification, 3, true))
-          dispatch(enableEnter())
         }
+        dispatch(enableEnter())
       }
     } catch (e) {
       console.log(e)

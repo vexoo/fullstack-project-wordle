@@ -87,7 +87,6 @@ const App = () => {
         setLocalGameState('playing')
       }
     }
-    // eslint-disable-next-line
   }, [])
 
   if (!word) return <div>loading</div>
