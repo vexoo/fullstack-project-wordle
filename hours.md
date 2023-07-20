@@ -39,6 +39,6 @@
 | 15.7 | 6 | new modal for changing (a possibly forgotten) password, some backend adjustments |
 | 16.7 | 4 | refactor input forms, fix backend tests after backend adjustment, some minor stuff |
 | 16.7 | 1 | fix cypress tests failing after the refactor to use formik |
-| 20.7 | 2 | final touches, cleaning up. Triplee checked for uncommented code, hopefully didn't miss any |
+| 20.7 | 2 | final touches, cleaning up. Triple checked for uncommented code, hopefully didn't miss any |
 | :----:|:-----| :-----|
 | total | 178 ||
