@@ -28,7 +28,7 @@ const Stats = () => {
       <div className='list-disc pl-4 text-base text-gray-500 dark:text-gray-300'>
         <p className='text-left'>Looks like you aren't logged in.</p>
         <button
-          className='float-left rounded font-bold text-white underline'
+          className='float-left rounded font-bold underline '
           onClick={handleLoginTransition}
         >
           {loginButtonText}
@@ -36,7 +36,7 @@ const Stats = () => {
         <p className='text-left'>{'\u00A0'}to track your stats.</p>
         <p className='mt-4 text-left'>Don't have an account yet?</p>
         <button
-          className='float-left rounded font-bold text-white underline'
+          className='font-boldunderline float-left rounded underline font-bold'
           onClick={handleSignUpTransition}
         >
           {signUpButtonText}

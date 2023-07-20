@@ -45,15 +45,16 @@ const Key = ({ keyValue }) => {
     return ' shadowed bg-slate-400 dark:bg-gray-500'
   }
 
-  useEffect(() => {
-    const listener = event => {
-      if (event.repeat || !playing || isModalOpen) return
+  const listener = event => {
+    if (event.repeat || !playing || isModalOpen) return
 
-      const key = event.key.toLowerCase()
-      if (key === 'enter') return handleEnter()
-      if (key === 'backspace') return handleClear()
-      if (key.length === 1 && key >= 'a' && key <= 'z') return handleLetter(key)
-    }
+    const key = event.key.toLowerCase()
+    if (key === 'enter') return handleEnter()
+    if (key === 'backspace') return handleClear()
+    if (key.length === 1 && key >= 'a' && key <= 'z') return handleLetter(key)
+  }
+
+  useEffect(() => {
     window.addEventListener('keydown', listener)
     return () => {
       window.removeEventListener('keydown', listener)

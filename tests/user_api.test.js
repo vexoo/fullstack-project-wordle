@@ -138,7 +138,6 @@ describe('when there is initially one user in db', () => {
 
   test('changing password without authorization is unsuccessful', async () => {
     const passwordChange = {
-      currentPassword: 'sekret',
       newPassword: 'secret'
     }
     await api.put('/api/users/root/change-password').send(passwordChange).expect(401)

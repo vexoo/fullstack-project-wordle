@@ -23,6 +23,7 @@ router.get('/daily-word', async (req, res) => {
 router.get('/:word', async (req, res) => {
   const { word } = req.params
   const foundWord = await Word.findOne({ word })
+  console.log(word)
   if (foundWord) {
     return res.json({ exists: true })
   } else {
