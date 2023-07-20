@@ -11,7 +11,6 @@ const checkWord = async word => {
   const request = axios.get(`${baseUrl}/${word}`)
   const response = await request
   const { exists } = response.data
-  console.log(exists)
   return exists
 }
 

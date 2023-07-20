@@ -33,7 +33,6 @@ export const gameStateSlice = createSlice({
 export const handleWin = () => {
   return (dispatch, getState) => {
     const { currentRow } = getState().board
-    console.log(currentRow)
     dispatch(setWon())
     dispatch(setWinStats(currentRow - 1))
     setTimeout(() => {

@@ -30,14 +30,12 @@ const checkPassword = async (username, currentPassword) => {
 const updatePassword = async (username, newPassword) => {
   const config = { headers: { Authorization: token } }
   const data = { newPassword }
-  console.log(data)
 
   const response = await axios.put(
     `${baseUrl}/${username}/change-password`,
     data,
     config
   )
-  console.log(response)
   return response.data
 }
 
